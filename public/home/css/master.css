@@ -1,0 +1,46 @@
+
+/*body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }*/
+/*body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }*/
+/*h1, h2, h3, h4, h5, h6{ font-size:100%; }*/
+/*address, cite, dfn, em, var { font-style:normal; }*/
+/*code, kbd, pre, samp { font-family:couriernew, courier, monospace; }*/
+/*small{ font-size:12px; }*/
+ul, ol { list-style:none; }
+/*a { text-decoration:none; color:#111;}*/
+/*a:hover { text-decoration:none; color: #3E3E3E;}*/
+/*sup { vertical-align:text-top; }*/
+/*sub{ vertical-align:text-bottom; }*/
+/*legend { color:#000; }*/
+/*fieldset, img { border:0; }*/
+/*button, input, select, textarea { font-size:100%; }*/
+/*table { border-collapse:collapse; border-spacing:0; }*/
+
+/*@media (padding:0)*/
+/*li{list-style: none; height: }*/
+.head-a,.head-a a{
+    font: 19px/42px PingFangSC-Regular,HelveticaNeue-Light,'Helvetica Neue Light','Microsoft YaHei',sans-serif;
+    position: relative;
+    z-index: 3;
+    display: block;
+    height: 55px;
+    line-height:55px;
+    cursor: pointer;
+    transition: background .3s;
+    text-align: left;
+    text-indent: 16px;
+    color: #1a1a1a;
+    background: #fff;
+        }
+.head-a a{ background-color: #B4D9A2;outline: 0; text-decoration: none;}
+.head-a a:hover{ text-decoration: none;background-color: #D6F1C5;}
+
+.master-type {width:900px; height:53px; margin: 0 auto;  }
+.master-type li{float: left;width: 100px; height:50px; margin-left: 40px;text-align: center; font:  PingFangSC-Regular,HelveticaNeue-Light,'Helvetica Neue Light','Microsoft YaHei',sans-serif;line-height: 50px;font-size: 20px; font-weight: bold;  }
+
+.black{height:10px;}
+
+
+.master-foot{ height:200px; background-color: #B4D9A2;padding-top: 50px;}
+
+.left{float:left;}
+.right{float:right;}

@@ -1,0 +1,104 @@
+*{padding:0px;margin:0px;}
+/* accordion_container */
+.accordion_container{
+	margin:20px auto;
+	width:280px;
+	margin-left:20px;
+}
+.accordion_container .content, .accordion_container .tab{
+	width:260px;
+	
+}
+.accordion_container .tab{
+	background:#fafafa;
+	height:30px;
+	float:left;
+	
+}
+.accordion_container .tab a:hover{
+	color:#F00;
+}
+.accordion_container .tab a{
+	color:#4B7196;
+	text-decoration:none;
+}
+.accordion_container .tab span{float:left;}
+.accordion_container .tab strong{ margin-left:15px;float:left;}
+.accordion_container .tab{
+	padding:10px;
+
+}
+
+.accordion_container .content{
+	width:280px;
+	height:120px;
+}
+.accordion_container .content img{
+	display:block;
+	width:100px;
+	height:100px;
+	float:left;
+}
+.accordion_container .first{
+	z-index:10;
+	top:0px;
+}
+.accordion_container .second{
+	z-index:9;
+	top:49px;
+}
+.accordion_container .third{
+	z-index:8;
+	top:98px;
+}
+.accordion_container .four{
+	z-index:7;
+	top:147px;
+}
+.accordion_container .file{
+	z-index:6;
+	top:196px;
+}
+.accordion_container .six{
+	z-index:5;
+	top:245px;
+}
+.accordion_container .seven{
+	z-index:4;
+	top:294px;
+}
+.accordion_container .eight{
+	z-index:3;
+	top:343px;
+}
+.accordion_container .nine{
+	z-index:2;
+	top:392px;
+}
+.accordion_container .ten{
+	z-index:1;
+	top:441px;
+}
+.accordion{
+	position:relative;
+	overflow:hidden;
+	height:650px;
+}
+.accordion > div{
+	position:absolute;
+	left:0px;
+	border-left:1px solid #aaa;
+	border-right:1px solid #aaa;
+	left:-1px;
+	cursor:pointer;
+	background-color:#FFF;
+	width:280px;
+}
+.hide{
+}
+.word{width:130px;height:80px;float:right;margin-top:15px;margin-right:20px;text-decoration:none;}
+.word p a{ color:#4B7196;line-height:20px;text-decoration:none;}
+.word p a:hover{
+	color:#F00;
+	text-decoration:none;
+}

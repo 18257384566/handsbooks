@@ -1,0 +1,250 @@
+.clear::before, .clear::after{content:''; display:table;}
+.clear::after{clear:both;}
+li{
+    list-style:none;
+}
+.details_book{
+    width: 850px;
+    height: 600px;
+    /*background-color: #ccc;*/
+    margin-left:80px ;
+    margin-top:30px;
+    /*float:left;*/
+}
+.big_img{
+    float:left;
+}
+.big_img img{
+    margin-top:20px;
+    margin-left:20px;
+    border-radius: 20px;
+}
+.books_info{
+    margin-top:40px;
+    float:left;
+    margin-left:30px;
+}
+.books_info img{
+    /*margin-top:40px;*/
+    margin-left:20px;
+}
+.book_name{
+    font-size:24px;
+}
+.book_pop{
+    float:left;
+    margin-left:30px;
+    width: 430px;
+    height: 50px;
+    font-size:12px;
+    /*background-color: #234566;*/
+}
+.books_stars{
+    float:left;
+    line-height:50px;
+    margin-left:20px;
+}
+.xzw_starBox{
+    float:left;
+    margin-top:10px;
+}
+.xzw_starBox .star{
+    height:20px;
+    width:115px;
+    position:relative;
+    background:url('/home/img/jb51.png') repeat-x;
+    cursor:pointer;
+}
+.xzw_starBox .star li{
+    float:left;
+    padding:0px;
+    margin:0px;
+}
+.xzw_starBox .star li a{
+    display:block;
+    width:24px;
+    height:20px;
+    overflow:hidden;
+    text-indent:-9999px;
+    position:absolute;
+    z-index:5;
+}
+.xzw_starBox .star a.one-star{
+    background:url('/home/img/jb51.png') 0 -25px repeat-x;
+    z-index:3;
+    left:0;
+    width:24px;
+}
+.xzw_starBox .star a.two-stars{
+    background:url('/home/img/jb51.png') 0 -25px repeat-x;
+    z-index:3;
+    left:24px;
+    width:48px;
+}
+.book_author{
+    float:left;
+    margin-left:30px;
+}
+.book_price{
+    float:left;
+    margin-top:50px;
+    margin-left:30px;
+    width: 480px;
+    height: 200px;
+    background-color: #FFF6E5;
+}
+.price_title{
+    width: 480px;
+    height: 50px;
+    background-color: #FFF0D3;
+}
+.price_title_left{
+    font-size:16px;
+    color:#F77A36;
+    margin-left:20px;
+    line-height:50px;
+}
+.price_title_right{
+    font-size:14px;
+    margin-left:20px;
+    line-height:30px;
+}
+.price_price{
+    margin-left:30px;
+    margin-top:20px;
+    color:#666;
+}
+.price_money{
+    font-size:24px;
+    color:#F77A36;
+}
+.price_original{
+    margin-left:10px;
+    text-decoration: line-through;
+}
+a{
+    text-decoration: none;
+}
+.price_button{
+    margin-left:30px;
+    margin-top:30px;
+}
+.button_buy{
+    float:left;
+    width: 100px;
+    height: 40px;
+    background-color: #FFF6E5;
+    border:1px solid #333;
+    border-radius: 5px;
+    text-align:center;
+    line-height:40px;
+}
+.button_buy:hover{
+    border:1px solid #57BA59;
+    color:#57BA59;
+}
+.button_read{
+    float:left;
+    margin-left:30px;
+    width: 102px;
+    height: 42px;
+    background-color: #57BA59;
+    border-radius: 5px;
+    text-align:center;
+    line-height:40px;
+    color:#fff;
+}
+.button_read:hover{
+    background-color: #63D465;
+    color:#fff;
+}
+.price_car{
+    float:right;
+    color:#F97A28;
+    margin-right:30px;
+}
+}
+.col-md-4{
+    text-align: center;
+}
+.book_detail{
+    width: 800px;
+    margin-left:100px;
+    /*float:left;*/
+}
+.book_detail .nav-tabs{
+    margin-top:-100px;
+}
+.book_detail .nav-tabs li{
+    font-size:20px;
+}
+.col-md-9 h4{
+    text-indent:2em;
+    margin-top:50px;
+    margin-bottom:20px;
+}
+.col-md-9 p{
+    text-indent:4em;
+    line-height:20px;
+}
+.center_comm{
+    width: 600px;
+    height: 100px;
+    /*background-color: #ccc;*/
+}
+.center_title{
+    float:left;
+    margin-left:30px;
+    margin-top:15px;
+    margin-right:30px;
+    line-height:100px;
+}
+.xzw_starBox_comm{
+    margin-top:50px;
+}
+.comm_score{
+    font-size:40px;
+    color:#62B665;
+    line-height:100px;
+    /*margin-top:200px;*/
+    margin-left:30px;
+}
+.user_comm{
+    width: 600px;
+    height: 150px;
+    /*background-color: #ccc;*/
+}
+.user_icon{
+    width: 80px;
+    height: 150px;
+    /*background-color: pink;*/
+    float:left;
+}
+.user_icon img{
+
+    border-radius: 50%;
+}
+.comm_info {
+    width: 420px;
+    height: 150px;
+    float:left;
+}
+.top_list{
+    float:right;
+    width: 300px;
+    height: 700px;
+    /*background-color: #ccc;*/
+    position: absolute;
+    left:980px;
+    top:30px;
+    margin-top:200px;
+    border:1px solid #AAAAAA;
+    border-radius: 5px;
+}
+.top_list h5{
+    margin-left:10px;
+    margin-bottom:10px;
+}
+.top_list p{
+    margin-left:10px;
+}

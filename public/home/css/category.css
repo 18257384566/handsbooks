@@ -1,0 +1,67 @@
+*{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+body{background:#fff;}
+.content{width:260px;margin:70px;}
+.filterinput{
+    background-color:rgba(249, 244, 244, 0);
+    border-radius:15px;
+    width:90%;
+    height:30px;
+    border:thin solid #FFF;
+    text-indent:0.5em;
+    font-weight:bold;
+    color:#FFF;
+}
+#demo-list a{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    white-space:nowrap;
+    width:100%;
+}
+.breadcrumb{
+    margin-left:20px ;
+}
+.books_list{
+    margin-left:380px;
+    width: 1100px;
+    height: 1000px;
+    /*background-color: pink;*/
+}
+.books_list01{
+    margin-left:15px;
+    margin-top: 15px;
+    width: 210px;
+    height: 310px;
+    /*background-color: skyblue;*/
+    float:left;
+}
+.books_list01:hover{
+    background-color: #F5F5F5;
+}
+.books_list01 img{
+    margin-left:15px;
+    margin-top:10px
+}
+.books_info{
+    width:180px;
+    margin:5px auto;
+}
+.books_list01 .right{
+    float:right;
+    color:red;
+    margin-left:15px;
+}
+.books_list01 .left{
+    float:left;
+    margin-right:15px;
+}
+.books_rec{
+    float:left;
+    width: 300px;
+    height: 200px;
+    /*background-color: #ccc;*/
+    margin-left:80px;
+}
+.books_rec img{
+    margin-bottom: 20px;
+}
