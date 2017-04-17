@@ -51,6 +51,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
     Route::get('order/list','OrderController@show');
 
+
     //权限管理
     Route::any('perm','PermissionsController@show');
     Route::any('perm-add','PermissionsController@add');
@@ -70,6 +71,13 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('admin','AdminController@show');
     Route::any('admin-add','AdminController@add');
     Route::any('admin-update/{id}','AdminController@update');
+    Route::get('admin-del/{id}','AdminController@del');
+
+    //分配角色
+    Route::any('admin-cast/{id}','AdminController@cast');
+
+    //机构管理
+    Route::get('publish','');
 });
 
 

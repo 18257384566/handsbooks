@@ -235,10 +235,10 @@
                         <a href="#featured-works">榜单</a>
                     </li>
                     <li>
-                        <a href="#offer">独家作品</a>
+                        <a href="">独家作品</a>
                     </li>
                     <li>
-                        <a href="#pricing">机构专区</a>
+                        <a href="{{asset('home/publisher')}}">机构专区</a>
                     </li>
                     <li>
                         <a href="#testimonial">客户端</a>

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','权限修改')
+@section('title','分配角色')
 @section('link')
     <style>
         input{height:30px;}
@@ -47,15 +47,15 @@
         </div>
         <!--面包屑导航 结束-->
         <br>
-            <form action="" method="post">
-                {{csrf_field()}}
-                @foreach($perm as $item)
-                <input type="checkbox" name="permission_id[]" value="{{$item->id}}"> {{$item->name}}
-                @endforeach
-                <br><br>
-                    <input type="submit" value="提交">
-                    <input type="button" class="back" onclick="history.go(-1)" value="返回">
-            </form>
+        <form action="" method="post">
+            {{csrf_field()}}
+            @foreach($role as $item)
+                <input type="checkbox" name="role_id[]" value="{{$item->id}}"> {{$item->name}} &nbsp;
+            @endforeach
+            <br><br>
+            <input type="submit" value="提交">
+            <input type="button" class="back" onclick="history.go(-1)" value="返回">
+        </form>
 
         <br>
 

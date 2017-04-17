@@ -55,36 +55,28 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
+                            <th>头像</th>
                             <th>用户名</th>
                             <th>邮箱</th>
                             <th>角色名称</th>
                             <th>操作</th>
                         </tr>
-                        @foreach($result as $item)
-                        <tr>
-                            <td class="tc">{{$item->id}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->email}}</td>
-                            <td></td>
-                            <td>
-                                <a href="">分配角色</a>
-                                <a href="/admin/admin-update/{{$item->id}}">修改</a>
-                                <a href="">删除</a>
-                            </td>
-                        </tr>
-                        @endforeach
+                        <?php var_dump($result) ?>
+                        {{--@foreach($result as $item =>$k)--}}
+                        {{--<tr>--}}
+                            {{--<td class="tc">{{$item->id}}</td>--}}
+                            {{--<td><img src="/aicon/{{$item->icon}}" alt="" width="60px"></td>--}}
+                            {{--<td>{{$item->name}}</td>--}}
+                            {{--<td>{{$item->email}}</td>--}}
+                            {{--<td></td>--}}
+                            {{--<td>--}}
+                                {{--<a href="/admin/admin-cast/{{$item->id}}">分配角色</a>--}}
+                                {{--<a href="/admin/admin-update/{{$item->id}}">修改</a>--}}
+                                {{--<a href="/admin/admin-del/{{$item->id}}">删除</a>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                        {{--@endforeach--}}
                     </table>
-                    {{--<div class="page_list">--}}
-                    {{--<ul>--}}
-                    {{--<li class="disabled"><a href="#">&laquo;</a></li>--}}
-                    {{--<li class="active"><a href="#">1</a></li>--}}
-                    {{--<li><a href="#">2</a></li>--}}
-                    {{--<li><a href="#">3</a></li>--}}
-                    {{--<li><a href="#">4</a></li>--}}
-                    {{--<li><a href="#">5</a></li>--}}
-                    {{--<li><a href="#">&raquo;</a></li>--}}
-                    {{--</ul>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </form>

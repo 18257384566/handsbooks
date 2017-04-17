@@ -49,20 +49,20 @@
                 <th>角色权限</th>
                 <th>操作</th>
             </tr>
-            @foreach($roles as $role)
-                <tr>
-                    <td class="tc">{{$role->id}}</td>
-                    <td>{{$role->name}}</td>
-                    <td>{{$role->display_name}}</td>
-                    <td>{{$role->description}}</td>
-                    <td>{{$role->perms}}</td>
-                    <td>
-                        <a href="/admin/deal/{{$role->id}}">分配权限</a>
-                        <a href="/admin/roles-update/{{$role->id}}">修改</a>
-                        <a href="/admin/roles-del/{{$role->id}}">删除</a>
-                    </td>
-                </tr>
-            @endforeach
+            {{--@foreach($roles as $role)--}}
+                {{--<tr>--}}
+                    {{--<td class="tc">{{$role->id}}</td>--}}
+                    {{--<td>{{$role->name}}</td>--}}
+                    {{--<td>{{$role->display_name}}</td>--}}
+                    {{--<td>{{$role->description}}</td>--}}
+                    {{--<td>{{$role->perms}}</td>--}}
+                    {{--<td>--}}
+                        {{--<a href="/admin/deal/{{$role->id}}">分配权限</a>--}}
+                        {{--<a href="/admin/roles-update/{{$role->id}}">修改</a>--}}
+                        {{--<a href="/admin/roles-del/{{$role->id}}">删除</a>--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
+            {{--@endforeach--}}
             </tbody>
         </table>
         {{--{{ $result ->links() }}--}}
