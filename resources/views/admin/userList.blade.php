@@ -33,18 +33,22 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
+                            <th>头像</th>
                             <th>名字</th>
                             <th>邮箱</th>
                             <th>性别</th>
+                            <th>作者</th>
                             <th>操作</th>
                         </tr>
                         @foreach($result as $k => $v)
                             <tr>
-                                <td>{{$v->id}}</td>
+                                <td>{{$v->u_id}}</td>
+                                <td><img src="/{{$v->icon}}" alt="" width="50px" height="50px">{{$v->icon}}</td>
                                 <td>{{$v->name}}</td>
                                 <td>{{$v->email}}</td>
-                                <td>{{$v->sex}}</td>
-                                <td><a href="{{url('admin/user/edit'.'/'.$v->id)}}" class="btn btn-info">编辑</a>　<a href="{{url('admin/user/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
+                                <td>@if($v->sex == 0) 男 @else 女 @endif</td>
+                                <td>@if($v->is_author == 0) 否 @else 是 @endif</td>
+                                <td><a href="{{url('admin/user/edit'.'/'.$v->u_id)}}" class="btn btn-info">编辑</a>　<a href="{{url('admin/user/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                         @endforeach
                     </table>

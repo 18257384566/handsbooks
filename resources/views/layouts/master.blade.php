@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Dashboard - Bootstrap Admin Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="{{asset('/admin/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -16,6 +17,7 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    @yield('js')
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -260,5 +262,6 @@
     });
 
 </script><!-- /Calendar -->
+
 </body>
 </html>

@@ -34,7 +34,7 @@
                             <th>ID</th>
                             <th>封面</th>
                             <th>书名</th>
-                            <th>标签</th>
+                            <th>分类</th>
                             <th>作者</th>
                             <th>出版社</th>
                             <th>操作</th>
@@ -42,12 +42,12 @@
                         @foreach($result as $v)
                             <tr>
                                 <td>{{$v->id}}</td>
-                                <td><img src="/{{$v->icon}}" alt="" width="80px" height="100px">{{$v->icon}}</td>
+                                <td><img src="/{{$v->icon}}" alt="" width="60px" height="80px">{{$v->icon}}</td>
                                 <td>{{$v->title}}</td>
-                                <td>{{$v->type}}</td>
+                                <td>{{$v->name}}</td>
                                 <td></td>
                                 <td></td>
-                                <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id)}}">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}">删除</a></td>
+                                <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}" class="btn btn-info">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id.'/?m='.$v->pid.'&a='.$v->c_id.'')}}" class="btn btn-success">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                             @endforeach
                     </table>

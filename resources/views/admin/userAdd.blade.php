@@ -3,10 +3,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <form action="{{url('admin/user/doAdd')}}" method="post">
+                <form action="{{url('home/doReg')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group">
-                        <label for="exampleInputEmail1">姓名</label>
+                        <label for="exampleInputEmail1">用户名</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" name="name" >
                         @if($errors->first('name'))
                             <div class="alert alert-danger alert-dismissable">
@@ -16,22 +16,32 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">年龄</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="age" >
-                        @if($errors->first('age'))
+                        <label for="exampleInputEmail1">邮箱</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" >
+                        @if($errors->first('email'))
                             <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{$errors->first('age')}}
+                                {{$errors->first('email')}}
                             </div>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">班期</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="grade" >
-                        @if($errors->first('grade'))
+                        <label for="exampleInputEmail1">密码</label>
+                        <input type="password" class="form-control" id="exampleInputEmail1" name="password" >
+                        @if($errors->first('password'))
                             <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{$errors->first('grade')}}
+                                {{$errors->first('password')}}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">确认密码</label>
+                        <input type="password" class="form-control" id="exampleInputEmail1" name="password_confirmation" >
+                        @if($errors->first('password_confirmation'))
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                {{$errors->first('password_confirmation')}}
                             </div>
                         @endif
                     </div>

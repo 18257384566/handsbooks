@@ -24,7 +24,6 @@ body{background:#fff;}
 .books_list{
     margin-left:380px;
     width: 1100px;
-    height: 1000px;
     /*background-color: pink;*/
 }
 .books_list01{
@@ -40,7 +39,7 @@ body{background:#fff;}
 }
 .books_list01 img{
     margin-left:15px;
-    margin-top:10px
+    margin-top:10px;
 }
 .books_info{
     width:180px;
@@ -60,7 +59,7 @@ body{background:#fff;}
     width: 300px;
     height: 200px;
     /*background-color: #ccc;*/
-    margin-left:80px;
+    /*margin-left:80px;*/
 }
 .books_rec img{
     margin-bottom: 20px;

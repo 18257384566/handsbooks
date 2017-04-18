@@ -1,5 +1,17 @@
 @extends('layouts/hmaster')
 @section('title','分类')
+@section('js')
+    <script>
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+
+        var id = getUrlParam('id');
+
+    </script>
+    @endsection
 @section('hcss')
     <link href="/home/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css" />
     <link href="/home/css/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -46,7 +58,8 @@
             background-color: #F5F5F5;
         }
         .books_list01 img{
-            margin-top:10px
+            margin-top:10px;
+            margin-left:15px;
         }
         .books_info{
             width:180px;
@@ -143,83 +156,19 @@
         <div id="jquery-accordion-menu" class="jquery-accordion-menu green">
             <div class="jquery-accordion-menu-header" id="form"></div>
             <ul id="demo-list">
-                <li class="active"><a href="#"><i class="fa fa-home"></i>小说 </a>
-                    <ul class="submenu">
-                        <li><a href="#">言情</a></li>
-                        <li><a href="#">青春 </a></li>
-                        <li><a href="#">都市 </a>
-                            <ul class="submenu">
-                                <li><a href="#">Graphics </a></li>
-                                <li><a href="#">Vectors </a></li>
-                                <li><a href="#">Photoshop </a></li>
-                                <li><a href="#">Fonts </a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">历史</a></li>
-                        <li><a href="#">科幻</a></li>
-                        <li><a href="#">悬疑</a></li>
-                        <li><a href="#">武侠</a></li>
-                        <li><a href="#">灵异</a></li>
-                        <li><a href="#">耽美</a></li>
-                        <li><a href="#">其他</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-glass"></i>经济管理</a>
-                    <ul class="submenu">
-                        <li><a href="#">企业管理</a></li>
-                        <li><a href="#">经济金融</a></li>
-                        <li><a href="#">投资理财</a></li>
-                        <li><a href="#">市场营销</a></li>
-                        <li><a href="#">财会统计</a></li>
-                        <li><a href="#">通俗读物</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-file-image-o"></i>成功励志</a>
-                    <ul class="submenu">
-                        <li><a href="#">成功学</a></li>
-                        <li><a href="#">人在职场</a></li>
-                        <li><a href="#">演讲口才</a></li>
-                        <li><a href="#">人际处事</a></li>
-                        <li><a href="#">心灵修养</a></li>
-                        <li><a href="#">性格与情绪</a></li>
-                        <li><a href="#">青少年励志</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-cog"></i>历史传记</a>
-                    <ul class="submenu">
-                        <li><a href="#">Web Design </a></li>
-                        <li><a href="#">Hosting </a></li>
-                        <li><a href="#">Design </a>
-                            <ul class="submenu">
-                                <li><a href="#">Graphics </a></li>
-                                <li><a href="#">Vectors </a></li>
-                                <li><a href="#">Photoshop </a></li>
-                                <li><a href="#">Fonts </a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Consulting </a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-home"></i>计算机</a></li>
-                <li><a href="#"><i class="fa fa-suitcase"></i>两性情感</a>
-                    <ul class="submenu">
-                        <li><a href="#">Web Design </a></li>
-                        <li><a href="#">Graphics </a><span class="jquery-accordion-menu-label">10 </span>
-                        </li>
-                        <li><a href="#">Photoshop </a></li>
-                        <li><a href="#">Programming </a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-user"></i>生活</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>亲子少儿</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>文学艺术</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>社会科学</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>科技</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>原创男频</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>原创女频</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>外文</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>期刊</a></li>
-
+                @foreach($category as $k => $v)
+                    @if($v->pid == 0)
+                    <li><a href=""><i class="fa fa-home"></i>{{$v->name}}</a>
+                        @foreach($category as $key => $value)
+                            @if($value->pid == $v->id)
+                        <ul class="submenu">
+                            <li><a href="{{url('home/category/'.$value->id)}}">{{$value->name}}</a></li>
+                        </ul>
+                            @endif
+                            @endforeach
+                    </li>
+                    @endif
+                @endforeach
             </ul>
             <div class="jquery-accordion-menu-footer">
                 Footer
@@ -227,75 +176,33 @@
         </div>
     </div>
     <ol class="breadcrumb">
-        <li><a href="#">　　百度阅读</a></li>
+        <li><a href="#">百度阅读</a></li>
         <li><a href="#">全部图书</a></li>
         <li class="active">Data</li>
     </ol>
 
     <div class="books_list">
+        @foreach($book as $k=>$v)
+    <a href="{{url('/home/detail/'.$v->id)}}">
         <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
+            <img src="{{url('/'.$v->icon)}}" alt="" width="180" height="240">
             <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
+                <p>{{$v->title}}</p>
+                <span class="left">作者</span>  <span class="right">￥{{$v->price}}</span>
             </div>
         </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
-        <div class="books_list01">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>十年一品，温如言</p>
-                <span class="left">作者</span>  <span class="right">￥12.2</span>
-            </div>
-        </div>
+    </a>
+            @endforeach
     </div>
 
-    <div class="books_rec">
-        <img src="{{url('home/img/rec_01.jpg')}}" alt=""><br>
-        <img src="{{url('home/img/rec_02.jpg')}}" alt="">
-    </div>
-    <h2></h2>
+    {{--<div class="books_rec">--}}
+        {{--<img src="{{url('home/img/rec_01.jpg')}}" alt=""><br>--}}
+        {{--<img src="{{url('home/img/rec_02.jpg')}}" alt="">--}}
+    {{--</div>--}}
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+
+    {{$book->links('admin/page')}}
 @endsection
 
 

@@ -36,7 +36,7 @@ class RegisterController extends Controller
         $u_id = $result[0];
        $arr = array(
            'name' => $name,
-           'icon' => '/home/img/icon.jpg',
+           'icon' => 'home/img/icon.jpg',
            'u_id' => $u_id
        );
        DB::table('users_info')->insert($arr);

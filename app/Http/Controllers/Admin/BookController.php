@@ -14,21 +14,37 @@ class BookController extends Controller
 {
     public function show()
     {
-        $result = Book::paginate(5);
+        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name')->join('category','books.c_id','category.id')->paginate(5);
         return view('admin/bookList',compact('result'));
     }
     public function add()
     {
-        $data = DB::select('select name,id,concat(path,id,",") sort from category order by sort');
-        return view('admin/bookadd',compact('data'));
+        $data = DB::select('select * from category');
+        $boss = array();
+        $son = array();
+        foreach($data as $k => $v){
+             if($v->path == '0,'){
+                 $boss[$v->id] = $v->name;
+             }
+        }
+//        var_dump($boss);
+        foreach($boss as $key=>$value){
+            foreach($data as $k => $v){
+                if($v->pid == $key){
+                    $son[$key][$v->id] = $v->name;
+                }
+            }
+        }
+//        dd($son);
+        return view('admin/bookadd',compact('boss','son'));
     }
     public function doAdd(Request $request)
     {
+//        dd($request->all());
         $last = DB::table('books')->select('*')->orderBy('id','desc')->limit(1)->get();
         $last_id = $last[0]->id;
         $id = $last_id + 1;
 //        dd($id);
-        $request->file('icon')->move('book_icon',"book$id.jpg");
         $data = [
             'au_id' => '1',
             'pub_id' => '1',
@@ -36,6 +52,7 @@ class BookController extends Controller
         ];
         $result = Book::create(array_merge($request->all(),$data));
         if($result){
+            $request->file('icon')->move('book_icon',"book$id.jpg");
             return redirect('admin/book/list');
         }else{
             return back();
@@ -44,27 +61,57 @@ class BookController extends Controller
 
     public function edit($id)
     {
-       $book = Book::find($id);
-       return view('admin/bookEdit',compact('book'));
+//        dd($id);
+        $data = Book::select('c_id')->where('id',$id)->get();
+        $c_id = $data[0]->c_id;
+        $cate = Category::select('name','pid','id')->where('id',$c_id)->get();
+//        dd($cate);
+        $book = Book::find($id);
+
+       return view('admin/bookEdit',compact('book','cate'));
     }
 
     public function doEdit(Request $request,$id)
     {
+//        dd($request->all());
+//        $aa = Category::select('id')->where('name',$request->c_id)->get();
+//        dd($aa);
         $book = Book::find($id);
         $book->title = $request->input('title','');
         $book->price = $request->input('price','');
         $book->desc = $request->input('desc','');
-        $book->type = $request->input('type','');
+        $book->c_id = $request->input('c_id','');
         if(!empty($request->file('icon'))){
+//            dd(11);
             $request->file('icon')->move('book_icon',"book$id.jpg");
             $book->icon = "book_icon/book$id.jpg";
         }
+//        dd(22);
         $result = $book->save();
         if($result){
             return redirect('admin/book/list');
         }else{
             return back();
         }
+    }
+
+    public function cate()
+    {
+//        $data = Book::select('c_id')->where('id',$id)->get();
+//        $c_id = $data[0]->c_id;
+//        $cate = Category::select('name','pid','id')->where('id',$c_id)->get();
+//        echo $cate;
+        $data = Category::all();
+        return $data;
+    }
+
+    public function cateBoss()
+    {
+        var_dump($_GET['id']);
+//        $data = Book::select('c_id')->where('id',$id)->get();
+//        $c_id = $data[0]->c_id;
+//        $cate = Category::select('name','pid','id')->where('id',$c_id)->get();
+//        echo $cate;
     }
 
     public function del($id)

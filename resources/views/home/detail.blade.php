@@ -23,12 +23,13 @@
 @section('content')
     <div class="black">&nbsp;</div>
 <div class="clear">
+
     <div class="details_book clear">
         <div class="big_img clear">
-            <img src="{{url('home/img/y-01.jpg')}}" alt="">
+            <img src="{{url('/'.$book->icon)}}" alt=""    width="297px"  height="396px">
         </div>
         <div class="books_info clear">
-            <span class="book_name">十年一品温如言</span><img src="/home/img/X11.png" alt="">
+            <span class="book_name">{{$book->title}}</span><img src="/home/img/X11.png" alt="">
         </div>
         <div class="book_pop clear">
             <div class="xzw_starBox clear">
@@ -53,7 +54,7 @@
                 <span class="price_title_left">全网最低</span><span class="price_title_right"> 百度阅读已为您全网比价</span>
             </div>
             <div class="price_price clear">
-                <span>价格: <span class="price_money">￥3.99</span> <span class="price_original">原价:￥14.99</span>（2.7折）</span>
+                <span>价格: <span class="price_money">￥{{$book->price}}</span> <span class="price_original">原价:￥14.99</span>（2.7折）</span>
             </div>
             <div class="price_button clear">
                 <a href="" class="button_buy">购买全本</a>　<a href="" class="button_read">开始阅读</a>
@@ -75,15 +76,7 @@
                 <div class="row">
                     <div class="col-md-9">
                         <h4>图书简介</h4>
-                        <p>第一年，她贪图美色，爱上他，一盆水泼出百年的冤家。</p>
-                        <p>第二年，他为她拍了张照片，照片上有个微笑的姑娘。</p>
-                        <p>第三年，他卧病懵懂，赖着她，姑娘醒来发现一场梦啊。</p>
-                        <p>第四年，他喜欢的人从维也纳飞回他的心上，她从他的身旁漂泊到了距他最远的水乡。</p>
-                        <p>……</p>
-                        <p>第八年，每次分离都如余生已去，少年再也瞧不见自己的那只小水龟。</p>
-                        <p>……</p>
-                        <p>第十年，他做了爸爸，她做了妈妈。孩子姓言，母温氏。</p>
-                        <p>历数十年之期，他们有了百年的家。</p>
+                        <p>{{$book->desc}}</p>
 
                         <h4>作者简介</h4>
                         <p>青春文学超级畅销书作家。处女作《十年一品温如言》出版后引发千万读者追捧，粉丝团自号“排骨”。该书因其好口碑连续6年成为豆瓣评分最高的青春小说之一，总销量已逾百万册，并输出影视版权，即将引发新的一轮“十年热”！  其后，华丽古言奇幻大作《昭奚旧草》一经上市，好评如潮，被读者公认为书海沧生的又一代表作。</p>

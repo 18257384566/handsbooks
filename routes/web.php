@@ -21,15 +21,17 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::get('edit/{id}','UserController@edit');
         Route::post('edit/{id}','UserController@doEdit');
         Route::get('add','UserController@add');
-        Route::post('doAdd','UserController@doAdd');
+//        Route::post('doAdd','UserController@doAdd');
         Route::get('del/{id}','UserController@del');
     });
     Route::group(['prefix' => 'book'],function(){
         Route::get('list','BookController@show');
         Route::get('add','BookController@add');
         Route::post('doAdd','BookController@doAdd');
-        Route::get('edit/{id}','BookController@edit');
+        Route::get('edit/{id}/{m?}','BookController@edit');
         Route::post('edit/{id}','BookController@doEdit');
+        Route::get('cate','BookController@cate');
+        Route::get('cateBoss','BookController@cateBoss');
         Route::get('del/{id}','BookController@del');
         Route::get('detail/{id}','BookController@detailShow');
         Route::get('detailadd/{id}','BookController@detailAdd');
@@ -85,9 +87,9 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     Route::get('reg','RegisterController@show');
     Route::post('doReg','RegisterController@doReg');
     Route::get('space','SpaceController@show');
-    Route::get('category','CategoryController@show');
+    Route::get('category/{id?}','CategoryController@show');
     Route::get('Billboard','BillboardController@show');
-    Route::get('detail','DetailsController@show');
+    Route::get('detail/{id}','DetailsController@show');
     Route::get('publisher','PublisherController@show');
     Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
 });

@@ -190,6 +190,7 @@
     <script src="{{url('home/js/respond.min.js')}}"></script>
     <script type="text/javascript" src="{{url('home/js/selectivizr-min.js')}}"></script>
     <![endif]-->
+    @yield('js')
 </head>
 
 <body>
