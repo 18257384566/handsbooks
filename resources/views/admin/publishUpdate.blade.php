@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','权限修改')
+@section('title','机构修改')
 @section('link')
     <style>
         input{height:30px;}
@@ -43,22 +43,58 @@
         <!--面包屑导航 开始-->
         <div class="crumb_warp">
             <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">权限管理</a> &raquo; 分配权限
+            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">机构管理</a> &raquo; 修改机构
         </div>
         <!--面包屑导航 结束-->
-        <br>
-            <form action="" method="post">
+
+        <div class="result_wrap">
+            <form action="" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
-                @foreach($perm as $item)
-                <input type="checkbox" name="permission_id[]" value="{{$item->id}}"> {{$item->name}}
-                @endforeach
-                <br><br>
-                    <input type="submit" value="提交">
-                    <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                <table class="add_tab">
+                    <tbody>
+                    @foreach($result as $item)
+                    <tr>
+                        <th><i class="require">*</i>机构名字：</th>
+                        <td>
+                            <input type="text" class="mg" name="name" value="{{$item->name}}"> {{$errors->first('name')}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>访问量：</th>
+                        <td>
+                            <input type="text" class="mg" name="read" value="{{$item->read}}"> {{$errors->first('read')}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>点赞数：</th>
+                        <td>
+                            <input type="text" class="mg" name="good" value="{{$item->good}}"> {{$errors->first('good')}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>机构logo：</th>
+                        <td>
+                            <input type="file" name="icon">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>机构描述：</th>
+                        <td>
+                            <textarea name="detail">{{$item->detail}}</textarea> {{$errors->first('detail')}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="submit" value="提交">
+                            <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </form>
+        </div>
 
-        <br>
-
-        <br><br><br>
 @endsection
 {{--!content--}}

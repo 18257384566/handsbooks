@@ -48,7 +48,7 @@
         <!--结果集标题与导航组件 结束-->
         <hr>
         <div class="result_wrap">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data" >
                 {{csrf_field()}}
                 <table class="add_tab">
                     <tbody>
@@ -63,6 +63,12 @@
                         <th><i class="require">*</i>邮箱：</th>
                         <td>
                             <input type="email" class="mg" name="email" value="{{$item->email}}"> {{$errors->first('email')}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>头像：</th>
+                        <td>
+                            <input type="file" name="icon">
                         </td>
                     </tr>
                     <tr>
@@ -90,5 +96,13 @@
             </form>
         </div>
     </div>
+
 @endsection
 {{--!content--}}
+
+@section('script')
+    <script>
+
+    </script>
+@endsection
+

@@ -12,9 +12,9 @@
             <li><a href="{{asset('admin/admin')}}">管理员管理</a></li>
         </ul>
     </li>
-    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>
+    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>其他</span> <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="icons.html">Icons</a></li>
+            <li><a href="/admin/publish">机构管理</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="pricing.html">Pricing Plans</a></li>
             <li><a href="login.html">Login</a></li>

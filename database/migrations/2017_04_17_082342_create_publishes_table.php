@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryTable extends Migration
+class CreatePublishesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('publishes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('pid');
-            $table->string('path');
-            $table->integer('display')->default(2);
-            $table->rememberToken();
+            $table->string('icon')->default('picon.jpg');
+            $table->string('detail');
+            $table->string('good')->default(0);
+            $table->string('read')->default(1000);
+            $table->timestamps();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        //
     }
 }

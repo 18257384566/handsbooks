@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','权限修改')
+@section('title','机构管理')
 @section('link')
     <style>
         input{height:30px;}
@@ -35,7 +35,7 @@
 {{--content--}}
 @section('content')
     <div class="container">
-        <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="">更新角色</a></span> &nbsp;&nbsp;
+        <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{asset('/admin/publish-add')}}">新增机构</a></span> &nbsp;&nbsp;
         <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
         <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
         <hr>
@@ -43,22 +43,39 @@
         <!--面包屑导航 开始-->
         <div class="crumb_warp">
             <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">权限管理</a> &raquo; 分配权限
+            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">机构管理</a> &raquo; 添加机构
         </div>
         <!--面包屑导航 结束-->
-        <br>
+
+        <div class="result_wrap">
             <form action="" method="post">
                 {{csrf_field()}}
-                @foreach($perm as $item)
-                <input type="checkbox" name="permission_id[]" value="{{$item->id}}"> {{$item->name}}
-                @endforeach
-                <br><br>
-                    <input type="submit" value="提交">
-                    <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                <table class="add_tab">
+                    <tbody>
+                    <tr>
+                        <th><i class="require">*</i>机构名称：</th>
+                        <td>
+                            <input type="text" class="mg" name="name"> {{ $errors ->first('name') }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>机构描述：</th>
+                        <td>
+                            <textarea name="detail"></textarea> {{ $errors ->first('detail') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="submit" value="提交">
+                            <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </form>
+        </div>
 
-        <br>
-
-        <br><br><br>
 @endsection
 {{--!content--}}

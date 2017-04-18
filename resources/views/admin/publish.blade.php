@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','权限管理')
+@section('title','机构管理')
 @section('link')
     <style>
         /*table td{width:20%;}*/
@@ -35,37 +35,39 @@
 {{--content--}}
 @section('content')
     <div class="container">
-        <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{asset('admin/roles-add')}}">新增角色</a></span> &nbsp;&nbsp;
+        <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="/admin/publish-add">新增机构</a></span> &nbsp;&nbsp;
         <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
         <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
         <hr>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="table-layout:fixed" class="table table-condensed table-bordered table-hover table-striped">
             <tbody>
             <tr>
                 <th>ID</th>
-                <th>权限路由</th>
-                <th>权限名称</th>
-                <th>权限描述</th>
-                <th>角色权限</th>
+                <th>机构名称</th>
+                <th>logo</th>
+                <th>点赞</th>
+                <th>阅读</th>
+                <th>详情</th>
                 <th>操作</th>
             </tr>
-            @foreach($roles as $role)
+            @foreach($result as $item)
                 <tr>
-                    <td class="tc">{{$role->id}}</td>
-                    <td>{{$role->name}}</td>
-                    <td>{{$role->display_name}}</td>
-                    <td>{{$role->description}}</td>
-                    <td>{{$role->perms}}</td>
+                    <td class="tc">{{$item->id}}</td>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->icon}}</td>
+                    <td>{{$item->good}}</td>
+                    <td>{{$item->read}}</td>
+                    <td  width="200px" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{$item->detail}}</td>
                     <td>
-                        <a href="/admin/deal/{{$role->id}}">分配权限</a>
-                        <a href="/admin/roles-update/{{$role->id}}">修改</a>
-                        <a href="/admin/roles-del/{{$role->id}}">删除</a>
+                        {{--<a href="/admin/deal/">分配权限</a>--}}
+                        <a href="/admin/publish-update/{{$item->id}}">修改</a>
+                        <a href="/admin/publish-del/{{$item->id}}">删除</a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        {{--{{ $result ->links() }}--}}
+        {{ $result ->links() }}
     </div>
     </div>
 
