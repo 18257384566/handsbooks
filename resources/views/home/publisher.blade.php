@@ -19,25 +19,8 @@
     @endsection
 
 @section('content')
-    {{--<img src="{{url('home/image/49b1OOOPIC79.jpg')}}" alt="">--}}
-    {{--轮播图--}}
-    {{--<div class="demo">--}}
-        {{--<a class="control prev"></a><a class="control next abs"></a><!--自定义按钮，移动端可不写-->--}}
-
-        {{--<div class="slider"><!--主体结构，请用此类名调用插件，此类名可自定义-->--}}
-            {{--fhbvfdb--}}
-            {{--<ul>--}}
-                {{--<li>vbfhdvbfd</li>--}}
-                {{--<li><a href=""><img src="images/1.jpg" alt="两弯似蹙非蹙笼烟眉，一双似喜非喜含情目。" /></a></li>--}}
-                {{--<li><a href=""><img src="images/2.jpg" alt="态生两靥之愁，娇袭一身之病。" /></a></li>--}}
-                {{--<li><a href=""><img src="images/3.jpg" alt="泪光点点，娇喘微微。" /></a></li>--}}
-                {{--<li><a href=""><img src="images/4.jpg" alt="闲静似娇花照水，行动如弱柳扶风。" /></a></li>--}}
-                {{--<li><a href=""><img src="images/5.jpg" alt="心较比干多一窍，病如西子胜三分。" /></a></li>--}}
-            {{--</ul>--}}
-        {{--</div>--}}
-    {{--</div>--}}
     <center>
-     <img src="{{url('home/image/org1.jpg')}}" alt="" width="1200">
+     <img src="{{url('home/image/org1.jpg')}}" alt="" width="1200" style="margin-top:120px;">
     </center>
     {{--轮播图结束--}}
     <div class="container">
@@ -47,46 +30,20 @@
                 <hr>
             </div>
             <div class="publisher_content">
+                @foreach($result as $item)
+                    {{--<a href="{{asset('home/pub_info/{$item->id}')}}">--}}
+                    <a href="/home/pub_info/{{$item->id}}">
                 <div class="publisher_info">
+
                     <div class="publisher_icon">
-                        <img src="/home/img/publisher01.jpg" alt="" width="200" height="70">
+                        <img src="/picon/{{$item->icon}}" alt="" width="200" height="70">
                     </div>
                     <div class="publisher_pop">
-                        <span class="publisher_num">阅读人数:5464123</span>　<span class="glyphicon glyphicon-thumbs-up"></span><span>(1443)</span>
+                        <span class="publisher_num">阅读人数:{{$item->read}}</span>　<span class="glyphicon glyphicon-thumbs-up"></span><span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>({{$item->good}})</span>
                     </div>
                 </div>
-                <div class="publisher_info">
-                    <div class="publisher_icon">
-                        <img src="/home/img/publisher02.jpg" alt="" width="200" height="70">
-                    </div>
-                    <div class="publisher_pop">
-                        <span class="publisher_num">阅读人数:5464123</span>　<span class="glyphicon glyphicon-thumbs-up"></span><span>(1443)</span>
-                    </div>
-                </div>
-                <div class="publisher_info">
-                    <div class="publisher_icon">
-                        <img src="/home/img/publisher03.jpg" alt="" width="200" height="70">
-                    </div>
-                    <div class="publisher_pop">
-                        <span class="publisher_num">阅读人数:5464123</span>　<span class="glyphicon glyphicon-thumbs-up"></span><span>(1443)</span>
-                    </div>
-                </div>
-                <div class="publisher_info">
-                    <div class="publisher_icon">
-                        <img src="/home/img/publisher04.jpg" alt="" width="200" height="70">
-                    </div>
-                    <div class="publisher_pop">
-                        <span class="publisher_num">阅读人数:5464123</span>　<span class="glyphicon glyphicon-thumbs-up"></span><span>(1443)</span>
-                    </div>
-                </div>
-                <div class="publisher_info">
-                    <div class="publisher_icon">
-                        <img src="/home/img/publisher05.jpg" alt="" width="200" height="70">
-                    </div>
-                    <div class="publisher_pop">
-                        <span class="publisher_num">阅读人数:5464123</span>　<span class="glyphicon glyphicon-thumbs-up"></span><span>(1443)</span>
-                    </div>
-                </div>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>

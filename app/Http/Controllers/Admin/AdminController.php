@@ -15,6 +15,19 @@ class AdminController extends Controller
 {
     public function show()
     {
+        $result = Admin::all();
+        foreach ($result as $user) {
+            $roles = array();
+            foreach ($user->roles as $role) {
+                $roles[] = $role->display_name;
+            }
+            $user->roles= implode(',', $roles);
+        }
+//        dd($result);
+//        exit;
+        return view('/admin/admin')->with('result',$result);
+        exit;
+
         //查询角色
 
         $admins = DB::select('select `id`,`name`,`icon`,`email` from admins');
@@ -26,8 +39,8 @@ class AdminController extends Controller
             $roles = [];
             $role = DB::select('select r.name from role_user as ur , roles as r where ur.user_id = ' . $id);
 
-            dump($admin);
-            dump($role);
+//            dump($admin);
+//            dump($role);
 
             foreach ($role as $k) {
                 $roles[] = $k->name;
@@ -39,9 +52,10 @@ class AdminController extends Controller
 //                dump($role);
                 dump('=========');
                 $arr = ['role'=>$role];
-                $new = array_merge($arr,$admin);
-//                dump($new);
+                global $arr;
             }
+            dump($arr);
+//            $new = array_merge($arr,$admin);
 //            dump($admins);
         }
 
@@ -162,12 +176,12 @@ class AdminController extends Controller
     {
         if($request->isMethod('post')){
             //删除当前用户的所有角色
-            DB::table('role_user')->where('user_id',$id)->delete();
+            DB::table('admin_role')->where('admin_id',$id)->delete();
             //为用户分配角色
             foreach ($request->input('role_id') as $k){
                 //将两张表的id存入对应的表
                 //$k -> 角色   $id -> 用户
-                DB::insert('insert into `role_user` (`user_id`,`role_id`) value('.$id.' , '.$k.')');
+                DB::insert('insert into `admin_role` (`admin_id`,`role_id`) value('.$id.' , '.$k.')');
             }
             return redirect('/admin/admin');
         }else{
