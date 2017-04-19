@@ -1,25 +1,8 @@
-.box{width: 130px; height: 230px;  margin-top: 20px; float: left;
-    margin: 20px 37px 20px 37px;}
-.box img{}
-.main{width: 240px; height: 240px; background-color: #fff; margin-top:20px;padding:13px; text-align: center}
+.hot{height: 150px; font-size: 14px; }
+.hot a{color:#0f0f0f;}
+.hot-img img{ padding-top:13px; }
 
-p{font-size: 12px;line-height: 18px;}
-.agile_team_grid h6{line-height: 13px;}
-
-.ff{width: 250px;padding:0; width:100%; text-overflow:ellipsis;}
-
-.left{float: left;}
-.right{float:right;}
-
-.book{height: 157px; width: 245px; }
-.simple{width: 245px; height: 90px; background-color: #FAFAFA; padding:8px; margin-top: 10px;}
-
-#box{width: 100%;height: 600px; border: 1px solid #777; overflow: hidden;}
-.hot{width: 100%;height: 80px;}
-.h-img{padding:10px;}
-.h-mian{margin-top:15px;width: 100px; overflow: hidden; display: block; text-overflow: ellipsis; white-space: nowrap; cursor: pointer;}
-
-
+.rx{width: 1200px;}
 
 
 
@@ -42,12 +25,14 @@ p{font-size: 12px;line-height: 18px;}
 .agile_team_grid h6 {
     color: #777;
     font-size: 1.1em;
-    line-height: 15px;
+    line-height: 30px;
     letter-spacing: 1px;
 }
 .agile_team_grid p{
+    width: 65%;
+    margin: 3em auto 0;
     text-align: center;
-    line-height: 1.3em;
+    line-height: 1.8em;
     color: #999;
 }
 .ih-item {

@@ -54,7 +54,7 @@
                 <tr>
                     <td class="tc">{{$item->id}}</td>
                     <td>{{$item->name}}</td>
-                    <td>{{$item->icon}}</td>
+                    <td><img src="/picon/{{$item->icon}}" alt="" width="100"></td>
                     <td>{{$item->good}}</td>
                     <td>{{$item->read}}</td>
                     <td  width="200px" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{$item->detail}}</td>

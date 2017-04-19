@@ -92,6 +92,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('publish-del/{id}','PublishController@del');
     Route::any('publish-update/{id}','PublishController@update');
 
+    //作者管理
+    Route::get('auth','AuthController@show');
+
 
 
 
@@ -123,11 +126,21 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 
     Route::get('detail/{id}','DetailsController@show');
 
-
-
     //机构
         Route::get('publisher','PublisherController@show');
         Route::get('pub_info/{id}','PublisherController@info');
+
+        //前台登陆
+
+
+        //作者
+        Route::get('auth','AuthController@show');
+    Route::group(['middleware'=>'check.h.login'],function(){
+        //作者
+
+        Route::any('authAdd','AuthController@add');
+    });
+
     Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
 
 });
