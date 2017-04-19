@@ -1,4 +1,14 @@
 @extends('layouts.master')
+@section('title','书籍管理')
+@section('link')
+    <style>
+        input{
+            height:30px;
+
+        }
+
+    </style>
+@endsection
 @section('js')
     <script src="{{url('/admin/js/jquery-1.8.3.min.js')}}"></script>
     <script>
@@ -57,60 +67,101 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
+        <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{asset('/admin/publish-add')}}">新增书籍</a></span> &nbsp;&nbsp;
+        <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
+        <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
+        <hr>
+
+        <!--面包屑导航 开始-->
+        <div class="crumb_warp">
+            <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
+            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">机构管理</a> &raquo; 添加书籍
+        </div>
+        <!--面包屑导航 结束-->
+        <br>
+        <div class="result_wrap">
                 <form action="{{url('admin/book/doAdd')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">书名</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" name="title" >
-                        @if($errors->first('title'))
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{$errors->first('title')}}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">分类</label>
-                        <select name="" id="boss"></select>
-                        <select name="c_id" id="son"></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">封面</label>
-                        <input type="file"   name="icon" >
-                        @if($errors->first('icon'))
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{$errors->first('icon')}}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">价格</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="price" >
-                        @if($errors->first('price'))
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{$errors->first('price')}}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">描述</label>
-                        <textarea name="desc" id="" cols="40" rows="10"></textarea>
-                        @if($errors->first('desc'))
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{$errors->first('desc')}}
-                            </div>
-                        @endif
-                    </div>
-                    <button type="submit" class="btn btn-default">确认添加</button>
+                    <table class="add_tab">
+                        <tbody>
+                        <tr>
+                            <th>书名</th>
+                            <td>
+                                <input type="text" class="mg" name="title">
+                                @if($errors->first('title'))
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        {{$errors->first('title')}}
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>分类</th>
+                            <td>
+                                <select name="" id="boss"></select>
+                                <select name="c_id" id="son"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>出版社</th>
+                            <td>
+                                <select name="pub_id" id="">
+                                    @foreach($publish as $k => $v)
+                                            <option value="{{$v->id}}">{{$v->name}}</option>
+                                        @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>封面</th>
+                            <td>
+                                <input type="file"   name="icon" >
+                                @if($errors->first('icon'))
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        {{$errors->first('icon')}}
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>价格</th>
+                            <td>
+                                <input type="number" class="mg" name="price">
+                                @if($errors->first('price'))
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        {{$errors->first('price')}}
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>描述</th>
+                            <td>
+                                <textarea name="desc" id="" cols="40" rows="10"></textarea>
+                                @if($errors->first('desc'))
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        {{$errors->first('desc')}}
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input type="submit" value="提交">
+                                <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </form>
             </div>
-        </div>
-    </div>
+
 
 @endsection
 

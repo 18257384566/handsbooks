@@ -57,7 +57,7 @@
             transition: all .35s;
         }
         .navbar {
-            position: 想;
+            position: relative;
             min-height: 50px;
             margin-bottom: 20px;
             border: 1px solid transparent;

@@ -47,14 +47,14 @@
         </div>
         <div class="book_author">
             <span>作　者：<span>书海沧生</span></span><br>
-            <span>出版社：<span>北京白马时光文化发展有限公司</span></span>
+            <span>出版社：<span>{{$book->name}}</span></span>
         </div>
         <div class="book_price clear">
             <div class="price_title clear">
                 <span class="price_title_left">全网最低</span><span class="price_title_right"> 百度阅读已为您全网比价</span>
             </div>
             <div class="price_price clear">
-                <span>价格: <span class="price_money">￥{{$book->price}}</span> <span class="price_original">原价:￥14.99</span>（2.7折）</span>
+                <span>价格: <span class="price_money">￥{{$book->price}}</span>
             </div>
             <div class="price_button clear">
                 <a href="" class="button_buy">购买全本</a>　<a href="" class="button_read">开始阅读</a>
@@ -74,30 +74,23 @@
         <div class="tab-content clear">
             <div role="tabpanel" class="tab-pane active" id="home">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9" style="margin-left:80px">
                         <h4>图书简介</h4>
                         <p>{{$book->desc}}</p>
 
                         <h4>作者简介</h4>
                         <p>青春文学超级畅销书作家。处女作《十年一品温如言》出版后引发千万读者追捧，粉丝团自号“排骨”。该书因其好口碑连续6年成为豆瓣评分最高的青春小说之一，总销量已逾百万册，并输出影视版权，即将引发新的一轮“十年热”！  其后，华丽古言奇幻大作《昭奚旧草》一经上市，好评如潮，被读者公认为书海沧生的又一代表作。</p>
 
-                        <h4>基本信息</h4>
-                        <hr>
-                        <p>作者:书海沧生　　　　　　　　　　　　　　　　出版时间：2016-05-01</p>
-                        <hr>
-                        <p>出版社： 百花洲文艺出版社 　　　　　　　　　　纸书定价： 59.80元</p>
-                        <hr>
-                        <p>版权方： 北京白马时光文化发展有限公司　　　　 分类：小说<言情</p>
                         <hr>
                     </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9" style="margin-left:80px">
                         <h4><b>目录(共119章)</b></h4>
                         <hr>
-                        <h4>楔子</h4>
+                        　<h4>楔子</h4>
                         <p>Chapter 1一盆水从天而降</p>
                         <p>Chapter 2这个枝头不留娘</p>
                         <p>Chapter 3EVE曾叫辛达夷</p>
@@ -138,7 +131,7 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="messages">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9" style="margin-left:80px">
                         <h4><b>图书评论</b></h4>
                         <hr>
                         <div class="center_comm">

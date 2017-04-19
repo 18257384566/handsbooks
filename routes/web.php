@@ -120,11 +120,10 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     Route::get('logout','LoginController@logout');
     Route::get('reg','RegisterController@show');
     Route::post('doReg','RegisterController@doReg');
-    Route::get('space','SpaceController@show');
     Route::get('category/{id?}','CategoryController@show');
     Route::get('Billboard','BillboardController@show');
-
     Route::get('detail/{id}','DetailsController@show');
+
 
     //机构
         Route::get('publisher','PublisherController@show');
@@ -142,6 +141,21 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     });
 
     Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
+
+    /*个人中心*/
+    Route::group(['prefix' => 'space'],function(){
+        Route::get('/','SpaceController@show');
+        Route::post('doEdit','SpaceController@doEdit');
+        Route::post('editPass','SpaceController@editPass');
+        Route::post('editEmail','SpaceController@editEmail');
+    });
+
+
+    //机构
+        Route::get('publisher','PublisherController@show');
+        Route::get('pub_info/{id}','PublisherController@info');
+        Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
+
 
 });
 

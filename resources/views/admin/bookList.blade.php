@@ -26,9 +26,12 @@
 @section('content')
     <div class="table-responsive">
         <div class="container">
+            <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/book/add')}}">新增书籍</a></span> &nbsp;&nbsp;
+            <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
+            <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
+            <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{url('admin/book/add')}}">添加书籍</a>
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
@@ -46,7 +49,7 @@
                                 <td>{{$v->title}}</td>
                                 <td>{{$v->name}}</td>
                                 <td></td>
-                                <td></td>
+                                <td>{{$v->pub_id}}</td>
                                 <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}" class="btn btn-info">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id.'/?m='.$v->pid.'&a='.$v->c_id.'')}}" class="btn btn-success">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                             @endforeach
