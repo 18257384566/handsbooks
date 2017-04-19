@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Model\Book;
 use App\Model\Book_info;
 use App\Model\Category;
+use App\Model\Publish;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -14,11 +15,12 @@ class BookController extends Controller
 {
     public function show()
     {
-        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name')->join('category','books.c_id','category.id')->paginate(5);
+        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id')->join('category','books.c_id','category.id')->paginate(5);
         return view('admin/bookList',compact('result'));
     }
     public function add()
     {
+        $publish = Publish::all();
         $data = DB::select('select * from category');
         $boss = array();
         $son = array();
@@ -36,7 +38,7 @@ class BookController extends Controller
             }
         }
 //        dd($son);
-        return view('admin/bookadd',compact('boss','son'));
+        return view('admin/bookadd',compact('boss','son','publish'));
     }
     public function doAdd(Request $request)
     {
@@ -62,13 +64,16 @@ class BookController extends Controller
     public function edit($id)
     {
 //        dd($id);
+        $data = Book::select('pub_id')->where('id',$id)->get();
+        $pub_id = $data[0]->pub_id;
+        $publish = Publish::all();
         $data = Book::select('c_id')->where('id',$id)->get();
         $c_id = $data[0]->c_id;
         $cate = Category::select('name','pid','id')->where('id',$c_id)->get();
 //        dd($cate);
         $book = Book::find($id);
 
-       return view('admin/bookEdit',compact('book','cate'));
+       return view('admin/bookEdit',compact('book','cate','publish','pub_id'));
     }
 
     public function doEdit(Request $request,$id)

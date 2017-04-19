@@ -15,6 +15,7 @@ class CategoryController extends Controller
             $book = Book::paginate(20);
         }else{
             $book = Book::where('c_id',$id)->paginate(20);
+//            dd($book);
         }
         $category = Category::all();
 

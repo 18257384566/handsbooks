@@ -25,7 +25,7 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
         ];
@@ -38,6 +38,7 @@ class UserRegisterRequest extends FormRequest
             'name.min' => '用户名不能少于3位',
             'email.required' => '邮箱不能为空',
             'email.email' => '邮箱格式错误',
+            'email.unique' => '邮箱已经被注册',
             'password.required' => '密码不能为空',
             'password.confirmed' => '密码不一致',
             'password_confirmation.required' => '确认密码不能为空'

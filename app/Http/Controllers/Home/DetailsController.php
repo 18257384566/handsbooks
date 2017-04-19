@@ -10,7 +10,8 @@ class DetailsController extends Controller
 {
     public function show($id)
     {
-        $book = Book::find($id);
+        $book = Book::select('books.*','publishes.id','publishes.name')->join('publishes','books.pub_id','publishes.id')->find($id);
+//        dd($book);
         return view('home/detail',compact('book'));
     }
 }

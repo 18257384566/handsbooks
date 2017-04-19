@@ -26,8 +26,7 @@ class UserLoginRequest extends FormRequest
         return [
             'email' => 'required',
             'password' => 'required',
-            'code' => 'captcha',
-            'code' => 'required'
+            'code' => 'captcha|required',
         ];
     }
 

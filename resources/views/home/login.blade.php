@@ -42,15 +42,17 @@
                     <div style="width:250px;height:20px;margin-left:175px;">
                         <div style="float:left">
                             <p><input type="text" name="code" placeholder="验证码" style="width: 120px">
-                                @if(count($errors)>0)
-                                    {{$errors->first('code')}}
-                                @endif
+
                             </p>
                         </div>
                         <div style="float:right">
                             {!! captcha_img() !!}
                         </div>
+                        @if(count($errors)>0)
+                            {{$errors->first('code')}}
+                        @endif
                     </div>
+
                     <br>
                     <br>
                     <input type="submit"   value="登陆">

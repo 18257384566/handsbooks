@@ -175,11 +175,19 @@
             </div>
         </div>
     </div>
-    <ol class="breadcrumb">
-        <li><a href="#">百度阅读</a></li>
-        <li><a href="#">全部图书</a></li>
-        <li class="active">Data</li>
-    </ol>
+    <!--面包屑导航 开始-->
+    <div class="crumb_warp">
+        <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
+        {{--@foreach($book as $key => $value)--}}
+        @foreach($category as $k => $v)
+           @if($v->id == $book[0]->c_id)
+        <a href="#">全部</a> &raquo; {{$v->name}}
+        {{--<a href="#">全部</a> &raquo; <a href="#">机构管理</a> &raquo; {{$v->name}}--}}
+            @endif
+               {{--@endforeach--}}
+       @endforeach
+    </div>
+    <!--面包屑导航 结束-->
 
     <div class="books_list">
         @foreach($book as $k=>$v)
