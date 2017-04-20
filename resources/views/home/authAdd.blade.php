@@ -45,7 +45,7 @@
 
         <div style="height: 600px;">
             <div class="container">
-
+<?php var_dump($result) ?>
             <div id="msform">
                 <!-- progressbar -->
                 <ul id="progressbar">
@@ -54,6 +54,7 @@
                     <li>Personal Details</li>
                 </ul>
                 <!-- fieldsets -->
+                @if(empty($result[0]))
                 <fieldset>
                     <form action="" method="post" enctype="multipart/form-data" name='myform' onsubmit='return checkForm()'>
                         {{csrf_field()}}
@@ -66,19 +67,24 @@
                         <input type="submit" name="next" class="next action-button" value="提交审核" />
                     </form>
                 </fieldset>
+
+                @else
+                @if($result[0] == '0' )
                 <fieldset>
                     <h2 class="fs-title">掌阅书 作者认证</h2>
                     <h3 class="fs-subtitle">等待审核</h3>
                     <p>您提交的审核请求，管理员将在10个工作日内，给您答复。请耐心等待...</p>
                     {{--<input type="button" name="next" class="next action-button" value="Next" />--}}
                 </fieldset>
+                @else
                 <fieldset>
                     <h2 class="fs-title">掌阅书 作者认证</h2>
                     <h3 class="fs-subtitle">认证成功</h3>
                     <p>恭喜您已成为 掌阅书 的驻站作者，快去发表您的文章吧...</p>
                     {{--<input type="submit" name="submit" class="submit action-button" value="Submit" />--}}
                 </fieldset>
-
+                @endif
+                @endif
             </div>
         </div>
     </div>

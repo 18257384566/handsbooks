@@ -94,9 +94,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
     //作者管理
     Route::get('auth','AuthController@show');
-
-
-
+    Route::any('auth-status','AuthController@status');
+    Route::any('auth-update/{id}','AuthController@update');
+    Route::get('auth-del/{id}','AuthController@del');
 
 
 
@@ -134,9 +134,9 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 
         //作者
         Route::get('auth','AuthController@show');
+        Route::get('authInfo','AuthController@info');
     Route::group(['middleware'=>'check.h.login'],function(){
         //作者
-
         Route::any('authAdd','AuthController@add');
     });
 
@@ -155,7 +155,5 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         Route::get('publisher','PublisherController@show');
         Route::get('pub_info/{id}','PublisherController@info');
         Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
-
-
 });
 

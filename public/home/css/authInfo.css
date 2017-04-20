@@ -1,0 +1,14 @@
+.icon{width:38%;height:100%;}
+.icon img{border-radius: 50%; border: 6px solid white; margin-top:40px;}
+
+.detail{width: 62%;height: 100%; text-align: left;padding: 7%;}
+.detail span{font-size: 28px;}
+.detail button{margin-top:-10px;}
+.bird{margin-top: 4px;}
+
+.b-left{width: 100%; height: 370px; border: 1px solid #999999; margin-top: 100px; padding: 12px;}
+.b-left img{border-radius: 50%;}
+.reader-user{width: 45px;overflow: hidden; display: block; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+
+.b-right{width: 100px; float: right; margin-top:100px;}
+.book-right{padding-bottom: 30px;}

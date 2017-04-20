@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Model\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -20,12 +21,12 @@ class AuthController extends Controller
         if($request->isMethod('post')){
             $rules = array(
                 'name' => 'required',
-                'phone'=>'required|unique',
+                'phone'=>'required',
             );
             $mess = array(
                 'name.required'=>'真实姓名不能为空',
                 'phone.required'=>'电话不能为空',
-                'phone.unique'=>'电话是唯一的',
+//                'phone.unique'=>'电话是唯一的',
 //                'nameid.required'=>'请上传身份证正面照片'
             );
             $validate = Validator::make($request -> all(), $rules, $mess);
@@ -43,7 +44,17 @@ class AuthController extends Controller
             }
         }else{
         }
-        return view('home/authAdd');
+        $u_id =  $request->session()->get('email');
+        $result = DB::select( "select status from auths where `u_id` = '{$u_id}'");
+//        dd($result);
+        return view('home/authAdd')->with('result',$result);
+//        return view('home/authAdd');
+    }
+
+    //作者详情
+    public function info()
+    {
+        return view('home/authInfo');
     }
 
 }

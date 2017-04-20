@@ -37,12 +37,11 @@
 @section('content')
     <div class="container">
         <!--搜索结果页面 列表 开始-->
-        <form action="#" method="post">
             <div class="result_wrap">
                 <!--快捷导航 开始-->
                 <div class="result_content">
                     <div class="short_wrap">
-                        <a href="/admin/admin-add"><i class="fa fa-plus"></i>新增作者</a>
+                        <a href=""><i class="fa fa-plus"></i>新增作者</a>
                         <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
                         <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
                     </div>
@@ -60,30 +59,52 @@
                             <th>邮箱</th>
                             <th>手机</th>
                             <th>关注</th>
-                            <th>点赞</th>
                             <th>详情</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
-                        {{--@foreach($result as $item )--}}
-                            {{--<tr>--}}
-                                {{--<td class="tc">{{$item->id}}</td>--}}
-                                {{--<td><img src="/aicon/{{$item->icon}}" alt="" width="60px"></td>--}}
-                                {{--<td>{{$item->name}}</td>--}}
-                                {{--<td>{{$item->email}}</td>--}}
-                                {{--<td>{{$item->roles}}</td>--}}
-                                {{--<td>--}}
-                                    {{--<a href="/admin/admin-cast/{{$item->id}}">分配角色</a>--}}
-                                    {{--<a href="/admin/admin-update/{{$item->id}}">修改</a>--}}
-                                    {{--<a href="/admin/admin-del/{{$item->id}}">删除</a>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                        {{--@endforeach--}}
+
+                        @foreach($result as $item )
+                            <tr>
+                                <td class="tc id">{{$item->id}}</td>
+                                <td><img src="/auth_icon/{{$item->nameid}}" alt="" width="50px"></td>
+                                <td>{{$item->name}}</td>
+                                <td>{{$item->email}}</td>
+                                <td>{{$item->phone}}</td>
+                                <td>{{$item->focus}}</td>
+                                <td>{{$item->detail}}</td>
+                                <td><button class="btn status" value= >{{$item->status==0?'禁用':'激活'}}</button></td>
+                                <td>
+                                    <a href="/admin/auth-update/{{$item->id}}">修改</a>
+                                    <a href="/admin/auth-del/{{$item->id}}">删除</a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>
-        </form>
         <!--搜索结果页面 列表 结束-->
     </div>
 @endsection
 {{--!content--}}
+@section('script')
+    <script>
+        $(function(){
+
+            $('.status').click(function(){
+                $.get('auth-status',{'status':$(this).html(),'id':$('.id').html()},function(data){});
+                if( $(this).html() == '激活' ){
+                    $(this).html('禁用');
+                }else{
+                    $(this).html('激活');
+                }
+            })
+
+            if($('#status').html() == '激活'){
+                $(this).css('backgroundColor','green');
+            }else{
+                $(this).css('backgroundColor','red');
+            }
+        })
+    </script>
+    @endsection
