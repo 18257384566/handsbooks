@@ -29,7 +29,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{url('admin/user/add')}}">添加用户</a>
+                    <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/user/add')}}">添加用户</a></span>
+                    　<span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span>　
+                    <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span>
+                    <hr>
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>

@@ -26,9 +26,12 @@
 @section('content')
     <div class="table-responsive">
         <div class="container">
+            <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{asset('admin/category/addSon'.'/'.$id)}}">新增分类</a></span> &nbsp;&nbsp;
+            <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
+            <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
+            <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{url('admin/category/add')}}">添加顶级分类</a>　<a onclick="history.go(-1)" >返回上一级</a>
                     <br>
                     <table class="table table-bordered">
                         <tr>

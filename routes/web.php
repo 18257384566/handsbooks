@@ -32,11 +32,12 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::get('edit/{id}/{m?}','BookController@edit');
         Route::post('edit/{id}','BookController@doEdit');
         Route::get('cate','BookController@cate');
-        Route::get('cateBoss','BookController@cateBoss');
         Route::get('del/{id}','BookController@del');
         Route::get('detail/{id}','BookController@detailShow');
         Route::get('detailadd/{id}','BookController@detailAdd');
         Route::post('detailadd/{id}','BookController@detailDoAdd');
+        Route::any('detailedit/{id}','BookController@detailEdit');
+        Route::any('detaildel/{id}','BookController@detailDel');
     });
 
     Route::group(['prefix' => 'category'],function(){
@@ -92,23 +93,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('publish-del/{id}','PublishController@del');
     Route::any('publish-update/{id}','PublishController@update');
 
-
-
-
-
-
-
 });
 
-
-
-
-
 //   ==============================================Home
-
-
-
-
 
 Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     Route::get('index','IndexController@show');
