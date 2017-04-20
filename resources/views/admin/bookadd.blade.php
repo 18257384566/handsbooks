@@ -4,7 +4,6 @@
     <style>
         input{
             height:30px;
-
         }
 
     </style>
@@ -67,18 +66,14 @@
 @endsection
 @section('content')
     <div class="container">
-        <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{asset('/admin/publish-add')}}">新增书籍</a></span> &nbsp;&nbsp;
-        <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
-        <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
-        <hr>
 
         <!--面包屑导航 开始-->
         <div class="crumb_warp">
             <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">机构管理</a> &raquo; 添加书籍
+            <i class="fa fa-home"></i> <a href="{{asset('admin/index')}}">首页</a> &raquo; <a href="{{asset('admin/book/list')}}">书籍管理</a> &raquo; 添加书籍
         </div>
         <!--面包屑导航 结束-->
-        <br>
+        <hr>
         <div class="result_wrap">
                 <form action="{{url('admin/book/doAdd')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
@@ -140,7 +135,7 @@
                         <tr>
                             <th>描述</th>
                             <td>
-                                <textarea name="desc" id="" cols="40" rows="10"></textarea>
+                                <textarea name="desc" id="" cols="80" rows="10" style="width: 600px;height: 230px;"></textarea>
                                 @if($errors->first('desc'))
                                     <div class="alert alert-danger alert-dismissable">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

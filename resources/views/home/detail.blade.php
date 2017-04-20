@@ -4,12 +4,57 @@
     <link href="/home/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url('home/css/detail.css')}}">
     <link rel="stylesheet" href="{{url('home/css/top_list.css')}}">
+    <link rel="stylesheet" href="{{url('home/tk/css/xcConfirm.css')}}">
     <style>
         .content{margin-top:20px;}
         .black{width: 100%; height:auto; background-image: url('/home/image/cate.jpg'); magin:0 auto; height: 189px;}
         .books_rec{margin-top: -242px;}
+        .xcConfirm .popBox{
+            width: 500px;
+            height: 600px;
+        }
+        /*.xcConfirm .popBox .btnArea{*/
+            /*margin-top:350px;*/
+        /*}*/
+        .xcConfirm .popBox{
+            margin-top:-300px;
+        }
+        .xcConfirm .popBox .txtBox p{
+            width: 400px;
+            margin-left:0px;
+        }
+        .xcConfirm .popBox .txtBox p span{
+            float:left;
+        }
+        .xcConfirm .popBox .txtBox p .b_name{
+            margin-left:20px;
+            margin-top:10px;
+        }
+        .xcConfirm .popBox .txtBox p .car_info{
+            float:right;
+            width:320px;
+            height:100px;
+            background-color: #FAFAF7;
+            /*margin-right:20px;*/
+        }
+        .xcConfirm .popBox .txtBox p img{
+            margin-top:15px;
+            margin-left:15px;
+            float:left;
+        }
+        .xcConfirm .popBox .txtBox{
+            width: 400px;
+            height: 200px;
+            margin-left:30px;
+            margin-top:20px;
+        }
+
     </style>
 @endsection
+@section('js')
+    <script src="{{url('home/tk/js/jquery-1.9.1.js')}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{url('home/tk/js/xcConfirm.js')}}" type="text/javascript" charset="utf-8"></script>
+    @endsection
 @section('j-s')
     <script type="text/javascript" src="{{url('home/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{url('home/js/j-accordin.min.js')}}"></script>
@@ -17,13 +62,30 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('.accordion').jaccordion();
+            $("#btn7").click(function(){
+                var $img = $(".big_img img").attr("src");
+                var $book_name = $(".book_name").html();
+                var $price_money = $(".price_money").html();
+                var txt=  "<div style='width: 400px;height: 100px; '><span>购买图书:</span><div class='car_info'><img src="+$img+" width='50px' height='70px'><span class='b_name'>"+$book_name+"</span></div></div>" +
+                    "<br>"+"<div style='width: 400px;height: 60px; '><span>图书价格:</span><span style='margin-left:20px'>"+$price_money+"</span></div>";
+                var option = {
+                    title: "购买图书",
+                    btn: parseInt("0011",2),
+                    onOk: function(){
+                        alert(111);
+                    }
+                }
+                window.wxc.xcConfirm(txt, "custom", option);
+            });
         });
     </script>
 @endsection
 @section('content')
     <div class="black">&nbsp;</div>
 <div class="clear">
-
+    <div class="" style="height: 168px;">
+        {{--<div class="sgBtn" id="btn7">弹窗7(自定义)</div>--}}
+    </div>
     <div class="details_book clear">
         <div class="big_img clear">
             <img src="{{url('/'.$book->icon)}}" alt=""    width="297px"  height="396px">
@@ -57,7 +119,8 @@
                 <span>价格: <span class="price_money">￥{{$book->price}}</span>
             </div>
             <div class="price_button clear">
-                <a href="" class="button_buy">购买全本</a>　<a href="" class="button_read">开始阅读</a>
+                <button class="button_buy" id="btn7">购买全本</button>
+                　<a href="" class="button_read">开始阅读</a>
             </div>
             <a href="" class="price_car">加入购物车</a>
         </div>
@@ -76,7 +139,7 @@
                 <div class="row">
                     <div class="col-md-9" style="margin-left:80px">
                         <h4>图书简介</h4>
-                        <p>{{$book->desc}}</p>
+                        <p>{{$desc}}</p>
 
                         <h4>作者简介</h4>
                         <p>青春文学超级畅销书作家。处女作《十年一品温如言》出版后引发千万读者追捧，粉丝团自号“排骨”。该书因其好口碑连续6年成为豆瓣评分最高的青春小说之一，总销量已逾百万册，并输出影视版权，即将引发新的一轮“十年热”！  其后，华丽古言奇幻大作《昭奚旧草》一经上市，好评如潮，被读者公认为书海沧生的又一代表作。</p>
@@ -90,43 +153,15 @@
                     <div class="col-md-9" style="margin-left:80px">
                         <h4><b>目录(共119章)</b></h4>
                         <hr>
-                        　<h4>楔子</h4>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
-                        <p>Chapter 1一盆水从天而降</p>
-                        <p>Chapter 2这个枝头不留娘</p>
-                        <p>Chapter 3EVE曾叫辛达夷</p>
-                        <p>Chapter 4有个炸弹唤思尔</p>
-                        <p>Chapter 5桃花梦中桃花少</p>
+                        @if(!empty($book_info[0]))
+                            @foreach($book_info as $k => $v)
+                                   <p>{{$v->title}}</p>
+                            @endforeach
+                            @else
+                            ...
+                        @endif
                     </div>
+                    <div style="width: 300px;height: 200px;"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="messages">

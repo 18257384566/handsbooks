@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class SpaceController extends Controller
 {
@@ -93,7 +94,60 @@ class SpaceController extends Controller
     /*解绑邮箱*/
     public function editEmail(Request $request)
     {
-           return 111;
+          if(empty($request->email)){
+              return 3;
+              exit;
+          }
+//        echo $request->email;
+          $result = User::where('email',$request->email)->get();
+//          dd($result[0]->email);
+          if(empty($result[0])){
+              $confirmed_code = str_random(10);
+              $id = Auth::user()->id;
+              $user = User::find($id);
+              $user->email = $request->email;
+              $user->confirmed_code = $confirmed_code;
+              $data = array(
+                  'confirmed_code' => $confirmed_code,
+              );
+              $user->is_confirmed = 0;
+              $result = $user->save();
 
+              /*发送邮件*/
+              $view = 'home.emailConfirmed';
+              $subject = '请验证邮箱';
+              $this->sendEmail($user,$view, $subject, $data);
+
+              Auth::logout();
+
+              return  1;
+              exit;
+
+          }else{
+              return  2;
+              exit;
+          }
+    }
+
+    public function sendEmail($user,$view,$subject,$data)
+    {
+        Mail::send($view,$data,function($m) use ($subject,$user){
+            $m->to($user->email)->subject($subject);
+        });
+    }
+
+    public function emailConfirm($code)
+    {
+//        dd($code);
+        /*查询与之匹配的这个用户*/
+        $user = User::where('confirmed_code',$code)->first();
+//        dd($user);
+        if(is_null($user)){
+            return redirect('/home/index');
+        }
+        $user->confirmed_code = str_random(10);
+        $user->is_confirmed = 1;
+        $user->save();
+        return redirect('/home/login');
     }
 }

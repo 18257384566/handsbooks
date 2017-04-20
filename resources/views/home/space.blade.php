@@ -4,13 +4,14 @@
     <link rel="stylesheet" href="/home/css/spaceUser.css">
     @endsection
 @section('js')
+    {{--<script type="text/javascript" src="/home/js/jquery.js"></script>--}}
     <script src="{{url('home/js/jquery.min.js')}}"></script>
     <script>
         $(function(){
-
-            alert($("input[name='_token']").val());
+//            $("#changeEmail").popover();
+//            alert($("input[name='_token']").val());
             $('#changeEmail').click(function() {
-                $("#button").hide();
+                $("#changeEmail").hide();
                 $("#box").append("<p><input type='email' name='email' id='email' placeholder='请输入邮箱'></p><p><button id='emailEdit'>确认修改</button></p>");
                 $('#emailEdit').click(function(){
                  var $email = $('#email').val();
@@ -23,10 +24,17 @@
                         '_token':$("input[name='_token']").val(),
                     },
                     success:function(data){
-                       alert(data);
+                        if(data == 1){
+                            alert('修改成功,请激活邮箱在登陆');
+                            location.href='/home/index';
+                        }else if(data == 2){
+                            alert('邮箱已绑定！');
+                        }else{
+                            alert('邮箱不能为空');
+                        }
                     },
                     error:function(){
-                        alert('失败');
+                        alert('修改失败');
                     },
 //                    dataType:'json',
 
@@ -38,6 +46,7 @@
     </script>
     @endsection
 @section('main')
+
     <div class="wrap" id="wrap">
         <ul class="tabClick">
             <li class="active">信息列表</li>
@@ -57,7 +66,6 @@
                     <p>性别：@if($user->sex == 0) 男 @else 女 @endif</p>
                     </div>
                 <div class="tabList">
-                    <img src="/home/tab/images/weather.png" alt="" width="128" height="128" />
                     <h3>修改基本信息</h3>
                     <form action="{{url('home/space/doEdit')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
@@ -104,9 +112,8 @@
                     </form>
                     </div>
                 <div class="tabList">
-                    <img src="/home/tab/images/chart_pie.png" alt="" width="128" height="128" />
                     <h3>邮箱重新绑定</h3>
-                    <p>绑定的邮箱：{{$user->email}} <button id="changeEmail">解除绑定</button></p>
+                    <p>绑定的邮箱：{{$user->email}} <button id="changeEmail" class="btn btn-success" >解除绑定</button></p>
                     <p>
                         <div id="box">
                         {{csrf_field()}}

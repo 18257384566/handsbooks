@@ -2,8 +2,8 @@
 
 @section('nav')
     <li><a href="{{url('admin/index')}}"><i class=" icon-home"></i><span>主页</span> </a> </li>
-    <li class="active" ><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
-    <li><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
+    <li><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
+    <li class="active" ><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
     <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
     <li><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
     <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>
@@ -20,9 +20,12 @@
 @section('content')
     <div class="table-responsive">
         <div class="container">
+            <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/book/detailadd'.'/'.$b_id)}}">新增书籍章节</a></span> &nbsp;&nbsp;
+            <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
+            <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
+            <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{url('admin/book/detailadd'.'/'.$b_id)}}">添加章节</a>
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
@@ -35,7 +38,7 @@
                                 <td>{{$v->id}}</td>
                                 <td>{{$v->title}}</td>
                                 <td>通过</td>
-                                <td><a href="{{url($v->url)}}" class="btn btn-success">查看</a>　<a href="{{url('admin/user/edit'.'/'.$v->id)}}" class="btn btn-info">编辑</a>　<a href="{{url('admin/user/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
+                                <td><a href="{{url($v->url)}}" class="btn btn-success">查看</a>　<a href="{{url('admin/book/detailedit'.'/'.$v->id)}}" class="btn btn-info">编辑</a>　<a href="{{url('admin/book/detaildel'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                         @endforeach
                     </table>

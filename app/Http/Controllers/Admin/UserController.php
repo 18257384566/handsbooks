@@ -85,6 +85,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        DB::table('users_info')->where('u_id',$id)->delete();
+        unlink("user_icon/user".$id.".jpg");
         return redirect('admin/user/list');
     }
 }

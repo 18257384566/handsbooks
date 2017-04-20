@@ -248,7 +248,7 @@
                 <!-- navbar-collapse end-->
                 <div class="navbar">
                     @if(Auth::check())
-                        <a href="{{asset('home/login')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
+                        <a href="{{asset('home/space000')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
                         <a href="{{asset('home/logout')}}" style="color: #81D362;">注销</a>
 
                         <?php session(['id']) ?>

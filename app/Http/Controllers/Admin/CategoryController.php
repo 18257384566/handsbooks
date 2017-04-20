@@ -20,6 +20,13 @@ class CategoryController extends Controller
     public function add(Request $request)
     {
         if($request->isMethod('post')){
+            $rules = array(
+                'name' => 'required',
+            );
+            $mess = array(
+                'name.required' => '分类名不能为空'
+            );
+            $this->validate($request,$rules,$mess);
             Category::create($request->all());
             return redirect('admin/category/list');
         }else{
@@ -31,6 +38,13 @@ class CategoryController extends Controller
     public function edit(Request $request,$id)
     {
         if($request->isMethod('post')){
+                $rules = array(
+                    'name' => 'required',
+                );
+                $mess = array(
+                    'name.required' => '分类名不能为空'
+                );
+                $this->validate($request,$rules,$mess);
             $category = Category::find($id);
             $category->name = $request->input('name','');
             $category->pid = $request->input('pid','');
@@ -59,6 +73,7 @@ class CategoryController extends Controller
         /*判断传输方式*/
         if($request->isMethod('post')){
             /*是post就添加子分类*/
+//            dd($request->all());
             $result = Category::where('id',$id)->pluck('path');
             $path = $result[0];
             $data = [
@@ -78,7 +93,7 @@ class CategoryController extends Controller
     {
         $result = Category::where('pid',$id)->paginate(5);
 //        dd($result);
-        return view('admin/categoryListSon' ,compact('result'));
+        return view('admin/categoryListSon' ,compact('result','id'));
     }
 
     /*编辑分类*/
