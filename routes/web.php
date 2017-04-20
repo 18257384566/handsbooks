@@ -99,7 +99,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::any('auth-status','AuthController@status');
     Route::any('auth-update/{id}','AuthController@update');
     Route::get('auth-del/{id}','AuthController@del');
-git h
+
 
 
 
