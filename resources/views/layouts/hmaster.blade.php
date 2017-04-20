@@ -236,7 +236,7 @@
                         <a href="#featured-works">榜单</a>
                     </li>
                     <li>
-                        <a href="">独家作品</a>
+                        <a href="{{asset('home/auth')}}">独家作品</a>
                     </li>
                     <li>
                         <a href="{{asset('home/publisher')}}">机构专区</a>
@@ -250,6 +250,8 @@
                     @if(Auth::check())
                         <a href="{{asset('home/space000')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
                         <a href="{{asset('home/logout')}}" style="color: #81D362;">注销</a>
+
+                        <?php session(['id']) ?>
                     @else
                         <a href="{{asset('home/login')}}" style="color: #81D362;">登陆</a> |
                         <a href="{{asset('home/reg')}}" style="color: #81D362;">注册</a>

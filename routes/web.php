@@ -93,6 +93,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('publish-del/{id}','PublishController@del');
     Route::any('publish-update/{id}','PublishController@update');
 
+    //作者管理
+    Route::get('auth','AuthController@show');
+
+
 });
 
 //   ==============================================Home
@@ -108,6 +112,24 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     Route::get('Billboard','BillboardController@show');
     Route::get('detail/{id}','DetailsController@show');
 
+
+    //机构
+        Route::get('publisher','PublisherController@show');
+        Route::get('pub_info/{id}','PublisherController@info');
+
+        //前台登陆
+
+
+        //作者
+        Route::get('auth','AuthController@show');
+    Route::group(['middleware'=>'check.h.login'],function(){
+        //作者
+
+        Route::any('authAdd','AuthController@add');
+    });
+
+    Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
+
     /*个人中心*/
     Route::group(['prefix' => 'space'],function(){
         Route::get('/','SpaceController@show');
@@ -121,6 +143,7 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         Route::get('publisher','PublisherController@show');
         Route::get('pub_info/{id}','PublisherController@info');
         Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
+
 
 });
 
