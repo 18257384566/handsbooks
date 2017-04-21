@@ -10,7 +10,7 @@
     <script>
         $(function(){
             $.ajax({
-                url:'http://laravel-s60.dev/admin/book/cate',
+                url:'/admin/book/cate',
                 type:'get',
                 data:{
                     '_token':'{{csrf_token()}}'
@@ -134,6 +134,20 @@
                                             @endforeach
                                     </select>
                                 </td>
+                        </tr>
+                        <tr>
+                            <th>作者</th>
+                            <td>
+                                <select name="au_id" id="">
+                                    @foreach($author as $k => $v)
+                                        @if($v->id == $au_id)
+                                            <option value="{{$v->id}}" selected>{{$v->name}}</option>
+                                        @else
+                                            <option value="{{$v->id}}">{{$v->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <th>描述：</th>

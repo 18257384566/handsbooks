@@ -128,10 +128,11 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 
         //作者
         Route::get('auth','AuthController@show');
-        Route::get('authInfo','AuthController@info');
+        Route::get('authInfo/{id}','AuthController@info');
     Route::group(['middleware'=>'check.h.login'],function(){
         //作者
         Route::any('authAdd','AuthController@add');
+        Route::any('authFocus','AuthController@focus');
     });
 
     Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');

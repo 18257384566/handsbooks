@@ -33,7 +33,11 @@
         });
         $(function(){
             $('.gz').click(function(){
-//                $(this).css('display','none');
+                $id = $(this).parent().children(':first').html();
+                alert($id);
+                $.get("/home/authFocus",{'id':$id},function(data){
+                    alert(data);
+                });
                 $(this).html('已关注');
             })
 
@@ -80,34 +84,35 @@
                 <h3><b>作者推荐</b></h3>
                 <hr>
             </div>
+            <?php var_dump($authors) ?>
             <div class="publisher_content">
                 <div class="rows">
                     <div class="col-md-12">
                         <h2>&nbsp;</h2>
                         <ul>
-                            @for($i=0;$i<4;$i++)
+                            @foreach($authors as $item)
                             <li>
                                 <div class="col-md-3 agile_team_grid">
                                     <div class="ih-item circle effect1">
                                         <div class="spinner"></div>
-                                        <div class="img"><img src="http://laravel-sh60.dev/home/image/zuo1.jpg" alt=" " class="img-responsive"></div>
-                                        <div class="info">
-                                            <div class="info-back">
-                                                <h4>顾漫</h4>
-                                                <p>青春小说</p>
-                                            </div>
-                                        </div>
+                                        <div class="img"><img src="/{{$item->icon}}" alt=" " class="img-responsive"></div>
+                                        <a href="authInfo/{{$item->id}}"><div class="info">
+                                                <div class="info-back">
+                                                    <h4>{{$item->name}}</h4>
+                                                    <p>青春小说</p>
+                                                </div>
+                                            </div></a>
                                     </div>
-                                    <h4><button class="btn btn-warning gz">关注</button></h4>
+                                    <h4><p style="display:none">{{$item->id}}</p><button class="btn btn-warning gz">关注</button></h4>
                                     {{--<div class="ff">--}}
                                     {{--<div class="ff" style="display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">--}}
                                     <div class="ff" style="  white-space: nowrap; overflow:hidden; text-overflow:ellipsis; ">
-                                        <p>职业投资人，擅长营销策划和美食。</p>
+                                        <p>{{$item->detail}}</p>
                                         <p>代表作品：《微微一笑很倾城》</p>
                                     </div>
                                 </div>
                             </li>
-                            @endfor
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -149,17 +154,17 @@
                             <h3>热门作家</h3>
                             <div id="box">
                                 <ul>
-                                    @for($i=0; $i<9; $i++)
+                                    @foreach($car as $item)
                                     <li>
                                        <div class="hot">
-                                           <div class="h-img left"><a href=""><img src="{{url('home/image/w.jpg')}}" alt="" width="50px" height="50px"></a></div>
+                                           <div class="h-img left"><a href="authInfo/{{$item->id}}"><img src="/{{$item->icon}}" alt="" width="50px" height="50px"></a></div>
                                            <div class="h-mian left">
-                                               <p><a href="">作者名{{$i}}</a></p>
-                                               <p title="代表作：啦啦啦啦" style="width: 100px;overflow: hidden; display: block; text-overflow: ellipsis; white-space: nowrap; cursor: pointer;  ">代表作：啦啦啦啦</p>
+                                               <p><a href="authInfo/{{$item->id}}">{{$item->name}}</a></p>
+                                               <p title="{{$item->detail}}" style="width: 100px;overflow: hidden; display: block; text-overflow: ellipsis; white-space: nowrap; cursor: pointer;  ">{{$item->detail}}</p>
                                            </div>
                                        </div>
                                     </li>
-                                    @endfor
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

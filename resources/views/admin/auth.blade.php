@@ -92,13 +92,14 @@
         $(function(){
 
             $('.status').click(function(){
-                $.get('auth-status',{'status':$(this).html(),'id':$('.id').html()},function(data){});
+                $id = $(this).parent().parent().children(':first').html();
+                $.get('auth-status',{'status':$(this).html(),'id':$id},function(data){});
                 if( $(this).html() == '激活' ){
                     $(this).html('禁用');
                 }else{
                     $(this).html('激活');
                 }
-            })
+            });
 
             if($('#status').html() == '激活'){
                 $(this).css('backgroundColor','green');

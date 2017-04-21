@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Auth;
 use App\Model\Book;
 use App\Model\Book_info;
 use App\Model\Category;
@@ -16,14 +17,15 @@ class BookController extends Controller
     /*显示书籍列表*/
     public function show()
     {
-        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id')->join('category','books.c_id','category.id')->paginate(5);
+        $result = DB::table('books')->select('books.id','au_id','c_id','pid','title','icon','price','desc','name','pub_id')->join('category','books.c_id','category.id')->paginate(5);
         return view('admin/bookList',compact('result'));
     }
     /*跳转添加页面*/
     public function add()
     {
         $publish = Publish::all();
-        return view('admin/bookadd',compact('publish'));
+        $author = Auth::all();
+        return view('admin/bookadd',compact('publish','author'));
     }
 
    /*添加书籍*/
@@ -45,8 +47,6 @@ class BookController extends Controller
         $this->validate($request,$rules,$mess);
         /*添加数据*/
         $data = [
-            'au_id' => '1',
-            'pub_id' => '1',
             'icon' => "book_icon/book.jpg",
             'desc' => "book_desc/book.txt",
         ];
@@ -77,11 +77,14 @@ class BookController extends Controller
     {
 //        dd($id);
         /*获取出版社id*/
-        $data = Book::select('pub_id')->where('id',$id)->get();
+        $data = Book::select('pub_id','au_id')->where('id',$id)->get();
         $pub_id = $data[0]->pub_id;
-
+        $au_id = $data[0]->au_id;
         /*查询出版社信息*/
         $publish = Publish::all();
+
+       /*查询作者信息*/
+        $author = Auth::all();
 
         /*获取分类id*/
         $data = Book::select('c_id')->where('id',$id)->get();
@@ -97,7 +100,7 @@ class BookController extends Controller
         $name = $book->desc;
         $acString = file_get_contents($name);
         $desc = unserialize($acString);
-       return view('admin/bookEdit',compact('book','cate','publish','pub_id','desc'));
+       return view('admin/bookEdit',compact('book','cate','publish','pub_id','desc','au_id','author'));
     }
 
     /*执行编辑*/

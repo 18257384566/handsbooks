@@ -16,10 +16,10 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 
-
-        DB::listen(function($query){
-           echo $query->sql;
-        });
+//
+//        DB::listen(function($query){
+//           echo $query->sql;
+//        });
 
 
     }

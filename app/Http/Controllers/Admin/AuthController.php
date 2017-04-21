@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function show(Request $request){
-        $result = DB::select('select a.id ,a.nameid, b.email, a.name, a.phone, a.focus, a.detail, a.status from users as b, auths as a where b.email = a.u_id ');
+        $result = DB::select('select a.id ,a.nameid, b.email, a.name, a.phone, a.focus, a.detail, a.status from users as b, auths as a where b.id = a.u_id ');
 //        dd($result);
         return view('/admin/auth')->with('result',$result);
     }
@@ -54,7 +54,7 @@ class AuthController extends Controller
                 return redirect('admin/auth');
             }
         }else{
-            $result = DB::table('auths')->select('name','phone','focus','reader')->get();
+            $result = DB::table('auths')->select('name','phone','focus','reader')->where('id',$id)->get();
             return view('admin/authUpdate')->with('result',$result);
         }
     }

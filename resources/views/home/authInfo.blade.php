@@ -59,20 +59,19 @@
     {{--轮播图结束--}}
     <div style="height: 120px;"></div>
     <div style="background-image: url('/home/image/49b1OOOPIC79.jpg') ; background-size:100%;height: 320px; width: 100%">
-
             <div class="container">
                 <div class="main" style="margin-top:20px; width:400px; background-color: rgba(255,255,255,0);">
                     <div class="left icon">
-                        <img src="/home/image/zuo1.jpg" alt="" width=85%>
+                        <img src="/{{$info[0]->icon}}" alt="" width=85%>
                     </div>
                     <div class="right detail">
-                        <span><b>作者名</b></span> &nbsp; <button class="btn btn-default">关注</button>
+                        <span><b>{{$info[0]->name}}</b></span> &nbsp; <button class="btn btn-default">关注</button>
                         <br>
-                        <i class="fa fa-twitter bird"></i> 掌阅书驻站作者 <br><br>
+                        <i class="fa fa-twitter bird"></i> {{$info[0]->detail}} <br><br>
                         <p style="width:900px;">                        读史者明知，具备必要的历史知识可以从往古的人和事件中找到供我们汲取的经验和教训，从而获得成功和完美人生的基石。另外，具备必要的文学能力也极其重要，必要的语言文字能力有利于我们同他人的沟通。
                         </p>
                         <br>
-                        <p><b>2</b>作品 &nbsp; | <b>2515</b> 粉丝 </p>
+                        <p><b>{{$count}}</b>作品 &nbsp; | <b>{{$info[0]->focus}}</b> 粉丝 </p>
                     </div>
                 </div>
                 <div class="rows">
@@ -98,15 +97,15 @@
                     </div>
 
                     <div class="col-md-9 right b-right">
-                        <h3>全部作品 （2）本</h3>
+                        <h3>全部作品 （{{$count}}）本</h3>
                         <hr>
-                        @for($i=0;$i<4;$i++)
+                        @foreach($books as $item)
                         <div class="cols">
                             <div class="col-md-2">
-                                <img src="{{url('home/image/w.jpg')}}" alt="" width="120px" height="160">
+                                <img src="/{{$item->icon}}" alt="" width="120px" height="160">
                             </div>
                             <div class="col-md-10 book-right">
-                                <h4 style="float: left">十年一品温如言</h4> &nbsp;&nbsp;&nbsp; <p style="color:red; padding-top:10px; margin-left:30px; float: left" >￥:3.00</p>
+                                <h4 style="float: left">{{$item->title}}</h4> &nbsp;&nbsp;&nbsp; <p style="color:red; padding-top:10px; margin-left:30px; float: left" >￥:{{$item->price}}</p>
                                 <br><br>
                                     <p>1515人在阅读</p>
                                 <p>相传五千年前，黄帝轩辕氏与刑天部落为了争夺统治权，进行了一场激烈大战。刑天被黄帝砍下头颅，乃以乳为目、以脐为口，执干戚舞。刑天失败后，带领残余部队躲进了另一维度空间，时刻想着重新夺...</p>
@@ -118,7 +117,7 @@
 
                             <hr>
 
-                        @endfor
+                        @endforeach
                     </div>
                 </div>
           </div>
