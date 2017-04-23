@@ -133,12 +133,17 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         //作者
         Route::any('authAdd','AuthController@add');
         Route::any('authFocus','AuthController@focus');
+
+        //个人中心 - 作者
+        Route::any('authSpace/{id}','AuthController@space');
+        Route::any('write/{id}','AuthController@write');
     });
+
 
     Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
 
     /*个人中心*/
-    Route::group(['prefix' => 'space'],function(){
+    Route::group(['prefix' => 'space','middleware'=>'check.h.login'],function(){
         Route::get('/','SpaceController@show');
         Route::post('doEdit','SpaceController@doEdit');
         Route::post('editPass','SpaceController@editPass');
@@ -148,7 +153,7 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 
     //机构
         Route::get('publisher','PublisherController@show');
-        Route::get('pub_info/{id}','PublisherController@info');
+        Route::get('pub_info/{a_id}','PublisherController@info');
         Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
 });
 

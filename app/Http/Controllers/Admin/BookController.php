@@ -61,6 +61,7 @@ class BookController extends Controller
             $data->desc = "book_desc/book$ids.txt";
             $data->save();
 
+
             $desc = $request->input('desc');
             $descString = serialize($desc);
             file_put_contents('book_desc/book'.$ids.'.txt', $descString);
