@@ -1,52 +1,167 @@
 @extends('layouts/spaceMaster')
 @section('hcss')
-    <link rel="stylesheet" href="{{url('home/css/spaceMaster.css')}}">
-    <link rel="stylesheet" href="/home/css/spaceUser.css">
+    <meta name="description" content="3 styles with inline editable feature" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="{{url('/home/css/spaceMaster.css')}}">
+    <link rel="stylesheet" href="{{url('/home/css/spaceUser.css')}}">
+    <link href="{{url('/home/css/bootstrap.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url('/home/tk/css/xcConfirm.css')}}">
+    <style>
+        .books_rec{margin-top: -242px;}
+        .xcConfirm .popBox{
+            width: 500px;
+            height: 300px;
+        }
+    </style>
     @endsection
 @section('js')
     {{--<script type="text/javascript" src="/home/js/jquery.js"></script>--}}
     <script src="{{url('home/js/jquery.min.js')}}"></script>
+    <script src="{{url('home/tk/js/xcConfirm.js')}}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{url('home/tk/js/jquery-1.9.1.js')}}" type="text/javascript" charset="utf-8"></script>
     <script>
-        $(function(){
-//            $("#changeEmail").popover();
-//            alert($("input[name='_token']").val());
-            $('#changeEmail').click(function() {
-                $("#changeEmail").hide();
-                $("#box").append("<p><input type='email' name='email' id='email' placeholder='请输入邮箱'></p><p><button id='emailEdit'>确认修改</button></p>");
-                $('#emailEdit').click(function(){
-                 var $email = $('#email').val();
-//                 alert($email);
+        $(function() {
+            $('#editBtn').click(function () {
                 $.ajax({
-                    url:'/home/space/editEmail',
-                    type:'post',
+                    url: '/home/space/doEdit',
+                    type: 'post',
                     data:{
-                        'email':$email,
+                        'name':$("input[name='name']").val(),
                         '_token':$("input[name='_token']").val(),
+                        'sex':$("input[name='sex']").val(),
                     },
-                    success:function(data){
+                    success: function (data) {
                         if(data == 1){
-                            alert('修改成功,请激活邮箱在登陆');
-                            location.href='/home/index';
-                        }else if(data == 2){
-                            alert('邮箱已绑定！');
+                            var txt=  "用户名不能为空";
+                            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
                         }else{
-                            alert('邮箱不能为空');
+                            var txt=  "修改成功";
+                            window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
                         }
+//                        alert(data);
                     },
-                    error:function(){
-                        alert('修改失败');
-                    },
-//                    dataType:'json',
-
-                })
+                    error: function () {
+                        alert('失败');
+                    }
                 })
             })
 
+            $('#editPass').click(function(){
+                $.ajax({
+                    url:'/home/space/editPass',
+                    type:'post',
+                    cache: false,
+                    data:{
+                        '_token':$("input[name='_token']").val(),
+                        'email':$("input[name='email']").val(),
+                        'password':$("input[name='password']").val(),
+                        'newpassword':$("input[name='newpassword']").val(),
+                        'newpassword_confirmation':$("input[name='newpassword_confirmation']").val()
+                    },
+                    success:function(data){
+//                        alert(data);
+                       if(data == 1){
+                           var txt=  "密码不能为空";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                       }else if(data == 2){
+                           var txt=  "新密码不能为空";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                       }else if(data == 3){
+                           var txt=  "确认密码不能为空";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                       }else if(data == 4){
+                           var txt=  "修改密码成功";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                       }else if(data == 5){
+                           var txt=  "修改密码失败";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                       }else if(data == 6){
+                           var txt=  "密码输入错误";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                       }else{
+                           var txt=  "两次密码不一致";
+                           window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                       }
+                    },
+                    error:function(){
+                        alert('失败');
+                    }
+                })
+            })
+
+            $('#changeEmail').click(function() {
+                var txt=  "确定要解除绑定吗？！";
+                var option = {
+                    title: "",
+                    btn: parseInt("0011",2),
+                    onOk: function(){
+                        $("#changeEmail").hide();
+                        $("#box").append("<p><input type='email' name='email' id='email' placeholder='请输入邮箱'></p><p><button id='emailEdit'>确认修改</button></p>");
+                        $('#emailEdit').click(function(){
+                            var $email = $('#email').val();
+//                 alert($email);
+                            $.ajax({
+                                url:'/home/space/editEmail',
+                                type:'post',
+                                data:{
+                                    'email':$email,
+                                    '_token':$("input[name='_token']").val(),
+                                },
+                                success:function(data){
+                                    if(data == 1){
+                                        var txt=  "修改成功,请激活邮箱在登陆";
+                                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+//                            alert('修改成功,请激活邮箱在登陆');
+//                            location.href='/home/index';
+                                    }else if(data == 2){
+                                        var txt=  "邮箱已绑定！";
+                                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+//                            alert('邮箱已绑定！');
+                                    }else{
+                                        var txt=  "邮箱不能为空！";
+                                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+//                            alert('邮箱不能为空');
+                                    }
+                                },
+                                error:function(){
+                                    alert('修改失败');
+                                },
+//                    dataType:'json',
+
+                            })
+                        })
+                    }
+                }
+
+                window.wxc.xcConfirm(txt, "custom", option);
+
+            })
+
         })
+
+        function changeImg(element)
+        {
+            var oldsrc = element.src;
+//            alert(oldsrc);
+            var newobj = document.createElement('input');
+            var newbtn = document.createElement('input');
+            newobj.type = 'file';
+            newobj.name = 'icon';
+            newbtn.type = 'submit';
+//            newbtn.class = 'btn btn-info';
+            newbtn.id = 'lala';
+            newbtn.onclick = function(){
+                element.src = this.src ? this.src : oldsrc;
+            }
+            element.src = '';
+            element.appendChild(newobj);
+            element.appendChild(newbtn);
+
+            newobj.focus();
+        }
     </script>
     @endsection
 @section('main')
-
     <div class="wrap" id="wrap">
         <ul class="tabClick">
             <li class="active">信息列表</li>
@@ -60,59 +175,41 @@
         <div class="tabCon">
             <div class="tabBox">
                 <div class="tabList">
-                    <img src="{{'/'.$user->icon}}" alt="" width="128" height="128" />
+                    <p><img src="/{{$user->icon}}" alt="" width="128" height="128" /></p>
                     <p>用户名：{{$user->name}}</p>
                     <p>邮箱：{{$user->email}}</p>
                     <p>性别：@if($user->sex == 0) 男 @else 女 @endif</p>
-                    </div>
-                <div class="tabList">
-                    <h3>修改基本信息</h3>
-                    <form action="{{url('home/space/doEdit')}}" method="post" enctype="multipart/form-data">
-                        {{csrf_field()}}
-                        <p>用户名：<input type="text" name="name" value="{{$user->name}}">
-                        @if($errors->first('name'))
-                            <div class="alert alert-danger" style="width: 280px;">
-                                {{$errors->first('name')}}
-                            </div>
-                            @endif
-                            </p>
-                            <p>　性别：<input type="radio" name="sex" value="0" @if($user->sex == 0) checked @endif>男
-                                <input type="radio" name="sex" value="1" @if($user->sex == 1) checked @endif>女</p>
-                            <p>　头像：<input type="file" name="icon"></p>
-                            <p><input type="submit" value="确认修改"></p>
-                    </form>
 
                     </div>
                 <div class="tabList">
-                    <h3>修改密码</h3>
-                    <form action="{{url('home/space/editPass')}}" method="post">
+                    <div class="rows">
+                        <div class="col-md-4">
+                    <h3 style="margin-bottom:30px;">修改基本信息</h3>
+                    {{--<form action="{{url('home/space/doEdit')}}" method="post" enctype="multipart/form-data">--}}
+                            <form id="aaa">
                         {{csrf_field()}}
-                        <p>　请输入密码：<input type="password" name="oldpwd">
-                        @if (session('mess'))
-                            <div class="alert alert-danger" style="width: 280px;">
-                                {{ session('mess') }}
-                            </div>
-                            @endif
-                            </p>
-                            <p>请输入新密码：<input type="password" name="password">
-                            @if($errors->first('password'))
-                                <div class="alert alert-danger" style="width: 280px;">
-                                    {{$errors->first('password')}}
-                                </div>
-                                @endif
-                                </p>
-                                <p>　请确认密码：<input type="password" name="password_confirmation">
-                                @if($errors->first('password_confirmation'))
-                                    <div class="alert alert-danger" style="width: 280px;">
-                                        {{$errors->first('password_confirmation')}}
-                                    </div>
-                                    @endif
-                                    </p>
-                                    <p><input type="submit" value="确认修改"></p>
-                    </form>
+                        <p>用户名：<input class="form-control" id="exampleInputEmail1" type="text" name="name" value="{{$user->name}}"></p>
+                            <p>　性别：<input type="radio" name="sex" value="0" @if($user->sex == 0) checked @endif>男
+                                <input type="radio" name="sex" value="1" @if($user->sex == 1) checked @endif>女</p>
+                            <p><input type="button" value="确认修改" id="editBtn"></p>
+                            </form>
+                        </div>
                     </div>
+                </div>
                 <div class="tabList">
-                    <h3>邮箱重新绑定</h3>
+                    <div class="rows">
+                        <div class="col-md-4">
+                    <h3 style="margin-bottom:30px;">修改密码</h3>
+                        {{csrf_field()}}
+                           <input type="hidden" name="email" value="{{$user->email}}">
+                        <p>　请输入密码：<input class="form-control" id="exampleInputEmail1" type="password" name="password"></p>
+                        <p>请输入新密码：<input class="form-control" id="exampleInputEmail1" type="password" name="newpassword"></p>
+                        <p>　请确认密码：<input class="form-control" id="exampleInputEmail1" type="password" name="newpassword_confirmation"></p>
+                        <p><input class="btn " type="submit" value="确认修改" id="editPass"></p>
+                    </div>
+                    </div></div>
+                <div class="tabList">
+                    <h3 style="margin-bottom:30px;">邮箱重新绑定</h3>
                     <p>绑定的邮箱：{{$user->email}} <button id="changeEmail" class="btn btn-success" >解除绑定</button></p>
                     <p>
                         <div id="box">
@@ -124,12 +221,10 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection
 
 @section('j-s')
     <script>
-
-
         window.onload = function (){
             var windowWidth = document.body.clientWidth; //window 宽度;
             var wrap = document.getElementById('wrap');
@@ -166,9 +261,9 @@
                     var star = this.start;
                     for(var i = 0 ;i<tabLi.length; i++ ){
                         tabLi[i].className='';
-                    };
+                    }
                     tabLi[star].className='active';
-                    init.lineAnme(lineDiv,900/tabLi.length*star)
+                    init.lineAnme(lineDiv,900/tabLi.length*star);
                     init.translate(tabBox,900,star);
                     endX= -star*900;
                 }
@@ -182,12 +277,12 @@
                 }
                 for(var i = 0 ;i<tabLi.length; i++ ){
                     tabLi[i].className='';
-                };
+                }
 
                 tabLi[star].className='active';
                 init.translate(tabBox,900,star);
                 endX= -star*900;
-            };
+            }
 
             tabBox.addEventListener('touchstart',chstart,false);
             tabBox.addEventListener('touchmove',chmove,false);
@@ -199,7 +294,7 @@
                 tar=touch.pageX;
                 tabBox.style.webkitTransition='all 0s ease-in-out';
                 tabBox.style.transition='all 0s ease-in-out';
-            };
+            }
             //滑动
             function chmove(ev){
                 var stars = wrap.querySelector('.active').start;
@@ -209,7 +304,7 @@
                 dist = distance;
                 init.touchs(tabBox,900,tar,distance,endX);
                 init.lineAnme(lineDiv,-dist/tabLi.length-endX/4);
-            };
+            }
             //离开
             function chend(ev){
                 var str= tabBox.style.transform;
@@ -220,7 +315,7 @@
                     init.back(tabBox,900,tar,0,0,0.3);
                     endX=0
                 }else if(endX<-900*tabList.length+900){
-                    endX=-900*tabList.length+900
+                    endX=-900*tabList.length+900;
                     init.back(tabBox,900,tar,0,endX,0.3);
                 }else if(dist<-900/3){
                     OnTab(tabClick.querySelector('.active').start+1);
@@ -233,7 +328,7 @@
                 var stars = wrap.querySelector('.active').start;
                 init.lineAnme(lineDiv,stars*900/4);
 
-            };
+            }
         };
 
         var init={
@@ -258,7 +353,7 @@
                 obj.style.transform='translate3d('+(distance+endX)+',0,0)px';
                 obj.style.webkitTransition='all '+time+'s ease-in-out';
                 obj.style.transition='all '+time+'s ease-in-out';
-            },
+            }
         }
 
 

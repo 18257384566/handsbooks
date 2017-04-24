@@ -10,7 +10,7 @@
     <script>
         $(function(){
             $.ajax({
-                url:'http://laravel-s60.dev/admin/book/cate',
+                url:'/admin/book/cate',
                 type:'get',
                 data:{
                     '_token':'{{csrf_token()}}'

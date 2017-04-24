@@ -16,7 +16,7 @@ class BookController extends Controller
     /*显示书籍列表*/
     public function show()
     {
-        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id')->join('category','books.c_id','category.id')->paginate(5);
+        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id','up')->join('category','books.c_id','category.id')->paginate(5);
         return view('admin/bookList',compact('result'));
     }
     /*跳转添加页面*/
@@ -45,8 +45,6 @@ class BookController extends Controller
         $this->validate($request,$rules,$mess);
         /*添加数据*/
         $data = [
-            'au_id' => '1',
-            'pub_id' => '1',
             'icon' => "book_icon/book.jpg",
             'desc' => "book_desc/book.txt",
         ];
@@ -260,5 +258,17 @@ class BookController extends Controller
         $book->delete();
         unlink("book_content/book".$b_id."_".$id.".txt");
        return redirect('admin/book/detail/'.$b_id);
+    }
+
+    public function changeStatus($id)
+    {
+        $book = Book::find($id);
+        $book->up = 1;
+        $result = $book->save();
+        if($result){
+            return redirect('/admin/book/list');
+        }else{
+            return back();
+        }
     }
 }

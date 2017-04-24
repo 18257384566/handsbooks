@@ -21,6 +21,7 @@
         }
         .xcConfirm .popBox .txtBox p{
             width: 400px;
+            height: 600px;
             margin-left:0px;
         }
         .xcConfirm .popBox .txtBox p span{
@@ -44,7 +45,7 @@
         }
         .xcConfirm .popBox .txtBox{
             width: 400px;
-            height: 200px;
+            height: 420px;
             margin-left:30px;
             margin-top:20px;
         }
@@ -67,14 +68,67 @@
                 var $book_name = $(".book_name").html();
                 var $price_money = $(".price_money").html();
                 var txt=  "<div style='width: 400px;height: 100px; '><span>购买图书:</span><div class='car_info'><img src="+$img+" width='50px' height='70px'><span class='b_name'>"+$book_name+"</span></div></div>" +
-                    "<br>"+"<div style='width: 400px;height: 60px; '><span>图书价格:</span><span style='margin-left:20px'>"+$price_money+"</span></div>";
+                    "<br>"+
+                    "<div style='width: 400px;height: 60px; '><span>图书价格:</span><span style='margin-left:20px'>"+$price_money+"</span></div>" +
+                    "<br>" +
+                    "<div style='width: 400px;height: 60px; '><span>支付方式:</span><div class='car_info'><span class='b_name'>微信　支付宝</span></div></div>";
                 var option = {
                     title: "购买图书",
                     btn: parseInt("0011",2),
                     onOk: function(){
-                        alert(111);
+                         $.ajax({
+                             url:'/home/detail/orderAdd',
+                             type:'post',
+                             data:{
+                                 '_token':$("input[name='_token']").val(),
+                                 'price':$price_money,
+                                 'books_id':$("input[name='books_id']").val()
+                             },
+                             success:function(data){
+//                                 alert(data);
+                                  if(data){
+                                      var txt=  "亲！您要现在确认付款吗";
+                                      var option = {
+                                          title: "付款",
+                                          btn: parseInt("0011",2),
+                                          onOk: function(){
+                                              $.ajax({
+                                                  url:'/home/detail/isPay',
+                                                  type:'post',
+                                                  data:{
+                                                      '_token':$("input[name='_token']").val(),
+                                                      'id':data,
+                                                  },
+                                                  success:function(data){
+//                                                      alert(data);
+                                                      if(data == 1){
+                                                          var txt=  "付款成功";
+                                                          window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                                                      }else{
+                                                          var txt=  "付款失败";
+                                                          window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                                                      }
+                                                  },
+                                                  error:function(){
+                                                      var txt=  "付款失败";
+                                                      window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                                                  }
+                                              })
+                                          }
+                                      }
+                                      window.wxc.xcConfirm(txt, "custom", option);
+                                  }else{
+                                      var txt=  "下单失败";
+                                      window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                                  }
+                             },
+                             error:function(){
+                                 alert('false');
+                             }
+
+                         })
                     }
-                }
+                };
                 window.wxc.xcConfirm(txt, "custom", option);
             });
         });
@@ -83,9 +137,8 @@
 @section('content')
     <div class="black">&nbsp;</div>
 <div class="clear">
-    <div class="" style="height: 168px;">
-        {{--<div class="sgBtn" id="btn7">弹窗7(自定义)</div>--}}
-    </div>
+    {{csrf_field()}}
+    <input type="hidden" name="books_id" value="{{$id}}">
     <div class="details_book clear">
         <div class="big_img clear">
             <img src="{{url('/'.$book->icon)}}" alt=""    width="297px"  height="396px">
@@ -116,13 +169,12 @@
                 <span class="price_title_left">全网最低</span><span class="price_title_right"> 百度阅读已为您全网比价</span>
             </div>
             <div class="price_price clear">
-                <span>价格: <span class="price_money">￥{{$book->price}}</span>
+                <span>价格: <span style="color:#F87A36;font-size:20px">￥</span><span class="price_money">{{$book->price}}</span>
             </div>
             <div class="price_button clear">
                 <button class="button_buy" id="btn7">购买全本</button>
                 　<a href="" class="button_read">开始阅读</a>
             </div>
-            <a href="" class="price_car">加入购物车</a>
         </div>
     </div>
     <!-- 标签页开始 -->
@@ -182,77 +234,36 @@
                             </div>
                             <span class="comm_score">8</span>
                             <hr>
-                            <span共有2345条评论</span>
-                            <div class="user_comm clear">
-                                <div class="user_icon clear">
-                                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="50" height="50">
+
+                            <span>共有{{$num}}条评论</span>
+                            <br>
+                            <br>
+                            <br>
+                            @if(!empty($comment[0]))
+                                @foreach($comment as $k=>$v)
+                                <div class="user_comm clear">
+                                    <div class="user_icon clear">
+                                        <img src="/{{$v->icon}}" alt="" width="50" height="50">
+                                    </div>
+                                    <div class="comm_info clear">
+                                        <span>{{$v->name}}</span>　　　　　　　　　<span>{{$v->created_at}}</span>
+                                        <br>
+                                        <br>
+                                        <span>
+                                                　　{{$v->comment}}
+                                            </span>
+                                    </div>
                                 </div>
-                                <div class="comm_info clear">
-                                    <span>用户名</span>　　　　　　　　　<span>评论时间</span>
-                                    <br>
-                                    <br>
-                                    <span>
-                                            　　云横秦岭家何在，十年一品温如言。 用时间镌刻出来的一切，都太美太美。 阿衡说，对言希一见钟情，是她做过的最不理智的事情。 可是阿衡，没有你那一刻的不理智，就不会有言希温衡这样白首不分离的爱情啊。
-                                        </span>
+                                 <hr>
+                                @endforeach
+                                @else
+                                <div class="user_comm clear" style="width: 300px;height: 200px;">
+                                    <div class="comm_info clear">
+                                 <span>暂无评论</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="user_comm clear">
-                                <div class="user_icon clear">
-                                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="50" height="50">
-                                </div>
-                                <div class="comm_info clear">
-                                    <span>用户名</span>　　　　　　　　　<span>评论时间</span>
-                                    <br>
-                                    <br>
-                                    <span>
-                                            　　云横秦岭家何在，十年一品温如言。 用时间镌刻出来的一切，都太美太美。 阿衡说，对言希一见钟情，是她做过的最不理智的事情。 可是阿衡，没有你那一刻的不理智，就不会有言希温衡这样白首不分离的爱情啊。
-                                        </span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="user_comm clear">
-                                <div class="user_icon clear">
-                                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="50" height="50">
-                                </div>
-                                <div class="comm_info clear">
-                                    <span>用户名</span>　　　　　　　　　<span>评论时间</span>
-                                    <br>
-                                    <br>
-                                    <span>
-                                            　　云横秦岭家何在，十年一品温如言。 用时间镌刻出来的一切，都太美太美。 阿衡说，对言希一见钟情，是她做过的最不理智的事情。 可是阿衡，没有你那一刻的不理智，就不会有言希温衡这样白首不分离的爱情啊。
-                                        </span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="user_comm clear">
-                                <div class="user_icon clear">
-                                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="50" height="50">
-                                </div>
-                                <div class="comm_info clear">
-                                    <span>用户名</span>　　　　　　　　　<span>评论时间</span>
-                                    <br>
-                                    <br>
-                                    <span>
-                                            　　云横秦岭家何在，十年一品温如言。 用时间镌刻出来的一切，都太美太美。 阿衡说，对言希一见钟情，是她做过的最不理智的事情。 可是阿衡，没有你那一刻的不理智，就不会有言希温衡这样白首不分离的爱情啊。
-                                        </span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="user_comm clear">
-                                <div class="user_icon clear">
-                                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="50" height="50">
-                                </div>
-                                <div class="comm_info clear">
-                                    <span>用户名</span>　　　　　　　　　<span>评论时间</span>
-                                    <br>
-                                    <br>
-                                    <span>
-                                            　　云横秦岭家何在，十年一品温如言。 用时间镌刻出来的一切，都太美太美。 阿衡说，对言希一见钟情，是她做过的最不理智的事情。 可是阿衡，没有你那一刻的不理智，就不会有言希温衡这样白首不分离的爱情啊。
-                                        </span>
-                                </div>
-                            </div>
-                            <hr>
+                                <hr>
+                            @endif
                         </div>
 
 

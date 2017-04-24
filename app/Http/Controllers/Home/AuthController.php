@@ -20,12 +20,11 @@ class AuthController extends Controller
         if($request->isMethod('post')){
             $rules = array(
                 'name' => 'required',
-                'phone'=>'required|unique',
+                'phone'=>'required',
             );
             $mess = array(
                 'name.required'=>'真实姓名不能为空',
                 'phone.required'=>'电话不能为空',
-                'phone.unique'=>'电话是唯一的',
 //                'nameid.required'=>'请上传身份证正面照片'
             );
             $validate = Validator::make($request -> all(), $rules, $mess);

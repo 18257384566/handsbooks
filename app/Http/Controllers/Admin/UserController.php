@@ -89,4 +89,28 @@ class UserController extends Controller
         unlink("user_icon/user".$id.".jpg");
         return redirect('admin/user/list');
     }
+
+    public function changeStatus($id)
+    {
+        $user = User::find($id);
+        $user->status = 1;
+        $result = $user->save();
+        if($result){
+            return redirect('/admin/user/list');
+        }else{
+            return back();
+        }
+    }
+
+    public function isAuthor($id)
+    {
+        $user = User::find($id);
+        $user->is_author = 1;
+        $result = $user->save();
+        if($result){
+            return redirect('/admin/user/list');
+        }else{
+            return back();
+        }
+    }
 }
