@@ -7,44 +7,27 @@
     <script src="{{url('home/tk/js/xcConfirm.js')}}" type="text/javascript" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
-            $('.changeStatus').click(function () {
+            $('.status').click(function () {
                 var $_this = $(this);
 //               var $status = $_this.html();
 //               alert($_this.html());
                 var $editId = $_this.parents().parents().children().first().html();
 //                alert($editId);
-                var txt = "确定要禁用用户吗？";
+                var txt = "确定要隐藏评论吗？";
                 var option = {
-                    title: "用户",
+                    title: "评论",
                     btn: parseInt("0011", 2),
                     onOk: function () {
-                        location.href = "/admin/user/changeStatus/" + $editId;
+                        location.href = "/admin/comment/changeStatus/" + $editId;
                     }
                 }
                 window.wxc.xcConfirm(txt, "custom", option);
 //               alert($editId);
             })
 
-            $('.isAuthor').click(function(){
-                var $_this = $(this);
-//               var $status = $_this.html();
-//               alert($_this.html());
-                var $editId = $_this.parents().parents().children().first().html();
-//                alert($editId);
-                var txt = "确定要将用户升级为作者吗？";
-                var option = {
-                    title: "用户",
-                    btn: parseInt("0011", 2),
-                    onOk: function () {
-                        location.href = "/admin/user/isAuthor/" + $editId;
-                    }
-                }
-                window.wxc.xcConfirm(txt, "custom", option);
-//               alert($editId);
-            })
         })
     </script>
-    @endsection
+@endsection
 @section('nav')
     <li><a href="{{url('admin/index')}}"><i class=" icon-home"></i><span>主页</span> </a> </li>
     <li class="active" ><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
@@ -68,7 +51,7 @@
             <li><a href="error.html">404</a></li>
         </ul>
     </li>
-    @endsection
+@endsection
 @section('content')
     <div class="table-responsive">
         <div class="container">
@@ -81,34 +64,34 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
-                            <th>头像</th>
-                            <th>名字</th>
-                            <th>邮箱</th>
-                            <th>性别</th>
-                            <th>作者</th>
+                            <th>订单号</th>
+                            <th>用户名</th>
+                            <th>书籍</th>
+                            <th>评论</th>
                             <th>状态</th>
-                            <th>操作</th>
                         </tr>
-                        @foreach($result as $k => $v)
+                        @foreach($comment as $k => $v)
                             <tr>
-                                <td>{{$v->u_id}}</td>
-                                <td><img src="/{{$v->icon}}" alt="" width="50px" height="50px">{{$v->icon}}</td>
+                                <td>{{$v->id}}</td>
+                                <td>{{$v->ord_num}}</td>
                                 <td>{{$v->name}}</td>
-                                <td>{{$v->email}}</td>
-                                <td>@if($v->sex == 0) 男 @else 女 @endif</td>
-                                <td><button class="btn btn-info isAuthor">@if($v->is_author == 0) 否 @else 是 @endif</button></td>
-                                <td><button class="btn btn-warning changeStatus">@if($v->status == 0) 激活 @else 禁用 @endif</button></td>
-                                <td><a href="{{url('admin/user/edit'.'/'.$v->u_id)}}" class="btn btn-info">编辑</a>　<a href="{{url('admin/user/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
+                                @foreach($book as $key=>$value)
+                                    @if($k == $key)
+                                <td>{{$value->title}}</td>
+                                    @endif
+                                @endforeach
+                                <td>{{$v->comment}}</td>
+                                <td><button class="btn btn-info status">@if($v->status == 0) 显示 @else 隐藏 @endif</button></td>
                             </tr>
                         @endforeach
                     </table>
-                    {{$result->links('admin/page')}}
+                    {{$comment->links('admin/page')}}
                 </div>
             </div>
         </div>
     </div>
 
 
-    @endsection
+@endsection
 
 

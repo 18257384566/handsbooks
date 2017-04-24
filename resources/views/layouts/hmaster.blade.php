@@ -180,7 +180,7 @@
         MAIN STYLESHEET
     ==================================== -->
     <link rel="stylesheet" href="{{asset('home/css/responsive.css')}}">
-    <link rel="stylesheet" href="{{asset('home/css/color-green.css" id="colors')}}">
+    {{--<link rel="stylesheet" href="{{asset('home/css/color-green.css" id="colors')}}">--}}
 
     <!--[if lt IE 9]>
     <script src="{{url('home/js/html5shiv.min.js')}}"></script>
@@ -233,7 +233,7 @@
                         <a href="{{asset('home/category')}}">分类</a>
                     </li>
                     <li>
-                        <a href="#featured-works">榜单</a>
+                        <a href="{{asset('home/Billboard')}}">榜单</a>
                     </li>
                     <li>
                         <a href="{{asset('home/auth')}}">独家作品</a>
@@ -248,10 +248,9 @@
                 <!-- navbar-collapse end-->
                 <div class="navbar">
                     @if(Auth::check())
-                        <a href="{{asset('home/space000')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
+                        <a href="{{asset('home/space')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
                         <a href="{{asset('home/logout')}}" style="color: #81D362;">注销</a>
 
-                        <?php session(['id']) ?>
                     @else
                         <a href="{{asset('home/login')}}" style="color: #81D362;">登陆</a> |
                         <a href="{{asset('home/reg')}}" style="color: #81D362;">注册</a>

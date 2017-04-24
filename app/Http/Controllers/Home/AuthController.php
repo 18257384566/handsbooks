@@ -41,7 +41,8 @@ class AuthController extends Controller
             $mess = array(
                 'name.required'=>'真实姓名不能为空',
                 'phone.required'=>'电话不能为空',
-//                'phone.unique'=>'电话是唯一的',
+         'phone.unique'=>'电话是唯一的',
+
 //                'nameid.required'=>'请上传身份证正面照片'
             );
             $validate = Validator::make($request -> all(), $rules, $mess);
@@ -107,6 +108,7 @@ class AuthController extends Controller
 
         if(!empty($request->session()->get('u_id'))){
             $u_id = $request->session()->get('u_id');
+
 
             $isset = DB::select("select user_id from auth_user where auth_id = {$id}");
 
@@ -253,6 +255,9 @@ class AuthController extends Controller
             echo '取消关注成功';
         }
     }
+
+
+
 
 
 
