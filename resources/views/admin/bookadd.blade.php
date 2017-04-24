@@ -22,6 +22,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
+//                    alert(data);
                     var boss = document.getElementById('boss');
                     var son = document.getElementById('son');
                     for(var i in data){
@@ -44,8 +45,8 @@
                             if(data[j].pid == index){
 //                                son.add(new Option(data[j].name,data[j].id));
 
-                                    $("#son").append("<option value='"+data[j].id+"'>"+data[j].name+"</option>");
-                            }
+                                        $("#son").append("<option value='"+data[j].id+"'>"+data[j].name+"</option>");
+                                }
                         }
                     }
 

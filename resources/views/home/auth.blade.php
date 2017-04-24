@@ -33,12 +33,15 @@
         });
         $(function(){
             $('.gz').click(function(){
+                <?php if(!empty($u_id)): ?>
                 $id = $(this).parent().children(':first').html();
-                alert($id);
                 $.get("/home/authFocus",{'id':$id},function(data){
                     alert(data);
                 });
                 $(this).html('已关注');
+                <?php else: ?>
+                    location.href = "login";
+                <?php endif; ?>
             })
 
             $('#add').click(function(){
@@ -84,7 +87,6 @@
                 <h3><b>作者推荐</b></h3>
                 <hr>
             </div>
-            <?php var_dump($authors) ?>
             <div class="publisher_content">
                 <div class="rows">
                     <div class="col-md-12">
@@ -103,7 +105,34 @@
                                                 </div>
                                             </div></a>
                                     </div>
-                                    <h4><p style="display:none">{{$item->id}}</p><button class="btn btn-warning gz">关注</button></h4>
+                                    <h4><p style="display:none">{{$item->id}}</p>
+                                        <?php
+                                        $gz = '关注';
+                                           if(!empty($u_id)){
+                                               $a_id = $item->id;
+                                               $result = \Illuminate\Support\Facades\DB::select("select auth_id from auth_user where user_id = {$u_id}");
+//                                               dump($result);
+                                               $auth_id = '';
+                                               foreach ($result as $k){
+                                                   $auth_id .= $k->auth_id.',';
+                                               }
+                                               $auth_id = rtrim($auth_id,',');
+                                               $auth_id = explode(',',$auth_id);
+//                                               dump($auth_id);
+//                                               dump($a_id);
+
+                                               if(in_array($a_id,$auth_id)){
+                                                   $gz = '已关注';
+                                               }
+                                           }
+
+
+
+                                        ?>
+
+                                        <button class="btn btn-warning gz">{{$gz}}</button>
+
+                                    </h4>
                                     {{--<div class="ff">--}}
                                     {{--<div class="ff" style="display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">--}}
                                     <div class="ff" style="  white-space: nowrap; overflow:hidden; text-overflow:ellipsis; ">
