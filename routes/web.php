@@ -109,6 +109,12 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     //作者管理
     Route::get('auth','AuthController@show');
 
+    Route::any('auth-status','AuthController@status');
+    Route::any('auth-update/{id}','AuthController@update');
+    Route::get('auth-del/{id}','AuthController@del');
+
+
+
 
 });
 
@@ -144,15 +150,29 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         //作者
         Route::get('auth','AuthController@show');
 
+        Route::get('authInfo/{id}','AuthController@info');
+
+
+
     Route::group(['middleware'=>'check.h.login'],function(){
         //作者
         Route::any('authAdd','AuthController@add');
+        Route::any('authFocus','AuthController@focus');
+
+        //个人中心 - 作者
+        Route::any('authSpace/{id}','AuthController@space');
+        Route::any('write/{id}','AuthController@write');
+
+        Route::any('focus','AuthController@focuss');
+        Route::get('delfocus','AuthController@delfocus');
+
     });
+
 
     Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
 
     /*个人中心*/
-    Route::group(['prefix' => 'space'],function(){
+    Route::group(['prefix' => 'space','middleware'=>'check.h.login'],function(){
         Route::get('/','SpaceController@show');
         Route::get('user','SpaceController@show');
         Route::post('doEdit','SpaceController@doEdit');
@@ -175,9 +195,7 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 
     //机构
         Route::get('publisher','PublisherController@show');
-        Route::get('pub_info/{id}','PublisherController@info');
+        Route::get('pub_info/{a_id}','PublisherController@info');
         Route::get('verify/{confirmed_code}','RegisterController@emailConfirm');
-
-
 });
 

@@ -16,13 +16,23 @@ use Illuminate\Support\Facades\Mail;
 class SpaceController extends Controller
 {
     /*显示页面*/
-    public function show()
+    public function show(Request $request)
     {
         if(Auth::check()){
             $id = Auth::user()->id;
             $user = User::join('users_info','users.id','users_info.u_id')->find($id);
 //            dd($user);
-            return view('home/space',compact('user'));
+
+            //如果该用户是作者，则显示作者的前台管理
+            $u_id = $request->session()->get('u_id');
+            $result = DB::select("select id from auths where u_id = {$u_id}");
+            if($result){
+                $a_id = $result[0]->id;
+            }else{
+                $a_id = '';
+            }
+
+            return view('home/space',compact('user','a_id'));
         }else{
             return view('home/index');
         }
@@ -195,7 +205,8 @@ class SpaceController extends Controller
             $book[] = Book::find($v->books_id);
         }
 //        dd($book);
-        return view('home/book',compact('order','user','book'));
+        $a_id = DB::select("select `id` from auths where u_id = $id");
+        return view('home/book',compact('order','user','book','a_id'));
     }
 
     public function no_collect($books_id)

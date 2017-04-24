@@ -1,0 +1,14 @@
+拉取		git pull origin 网上项目主分支:本地子分支
+-》暂存区	git add 文件名或者.
+-》版本库	git commit -m "描述"
+-》查看状态	git status
+-》合并		git merge 子分支名
+-》查冲突	git diff
+-》推送		git push -u origin 本地子分支：网上项目主分支
+
+
+查看分支		git  branch
+创建分支		git  branch  分支名
+删除本地分支	git  branch  -d  分支名
+切换分支		git  checkout  分支名
+合并分支		git  merge  分支名 

@@ -78,7 +78,7 @@
                                 <td><img src="/{{$v->icon}}" alt="" width="60px" height="80px">{{$v->icon}}</td>
                                 <td>{{$v->title}}</td>
                                 <td>{{$v->name}}</td>
-                                <td></td>
+                                <td>{{$v->au_id}}</td>
                                 <td>{{$v->pub_id}}</td>
                                 <td><button class="btn btn-warning changeStatus">@if($v->up == 0) 上架 @else 下架 @endif</button></td>
                                 <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}" class="btn btn-info">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id.'/?m='.$v->pid.'&a='.$v->c_id.'')}}" class="btn btn-success">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>

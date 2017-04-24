@@ -38,7 +38,15 @@
             <li>
                 <a href="{{url('home/space/order/1')}}"><h4>我的订单</h4></a>
             </li>
-            <li></li>
+
+            <li>
+                <a href="{{asset('home/focus')}}"><h4>我的关注</h4></a>
+            </li>
+            @if($a_id)
+                <li>
+                    <a href="authSpace/{{$a_id}}"><h4>作者space</h4></a>
+                </li>
+            @endif
             <li></li>
         </ul>
     </div>

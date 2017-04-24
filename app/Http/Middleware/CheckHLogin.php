@@ -15,7 +15,7 @@ class CheckHLogin
      */
     public function handle($request, Closure $next)
     {
-        if(!session('email')){
+        if(!session('u_id')){
             return redirect('home/login');
         }
 

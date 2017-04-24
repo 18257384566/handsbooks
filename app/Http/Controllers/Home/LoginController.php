@@ -29,7 +29,9 @@ class LoginController extends Controller
        }else{
            //将登陆者邮箱存入session
            $email = $request->input('email');
-           $request->session()->put('email',$email);
+           $result = DB::table('users')->select('id')->where('email',$email)->get();
+           $id = $result[0]->id;
+           $request->session()->put('u_id',$id);
            return redirect('home/index');
        }
 
@@ -40,7 +42,7 @@ class LoginController extends Controller
     {
         Auth::logout();
         //注销登陆时，清楚登陆者的session
-        $request->session()->forget('email');
+        $request->session()->forget('u_id');
         return redirect('home/index');
     }
 

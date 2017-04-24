@@ -54,6 +54,7 @@
                     <li>Personal Details</li>
                 </ul>
                 <!-- fieldsets -->
+
                 <fieldset>
                     <form action="" method="post" enctype="multipart/form-data" name='myform' onsubmit='return checkForm()'>
                         {{csrf_field()}}
@@ -66,12 +67,14 @@
                         <input type="submit" name="next" class="next action-button" value="提交审核" />
                     </form>
                 </fieldset>
+
                 <fieldset>
                     <h2 class="fs-title">掌阅书 作者认证</h2>
                     <h3 class="fs-subtitle">等待审核</h3>
                     <p>您提交的审核请求，管理员将在10个工作日内，给您答复。请耐心等待...</p>
                     {{--<input type="button" name="next" class="next action-button" value="Next" />--}}
                 </fieldset>
+
                 <fieldset>
                     <h2 class="fs-title">掌阅书 作者认证</h2>
                     <h3 class="fs-subtitle">认证成功</h3>

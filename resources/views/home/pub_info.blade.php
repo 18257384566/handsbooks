@@ -58,41 +58,20 @@
                 <div class="rows">
                     <div class="col-md-9">
                         <ul>
+                            @foreach ($books as $book)
+                                <?php
+                                    $b_id = $book->id;
+                                    $result = DB::select("select b.`icon`,b.`title`, a.`name`,b.`price` from books as b, auths as a where b.id = $b_id and a.id = b.au_id");
+                                ?>
                             <li>
                                 <div class="box">
-                                    <img src="{{url('home/image/w.jpg')}}" alt="" width="130px;" style="border-radius: 8px;">
-                                    <p>十年一品温如言</p>
-                                    <p><span>作者：拉拉</span> <span style="color:red">￥3.00</span></p>
+                                    <img src="/{{$result[0]->icon}}" alt="" width="130px;" style="border-radius: 8px;">
+                                    <p>{{$result[0]->title}}</p>
+                                    <p><span>作者：{{$result[0]->name}}</span> <span style="color:red">￥{{$result[0]->price}}</span></p>
                                 </div>
                             </li>
-                            <li>
-                                <div class="box">
-                                    <img src="{{url('home/image/w.jpg')}}" alt="" width="130px;" style="border-radius: 8px;">
-                                    <p>十年一品温如言</p>
-                                    <p><span>作者：拉拉</span> <span style="color:red">￥3.00</span></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="box">
-                                    <img src="{{url('home/image/w.jpg')}}" alt="" width="130px;" style="border-radius: 8px;">
-                                    <p>十年一品温如言</p>
-                                    <p><span>作者：拉拉</span> <span style="color:red">￥3.00</span></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="box">
-                                    <img src="{{url('home/image/w.jpg')}}" alt="" width="130px;" style="border-radius: 8px;">
-                                    <p>十年一品温如言</p>
-                                    <p><span>作者：拉拉</span> <span style="color:red">￥3.00</span></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="box">
-                                    <img src="{{url('home/image/w.jpg')}}" alt="" width="130px;" style="border-radius: 8px;">
-                                    <p>十年一品温如言</p>
-                                    <p><span>作者：拉拉</span> <span style="color:red">￥3.00</span></p>
-                                </div>
-                            </li>
+                            @endforeach
+
                         </ul>
                     </div>
                     <div class="col-md-3">

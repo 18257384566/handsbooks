@@ -47,6 +47,7 @@ class OrderController extends Controller
 
     }
 
+
     public function orders($num)
     {
         $users_id = Auth::user()->id;
@@ -64,10 +65,11 @@ class OrderController extends Controller
             $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('isPay',1)->where('cancel',0)->orderBy('orders.id')->paginate(2);
             $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('isPay',1)->where('cancel',0)->orderBy('orders.id')->paginate(2);
         }
-
+        $a_id = DB::select("select `id` from auths where u_id = $users_id");
         $user = User::join('users_info','users.id','users_info.u_id')->find($users_id);
 
-        return view('home/orders',compact('order','time','user','num'));
+        return view('home/orders',compact('order','time','user','num','a_id'));
+
     }
 
     public function isPay(Request $request)

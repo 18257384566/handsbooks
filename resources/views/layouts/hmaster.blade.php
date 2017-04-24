@@ -242,7 +242,7 @@
                         <a href="{{asset('home/publisher')}}">机构专区</a>
                     </li>
                     <li>
-                        <a href="#testimonial">客户端</a>
+                        <a href="{{asset('home/space')}}">个人中心</a>
                     </li>
                 </ul>
                 <!-- navbar-collapse end-->
@@ -268,7 +268,8 @@
 ==================================== -->
 <footer class="background-two">
     <div class="container">
-        <div class="row">
+        <div class="rows">
+            <div class="col-md-12">
             <div class="clean-footer-content">
 
                 <div class="clean-footer-logo wow bounceIn" data-wow-offset="0">
@@ -293,7 +294,7 @@
                         <a href=""><i class="fa fa-linkedin"></i></a>
                     </li>
                 </ul>
-
+            </div>
             </div>
         </div>
     </div>

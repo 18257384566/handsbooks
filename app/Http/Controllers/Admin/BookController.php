@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Auth;
 use App\Model\Book;
 use App\Model\Book_info;
 use App\Model\Category;
@@ -23,7 +24,8 @@ class BookController extends Controller
     public function add()
     {
         $publish = Publish::all();
-        return view('admin/bookadd',compact('publish'));
+        $author = Auth::all();
+        return view('admin/bookadd',compact('publish','author'));
     }
 
    /*添加书籍*/
@@ -59,6 +61,7 @@ class BookController extends Controller
             $data->desc = "book_desc/book$ids.txt";
             $data->save();
 
+
             $desc = $request->input('desc');
             $descString = serialize($desc);
             file_put_contents('book_desc/book'.$ids.'.txt', $descString);
@@ -75,11 +78,14 @@ class BookController extends Controller
     {
 //        dd($id);
         /*获取出版社id*/
-        $data = Book::select('pub_id')->where('id',$id)->get();
+        $data = Book::select('pub_id','au_id')->where('id',$id)->get();
         $pub_id = $data[0]->pub_id;
-
+        $au_id = $data[0]->au_id;
         /*查询出版社信息*/
         $publish = Publish::all();
+
+       /*查询作者信息*/
+        $author = Auth::all();
 
         /*获取分类id*/
         $data = Book::select('c_id')->where('id',$id)->get();
@@ -95,7 +101,7 @@ class BookController extends Controller
         $name = $book->desc;
         $acString = file_get_contents($name);
         $desc = unserialize($acString);
-       return view('admin/bookEdit',compact('book','cate','publish','pub_id','desc'));
+       return view('admin/bookEdit',compact('book','cate','publish','pub_id','desc','au_id','author'));
     }
 
     /*执行编辑*/
