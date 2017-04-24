@@ -16,7 +16,7 @@
         <ul class="dropdown-menu">
             <li><a href="/admin/publish">机构管理</a></li>
             <li><a href="/admin/auth">作者管理</a></li>
-            <li><a href="pricing.html">Pricing Plans</a></li>
+            <li><a href="/admin/comment/list">评论管理</a></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="signup.html">Signup</a></li>
             <li><a href="error.html">404</a></li>

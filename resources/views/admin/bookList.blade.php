@@ -1,4 +1,33 @@
 @extends('layouts.master')
+@section('link')
+    <link rel="stylesheet" href="{{url('/home/tk/css/xcConfirm.css')}}">
+@endsection
+@section('js')
+    <script type="text/javascript" src="{{url('home/js/jquery.min.js')}}"></script>
+    <script src="{{url('home/tk/js/xcConfirm.js')}}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(document).ready(function() {
+            $('.changeStatus').click(function () {
+                var $_this = $(this);
+//               var $status = $_this.html();
+//               alert($_this.html());
+                var $editId = $_this.parents().parents().children().first().html();
+//                alert($editId);
+                var txt = "确定要将书籍下架吗？";
+                var option = {
+                    title: "书籍",
+                    btn: parseInt("0011", 2),
+                    onOk: function () {
+                        location.href = "/admin/book/changeStatus/" + $editId;
+                    }
+                }
+                window.wxc.xcConfirm(txt, "custom", option);
+//               alert($editId);
+            })
+
+        })
+    </script>
+@endsection
 @section('nav')
     <li><a href="{{url('admin/index')}}"><i class=" icon-home"></i><span>主页</span> </a> </li>
     <li><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
@@ -40,6 +69,7 @@
                             <th>分类</th>
                             <th>作者</th>
                             <th>出版社</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         @foreach($result as $v)
@@ -50,6 +80,7 @@
                                 <td>{{$v->name}}</td>
                                 <td>{{$v->au_id}}</td>
                                 <td>{{$v->pub_id}}</td>
+                                <td><button class="btn btn-warning changeStatus">@if($v->up == 0) 上架 @else 下架 @endif</button></td>
                                 <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}" class="btn btn-info">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id.'/?m='.$v->pid.'&a='.$v->c_id.'')}}" class="btn btn-success">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                             @endforeach

@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+    /*用户管理*/
     Route::group(['prefix' => 'user'],function(){
         Route::get('list','UserController@show');
         Route::get('edit/{id}','UserController@edit');
@@ -23,23 +24,26 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::get('add','UserController@add');
 //        Route::post('doAdd','UserController@doAdd');
         Route::get('del/{id}','UserController@del');
+        Route::get('changeStatus/{id}','UserController@changeStatus');
+        Route::get('isAuthor/{id}','UserController@isAuthor');
     });
-
+        /*书籍管理*/
         Route::group(['prefix' => 'book'],function(){
-        Route::get('list','BookController@show');
-        Route::get('add','BookController@add');
-        Route::post('doAdd','BookController@doAdd');
-        Route::get('edit/{id}/{m?}','BookController@edit');
-        Route::post('edit/{id}','BookController@doEdit');
-        Route::get('cate','BookController@cate');
-        Route::get('del/{id}','BookController@del');
-        Route::get('detail/{id}','BookController@detailShow');
-        Route::get('detailadd/{id}','BookController@detailAdd');
-        Route::post('detailadd/{id}','BookController@detailDoAdd');
-        Route::any('detailedit/{id}','BookController@detailEdit');
-        Route::any('detaildel/{id}','BookController@detailDel');
+            Route::get('list','BookController@show');
+            Route::get('add','BookController@add');
+            Route::post('doAdd','BookController@doAdd');
+            Route::get('edit/{id}/{m?}','BookController@edit');
+            Route::post('edit/{id}','BookController@doEdit');
+            Route::get('cate','BookController@cate');
+            Route::get('del/{id}','BookController@del');
+            Route::get('detail/{id}','BookController@detailShow');
+            Route::get('detailadd/{id}','BookController@detailAdd');
+            Route::post('detailadd/{id}','BookController@detailDoAdd');
+            Route::any('detailedit/{id}','BookController@detailEdit');
+            Route::any('detaildel/{id}','BookController@detailDel');
+            Route::get('changeStatus/{id}','BookController@changeStatus');
     });
-
+   /*分类管理*/
     Route::group(['prefix' => 'category'],function(){
         Route::get('list','CategoryController@show');
         Route::any('add','CategoryController@add');
@@ -55,9 +59,18 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::post('doRegister','IndexController@doRegister');
     Route::get('index','IndexController@index');
 
-    Route::get('order/list','OrderController@show');
+    /*订单管理*/
+    Route::group(['prefix'=>'order'],function(){
+        Route::get('list','OrderController@show');
+        Route::get('changeStatus/{id}','OrderController@changeStatus');
+        Route::get('changePay/{id}','OrderController@changePay');
+    });
 
-
+    /*评论管理*/
+   Route::group(['prefix'=>'comment'],function(){
+      Route::get('list','CommentController@show');
+       Route::get('changeStatus/{id}','CommentController@changeStatus');
+   });
 
     //权限管理
     Route::any('perm','PermissionsController@show');
@@ -114,12 +127,18 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     Route::get('logout','LoginController@logout');
     Route::get('reg','RegisterController@show');
     Route::post('doReg','RegisterController@doReg');
-    Route::get('category/{id?}','CategoryController@show');
     Route::get('Billboard','BillboardController@show');
-    Route::get('detail/{id}','DetailsController@show');
+    Route::get('category/{id?}','CategoryController@show');
+
+    Route::group(['prefix'=>'detail'],function(){
+        Route::get('/{id}','DetailsController@show');
+        Route::post('orderAdd','OrderController@add');
+        Route::post('isPay','OrderController@isPay');
+    });
 
 
-    //机构
+
+        //机构
         Route::get('publisher','PublisherController@show');
         Route::get('pub_info/{id}','PublisherController@info');
 
@@ -128,7 +147,11 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 
         //作者
         Route::get('auth','AuthController@show');
+
         Route::get('authInfo/{id}','AuthController@info');
+
+
+
     Route::group(['middleware'=>'check.h.login'],function(){
         //作者
         Route::any('authAdd','AuthController@add');
@@ -145,9 +168,18 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
     /*个人中心*/
     Route::group(['prefix' => 'space','middleware'=>'check.h.login'],function(){
         Route::get('/','SpaceController@show');
+        Route::get('user','SpaceController@show');
         Route::post('doEdit','SpaceController@doEdit');
         Route::post('editPass','SpaceController@editPass');
         Route::post('editEmail','SpaceController@editEmail');
+        Route::post('editIcon','SpaceController@editIcon');
+        Route::group(['prefix'=>'order'],function(){
+            Route::get('/','OrderController@orders');
+            Route::get('toPay/{id}','OrderController@toPay');
+            Route::get('isCancel/{id}','OrderController@isCancel');
+            Route::post('comment','OrderController@comment');
+        });
+
     });
 
 

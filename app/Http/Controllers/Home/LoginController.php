@@ -21,7 +21,7 @@ class LoginController extends Controller
     {
         //dd($request->all());
 
-       $result = Auth::attempt(['email' => $request->input('email'),'password' => $request->input('password'),'is_confirmed' => 1]);
+       $result = Auth::attempt(['email' => $request->input('email'),'password' => $request->input('password'),'is_confirmed' => 1,'status'=>0]);
 
        //dd($result);
        if (!$result) {

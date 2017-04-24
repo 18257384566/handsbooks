@@ -41,7 +41,8 @@ class AuthController extends Controller
             $mess = array(
                 'name.required'=>'真实姓名不能为空',
                 'phone.required'=>'电话不能为空',
-//                'phone.unique'=>'电话是唯一的',
+         'phone.unique'=>'电话是唯一的',
+
 //                'nameid.required'=>'请上传身份证正面照片'
             );
             $validate = Validator::make($request -> all(), $rules, $mess);
