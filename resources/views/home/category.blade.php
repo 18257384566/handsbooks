@@ -181,7 +181,7 @@
         {{--@foreach($book as $key => $value)--}}
         @foreach($category as $k => $v)
            @if($v->id == $book[0]->c_id)
-        <a href="#">全部</a> &raquo; {{$v->name}}
+        <a href="{{url('/home/category')}}">全部</a> &raquo; {{$v->name}}
         {{--<a href="#">全部</a> &raquo; <a href="#">机构管理</a> &raquo; {{$v->name}}--}}
             @endif
                {{--@endforeach--}}
@@ -201,16 +201,19 @@
         </div>
     </a>
             @endforeach
-    </div>
+            <hr>
+        <div style="width: 1100px; height: 50px;float: left;">
+            <span style="margin-left:700px;">{{$book->links('admin/page')}}</span>
+        </div>
 
+    </div>
     {{--<div class="books_rec">--}}
         {{--<img src="{{url('home/img/rec_01.jpg')}}" alt=""><br>--}}
         {{--<img src="{{url('home/img/rec_02.jpg')}}" alt="">--}}
     {{--</div>--}}
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-
-    {{$book->links('admin/page')}}
+    
 @endsection
 
 

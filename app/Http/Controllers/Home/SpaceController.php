@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Requests\AdminRegisterRequest;
+use App\Model\Book;
+use App\Model\Order;
 use App\Model\User_info;
 use App\User;
 use Illuminate\Http\Request;
@@ -178,7 +180,35 @@ class SpaceController extends Controller
         return view('home/space',compact('user'));
     }
 
+    /*显示书籍列表*/
 
+    public function book()
+    {
+        $id = Auth::user()->id;
+        $order = Order::select('books.*')->join('books','books.id','orders.books_id')->where('orders.users_id',$id)->where('orders.isPay',1)->where('cancel',0)->paginate(7);
+//        dd($order);
+        $user = User::join('users_info','users.id','users_info.u_id')->find($id);
+        $collect = DB::table('users_books')->select('books_id')->where('users_id',$id)->get();
+//        dump($collect);
+        $book = array();
+        foreach($collect as $k=>$v){
+            $book[] = Book::find($v->books_id);
+        }
+//        dd($book);
+        return view('home/book',compact('order','user','book'));
+    }
+
+    public function no_collect($books_id)
+    {
+        $users_id = Auth::user()->id;
+        $result = DB::table('users_books')->where('users_id',$users_id)->where('books_id',$books_id)->delete();
+        if($result){
+            return redirect('/home/space/book');
+        }else{
+            return back();
+        }
+
+    }
 
 
 

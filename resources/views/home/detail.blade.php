@@ -131,6 +131,7 @@
                 };
                 window.wxc.xcConfirm(txt, "custom", option);
             });
+
         });
     </script>
 @endsection
@@ -162,7 +163,12 @@
         </div>
         <div class="book_author">
             <span>作　者：<span>书海沧生</span></span><br>
-            <span>出版社：<span>{{$book->name}}</span></span>
+            <span>出版社：<span>{{$book->name}}</span></span>　　　　　　　　　
+            @if($collect == 1)
+            <a href="{{url('/home/detail/collect_no/'.$id)}}" class="btn btn-info collect"><span class="glyphicon glyphicon-heart " aria-hidden="true"></span>已收藏</a>
+            @else
+            <a href="{{url('/home/detail/collect_ok/'.$id)}}" class="btn btn-info collect"><span class="glyphicon glyphicon-heart " aria-hidden="true"></span>收藏</a>
+            @endif
         </div>
         <div class="book_price clear">
             <div class="price_title clear">

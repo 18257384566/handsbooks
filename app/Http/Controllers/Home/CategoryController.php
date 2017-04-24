@@ -12,9 +12,9 @@ class CategoryController extends Controller
     public function show($id = 0)
     {
         if($id == 0){
-            $book = Book::where('up',0)->paginate(20);
+            $book = Book::where('up',0)->paginate(2);
         }else{
-            $book = Book::where('c_id',$id)->where('up','0')->paginate(20);
+            $book = Book::where('c_id',$id)->where('up','0')->paginate(2);
 //            dd($book);
         }
         $category = Category::all();

@@ -10,7 +10,7 @@ ul,li{ list-style: none}
 .tabClick li.active{ color: #099; transition: 0.1s; font-weight: bold}
 .tabCon{ overflow: hidden}
 .tabBox{ position: relative}
-.tabList{word-break: break-all; width:100%;float:left; color:#333; font-size:16px;height: 800px}
+.tabList{word-break: break-all; width:100%;float:left; text-align:center;color:#333; font-size:16px;height: 800px}
 .tabList img{margin-top:30px;}
 .lineBorder{ height: 2px; overflow: hidden; border-bottom:1px solid #099; background: #f3f3f3}
 .lineDiv{ background: #099; height: 2px; width: 25%;}

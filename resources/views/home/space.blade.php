@@ -96,7 +96,7 @@
                     btn: parseInt("0011",2),
                     onOk: function(){
                         $("#changeEmail").hide();
-                        $("#box").append("<p><input type='email' name='email' id='email' placeholder='请输入邮箱'></p><p><button id='emailEdit'>确认修改</button></p>");
+                        $("#box").append("<div class='rows'> <div class='col-md-4 col-md-offset-4'><p><input class='form-control'  type='email' name='email' id='email' placeholder='请输入邮箱'></p><p><button id='emailEdit' class='btn btn-warning'>确认修改</button></p></div></div>");
                         $('#emailEdit').click(function(){
                             var $email = $('#email').val();
 //                 alert($email);
@@ -179,11 +179,10 @@
                     <p>用户名：{{$user->name}}</p>
                     <p>邮箱：{{$user->email}}</p>
                     <p>性别：@if($user->sex == 0) 男 @else 女 @endif</p>
-
                     </div>
                 <div class="tabList">
                     <div class="rows">
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-md-offset-4">
                     <h3 style="margin-bottom:30px;">修改基本信息</h3>
                     {{--<form action="{{url('home/space/doEdit')}}" method="post" enctype="multipart/form-data">--}}
                             <form id="aaa">
@@ -198,7 +197,7 @@
                 </div>
                 <div class="tabList">
                     <div class="rows">
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-md-offset-4">
                     <h3 style="margin-bottom:30px;">修改密码</h3>
                         {{csrf_field()}}
                            <input type="hidden" name="email" value="{{$user->email}}">

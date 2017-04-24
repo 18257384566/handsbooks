@@ -128,6 +128,8 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         Route::get('/{id}','DetailsController@show');
         Route::post('orderAdd','OrderController@add');
         Route::post('isPay','OrderController@isPay');
+        Route::get('collect_ok/{id}','DetailsController@collect_ok');
+        Route::get('collect_no/{id}','DetailsController@collect_no');
     });
 
 
@@ -158,10 +160,14 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         Route::post('editEmail','SpaceController@editEmail');
         Route::post('editIcon','SpaceController@editIcon');
         Route::group(['prefix'=>'order'],function(){
-            Route::get('/','OrderController@orders');
+            Route::get('/{id}','OrderController@orders');
             Route::get('toPay/{id}','OrderController@toPay');
             Route::get('isCancel/{id}','OrderController@isCancel');
             Route::post('comment','OrderController@comment');
+        });
+        Route::group(['prefix'=>'book'],function(){
+            Route::get('/','SpaceController@book');
+            Route::get('no_collect/{id}','SpaceController@no_collect');
         });
 
     });
