@@ -16,10 +16,22 @@ class CommentController extends Controller
         return view('/admin/comment',compact('comment','book'));
     }
 
-    public function changeStatus($id)
+    public function hide($id)
     {
         $comment = Comment::find($id);
         $comment->status = 1;
+        $result = $comment->save();
+        if($result){
+            return redirect('/admin/comment/list');
+        }else{
+            return back();
+        }
+    }
+
+    public function display($id)
+    {
+        $comment = Comment::find($id);
+        $comment->status = 0;
         $result = $comment->save();
         if($result){
             return redirect('/admin/comment/list');

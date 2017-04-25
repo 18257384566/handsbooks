@@ -176,32 +176,46 @@
         </div>
     </div>
     <!--面包屑导航 开始-->
+    　　　　　　　
     <div class="crumb_warp">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
         {{--@foreach($book as $key => $value)--}}
-        @foreach($category as $k => $v)
-           @if($v->id == $book[0]->c_id)
-        <a href="{{url('/home/category')}}">全部</a> &raquo; {{$v->name}}
-        {{--<a href="#">全部</a> &raquo; <a href="#">机构管理</a> &raquo; {{$v->name}}--}}
+        @if($id == 0)
+            　　　　<a href="{{url('/home/category')}}">全部</a>
+            <hr>
+            @else
+            @foreach($category as $k => $v)
+                @if(!empty($book[0]->c_id))
+                @if($v->id == $book[0]->c_id)
+                    　　　　<a href="{{url('/home/category')}}">全部</a> &raquo; {{$v->name}}
+                    <hr>
+                @endif
+                @endif
+            @endforeach
             @endif
-               {{--@endforeach--}}
-       @endforeach
+
     </div>
     <!--面包屑导航 结束-->
 
     <div class="books_list">
-        @foreach($book as $k=>$v)
-    <a href="{{url('/home/detail/'.$v->id)}}">
-        <div class="books_list01">
-            <img src="{{url('/'.$v->icon)}}" alt="" width="180" height="240">
-            <div class="books_info">
-                <p>{{$v->title}}</p>
-                <span class="left">作者</span>  <span class="right">￥{{$v->price}}</span>
-            </div>
-        </div>
-    </a>
+        @if(empty($book[0]))
+            <h3>暂无此分类~~~~~ 敬请期待~~~~~</h3>
+            @else
+            @foreach($book as $k=>$v)
+            <a href="{{url('/home/detail/'.$v->id)}}">
+                <div class="books_list01">
+                    <img src="{{url('/'.$v->icon)}}" alt="" width="180" height="240">
+                    <div class="books_info">
+                        <p>{{$v->title}}</p>
+                        <span class="left">作者</span>  <span class="right">￥{{$v->price}}</span>
+                    </div>
+                </div>
+            </a>
             @endforeach
-            <hr>
+            @endif
+
+
+
         <div style="width: 1100px; height: 50px;float: left;">
             <span style="margin-left:700px;">{{$book->links('admin/page')}}</span>
         </div>

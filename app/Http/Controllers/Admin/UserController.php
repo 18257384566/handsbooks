@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -54,33 +55,79 @@ class UserController extends Controller
     {
         return view('admin/userAdd');
     }
-//    public function doAdd(Request $request)
-//    {
+    public function doAdd(Request $request)
+    {
 //        dd($request->all());
-//        $rules = array(
-//            'name' => 'required|min:3',
-//            'email' => 'required|email',
-//            'password' => 'required|confirmed',
-//            'password_confirmation' => 'required'
-//        );
-//        $mess = array(
-//            'name.required' => '用户名不能为空',
-//            'name.min' => '用户名不能少于3位',
-//            'email.required' => '邮箱不能为空',
-//            'email.email' => '邮箱格式错误',
-//            'password.required' => '密码不能为空',
-//            'password.confirmed' => '密码不一致',
-//            'password_confirmation.required' => '确认密码不能为空'
-//        );
-//        $this->validate($request,$rules,$mess);
-//
-//        $result = User::create($request->all());
-//        if($result){
-//            return redirect('admin/user/list');
-//        }else{
-//            return back();
-//        }
-//    }
+        $rules = array(
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
+        );
+        $mess = array(
+            'name.required' => '用户名不能为空',
+            'name.min' => '用户名不能少于3位',
+            'email.required' => '邮箱不能为空',
+            'email.email' => '邮箱格式错误',
+            'password.required' => '密码不能为空',
+            'password.confirmed' => '密码不一致',
+            'password_confirmation.required' => '确认密码不能为空'
+        );
+        $this->validate($request,$rules,$mess);
+
+        $confirmed_code = str_random(10);
+        $data = array(
+            'confirmed_code' => $confirmed_code,
+        );
+
+        $user = User::create(array_merge($request->all(),$data));
+        /*发送邮件*/
+        $view = 'home.emailConfirmed';
+        $subject = '请验证邮箱';
+        $this->sendEmail($user,$view, $subject, $data);
+
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $result= User::where('email',$email)->pluck('id')->toArray();
+        $u_id = $result[0];
+        $arr = array(
+            'name' => $name,
+            'icon' => 'home/img/icon.jpg',
+            'u_id' => $u_id
+        );
+        $res = DB::table('users_info')->insert($arr);
+
+        if($res){
+            return redirect('admin/user/list');
+        }else{
+            return back();
+        }
+    }
+
+    public function sendEmail($user,$view,$subject,$data)
+    {
+
+        Mail::send($view,$data,function($m) use ($subject,$user){
+            $m->to($user->email)->subject($subject);
+        });
+    }
+
+    public function emailConfirm($code)
+    {
+//        dd($code);
+        /*查询与之匹配的这个用户*/
+        $user = User::where('confirmed_code',$code)->first();
+//        dd($user);
+        if(is_null($user)){
+            return redirect('/home/index');
+        }
+        $user->confirmed_code = str_random(10);
+        $user->is_confirmed = 1;
+        $user->save();
+        return redirect('/home/login');
+    }
+
+    /*删除*/
     public function del($id)
     {
         $user = User::find($id);
@@ -90,13 +137,27 @@ class UserController extends Controller
         return redirect('admin/user/list');
     }
 
-    public function changeStatus($id)
+    /*禁用*/
+    public function no($id)
     {
         $user = User::find($id);
         $user->status = 1;
         $result = $user->save();
         if($result){
-            return redirect('/admin/user/list');
+            return redirect('/admin/user/list')->with('message', '禁用成功');
+        }else{
+            return back();
+        }
+    }
+
+    /*激活*/
+    public function yes($id)
+    {
+        $user = User::find($id);
+        $user->status = 0;
+        $result = $user->save();
+        if($result){
+            return redirect('/admin/user/list')->with('message', '激活成功');
         }else{
             return back();
         }

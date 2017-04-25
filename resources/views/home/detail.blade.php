@@ -178,8 +178,11 @@
                 <span>价格: <span style="color:#F87A36;font-size:20px">￥</span><span class="price_money">{{$book->price}}</span>
             </div>
             <div class="price_button clear">
+                @if($order == 0)
                 <button class="button_buy" id="btn7">购买全本</button>
-                　<a href="" class="button_read">开始阅读</a>
+                　@else
+                    <a href="{{url('/home/detail/article/'.$id.'/'.$book_info[0]->id)}}" class="button_read">开始阅读</a>
+                    @endif
             </div>
         </div>
     </div>
@@ -213,7 +216,8 @@
                         <hr>
                         @if(!empty($book_info[0]))
                             @foreach($book_info as $k => $v)
-                                   <p>{{$v->title}}</p>
+                                   <p><a href="{{url('/home/detail/article/'.$id.'/'.$v->id)}}">{{$v->title}}</a></p>
+                                   {{--<p><a href="/{{$v->url}}">{{$v->title}}</a></p>--}}
                             @endforeach
                             @else
                             ...
@@ -281,7 +285,7 @@
 
     </div>
     <div class="top_list clear">
-        <h4 style="margin-left:20px;">热门榜单</h4>
+        <h4 style="margin-left:20px;">畅销榜单</h4>
         <hr>
         <div class="accordion_container">
             <div class="accordion">

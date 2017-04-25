@@ -7,7 +7,7 @@ a{
 .sidebar{
     width: 200px;
     height: 800px;
-    background-color: #ccc;
+    /*background-color: #ccc;*/
     margin-left:100px;
     position:relative;
     float:left;

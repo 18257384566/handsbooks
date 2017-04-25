@@ -18,7 +18,7 @@
         <hr>
         <div class="row">
             <div class="col-md-6">
-                <form action="{{url('home/doReg')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('admin/user/doAdd')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <table class="add_tab">
                         <tbody>

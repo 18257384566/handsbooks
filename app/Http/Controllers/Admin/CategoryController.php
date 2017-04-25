@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Book;
 use App\Model\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Yaml\Tests\B;
 
 class CategoryController extends Controller
 {
@@ -51,7 +53,17 @@ class CategoryController extends Controller
             $category->path = $request->input('path','');
             $category->display = $request->input('display','');
             $category->save();
-            return back();
+
+            $res = Category::select('display')->find($id);
+            $display = $res->display;
+            if($display == 2){
+                $category = Category::select('id')->where('pid',$id)->get();
+                foreach($category as $k => $v){
+                    $book = Book::where('c_id',$v->id)->update(['up'=>1]);
+                }
+            }
+            $pid =$request->input('pid');
+            return redirect('admin/category/showSon/'.$pid);
         }else{
             $category = Category::find($id);
             return view('admin/categoryEdit',compact('category'));

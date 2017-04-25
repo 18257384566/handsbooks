@@ -12,6 +12,9 @@
             width: 500px;
             height: 300px;
         }
+        .tabList{
+            text-align:center;
+        }
     </style>
     @endsection
 @section('js')

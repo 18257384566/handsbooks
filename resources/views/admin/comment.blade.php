@@ -13,16 +13,29 @@
 //               alert($_this.html());
                 var $editId = $_this.parents().parents().children().first().html();
 //                alert($editId);
-                var txt = "确定要隐藏评论吗？";
-                var option = {
-                    title: "评论",
-                    btn: parseInt("0011", 2),
-                    onOk: function () {
-                        location.href = "/admin/comment/changeStatus/" + $editId;
+                if($_this.html() == '显示'){
+                    var txt = "确定要隐藏评论吗？";
+                    var option = {
+                        title: "评论",
+                        btn: parseInt("0011", 2),
+                        onOk: function () {
+                            location.href = "/admin/comment/hide/" + $editId;
+                        }
                     }
-                }
-                window.wxc.xcConfirm(txt, "custom", option);
+                    window.wxc.xcConfirm(txt, "custom", option);
 //               alert($editId);
+                }else{
+                    var txt = "确定要显示评论吗？";
+                    var option = {
+                        title: "评论",
+                        btn: parseInt("0011", 2),
+                        onOk: function () {
+                            location.href = "/admin/comment/display/" + $editId;
+                        }
+                    }
+                    window.wxc.xcConfirm(txt, "custom", option);
+                }
+
             })
 
         })
@@ -68,6 +81,7 @@
                             <th>用户名</th>
                             <th>书籍</th>
                             <th>评论</th>
+                            <th>时间</th>
                             <th>状态</th>
                         </tr>
                         @foreach($comment as $k => $v)
@@ -81,7 +95,8 @@
                                     @endif
                                 @endforeach
                                 <td>{{$v->comment}}</td>
-                                <td><button class="btn btn-info status">@if($v->status == 0) 显示 @else 隐藏 @endif</button></td>
+                                <td>{{$v->created_at}}</td>
+                                <td><button class="btn btn-info status">@if($v->status == 0)显示@else隐藏@endif</button></td>
                             </tr>
                         @endforeach
                     </table>

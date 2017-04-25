@@ -7,22 +7,38 @@
     <script src="{{url('home/tk/js/xcConfirm.js')}}" type="text/javascript" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
+
             $('.changeStatus').click(function () {
                 var $_this = $(this);
 //               var $status = $_this.html();
-//               alert($_this.html());
                 var $editId = $_this.parents().parents().children().first().html();
-//                alert($editId);
-                var txt = "确定要将书籍下架吗？";
-                var option = {
-                    title: "书籍",
-                    btn: parseInt("0011", 2),
-                    onOk: function () {
-                        location.href = "/admin/book/changeStatus/" + $editId;
+//                alert($_this.html());
+//                alert($_this.text().toString() == "上架");
+                if($_this.html() == "上架"){
+//                    alert(1);
+                    var txt = "确定要将书籍下架吗？";
+                    var option = {
+                        title: "书籍",
+                        btn: parseInt("0011", 2),
+                        onOk: function () {
+                            location.href = "/admin/book/down/" + $editId;
+                        }
                     }
-                }
-                window.wxc.xcConfirm(txt, "custom", option);
+                    window.wxc.xcConfirm(txt, "custom", option);
 //               alert($editId);
+                }else{
+//                    alert(2);
+                    var txt = "确定要将书籍上架吗？";
+                    var option = {
+                        title: "书籍",
+                        btn: parseInt("0011", 2),
+                        onOk: function () {
+                            location.href = "/admin/book/up/" + $editId;
+                        }
+                    }
+                    window.wxc.xcConfirm(txt, "custom", option);
+                }
+
             })
 
         })
@@ -53,12 +69,18 @@
     </li>
 @endsection
 @section('content')
+
     <div class="table-responsive">
         <div class="container">
             <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/book/add')}}">新增书籍</a></span> &nbsp;&nbsp;
             <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
             <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
             <hr>
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6">
                     <table class="table table-bordered">
@@ -80,7 +102,7 @@
                                 <td>{{$v->name}}</td>
                                 <td>{{$v->au_id}}</td>
                                 <td>{{$v->pub_id}}</td>
-                                <td><button class="btn btn-warning changeStatus">@if($v->up == 0) 上架 @else 下架 @endif</button></td>
+                                <td><button class="btn btn-warning changeStatus">@if($v->up == 0)上架@else下架@endif</button></td>
                                 <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}" class="btn btn-info">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id.'/?m='.$v->pid.'&a='.$v->c_id.'')}}" class="btn btn-success">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                             @endforeach

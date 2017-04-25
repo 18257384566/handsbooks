@@ -6,6 +6,7 @@ use App\Model\Auth;
 use App\Model\Book;
 use App\Model\Book_info;
 use App\Model\Category;
+use App\Model\Order;
 use App\Model\Publish;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class BookController extends Controller
     /*显示书籍列表*/
     public function show()
     {
-        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id','up')->join('category','books.c_id','category.id')->paginate(5);
+        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id','up','au_id')->join('category','books.c_id','category.id')->paginate(5);
         return view('admin/bookList',compact('result'));
     }
     /*跳转添加页面*/
@@ -49,6 +50,8 @@ class BookController extends Controller
         $data = [
             'icon' => "book_icon/book.jpg",
             'desc' => "book_desc/book.txt",
+            'au_id'=>1,
+            'up'=>2,
         ];
         $result = Book::create(array_merge($request->all(),$data));
         $ids = $result->id;
@@ -173,7 +176,7 @@ class BookController extends Controller
     public function detailShow($id)
     {
         $b_id=$id;
-        $book = Book_info::where('books_id',$b_id)->get();
+        $book = Book_info::where('books_id',$b_id)->orderBy('id')->get();
         return view('admin/bookDetail',compact('b_id','book'));
     }
    /*书籍详情添加*/
@@ -266,13 +269,39 @@ class BookController extends Controller
        return redirect('admin/book/detail/'.$b_id);
     }
 
-    public function changeStatus($id)
+    /*下架*/
+    public function down($id)
     {
         $book = Book::find($id);
         $book->up = 1;
         $result = $book->save();
         if($result){
-            return redirect('/admin/book/list');
+            return redirect('/admin/book/list')->with('message', '下架成功');
+        }else{
+            return back();
+        }
+    }
+
+    /*上架*/
+    public function up($id)
+    {
+        $res = Book::select('c_id')->find($id);
+        $c_id = $res->c_id;
+        $resu = Category::select('display','pid')->find($c_id);
+        if($resu->display == 2){
+            return redirect('/admin/book/list')->with('message','分类被隐藏，商品不可上架');
+        }
+
+        $result = Category::select('display')->find($resu->pid);
+        if($result->display == 2) {
+            return redirect('/admin/book/list')->with('message', '父级分类被隐藏，商品不可上架');
+        }
+
+        $book = Book::find($id);
+        $book->up = 0;
+        $result = $book->save();
+        if($result){
+            return redirect('/admin/book/list')->with('message', '上架成功');
         }else{
             return back();
         }

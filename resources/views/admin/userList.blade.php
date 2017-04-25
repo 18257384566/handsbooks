@@ -13,15 +13,28 @@
 //               alert($_this.html());
                 var $editId = $_this.parents().parents().children().first().html();
 //                alert($editId);
-                var txt = "确定要禁用用户吗？";
-                var option = {
-                    title: "用户",
-                    btn: parseInt("0011", 2),
-                    onOk: function () {
-                        location.href = "/admin/user/changeStatus/" + $editId;
+                if($_this.html() == '激活'){
+                    var txt = "确定要禁用用户吗？";
+                    var option = {
+                        title: "用户",
+                        btn: parseInt("0011", 2),
+                        onOk: function () {
+                            location.href = "/admin/user/no/" + $editId;
+                        }
                     }
+                    window.wxc.xcConfirm(txt, "custom", option);
+                }else{
+                    var txt = "确定要激活用户吗？";
+                    var option = {
+                        title: "用户",
+                        btn: parseInt("0011", 2),
+                        onOk: function () {
+                            location.href = "/admin/user/yes/" + $editId;
+                        }
+                    }
+                    window.wxc.xcConfirm(txt, "custom", option);
                 }
-                window.wxc.xcConfirm(txt, "custom", option);
+
 //               alert($editId);
             })
 
@@ -78,6 +91,11 @@
                     　<span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span>　
                     <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span>
                     <hr>
+                    @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
@@ -97,7 +115,7 @@
                                 <td>{{$v->email}}</td>
                                 <td>@if($v->sex == 0) 男 @else 女 @endif</td>
                                 <td><button class="btn btn-info isAuthor">@if($v->is_author == 0) 否 @else 是 @endif</button></td>
-                                <td><button class="btn btn-warning changeStatus">@if($v->status == 0) 激活 @else 禁用 @endif</button></td>
+                                <td><button class="btn btn-warning changeStatus">@if($v->status == 0)激活@else禁用@endif</button></td>
                                 <td><a href="{{url('admin/user/edit'.'/'.$v->u_id)}}" class="btn btn-info">编辑</a>　<a href="{{url('admin/user/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                         @endforeach

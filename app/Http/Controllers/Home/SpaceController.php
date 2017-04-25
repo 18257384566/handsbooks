@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Requests\AdminRegisterRequest;
 use App\Model\Book;
+use App\Model\Book_info;
 use App\Model\Order;
 use App\Model\User_info;
 use App\User;
@@ -196,7 +197,7 @@ class SpaceController extends Controller
     {
         $id = Auth::user()->id;
         $order = Order::select('books.*')->join('books','books.id','orders.books_id')->where('orders.users_id',$id)->where('orders.isPay',1)->where('cancel',0)->paginate(7);
-//        dd($order);
+//        dump($order);
         $user = User::join('users_info','users.id','users_info.u_id')->find($id);
         $collect = DB::table('users_books')->select('books_id')->where('users_id',$id)->get();
 //        dump($collect);
@@ -204,9 +205,15 @@ class SpaceController extends Controller
         foreach($collect as $k=>$v){
             $book[] = Book::find($v->books_id);
         }
-//        dd($book);
+
+        /*获取章节信息*/
+        $book_info = array();
+        foreach($order as $k => $v){
+            $book_info[]  = Book_info::where('books_id',$v->id)->orderBy('id')->get();
+        }
+//        dd($book_info);
         $a_id = DB::select("select `id` from auths where u_id = $id");
-        return view('home/book',compact('order','user','book','a_id'));
+        return view('home/book',compact('order','user','book','a_id','book_info'));
     }
 
     public function no_collect($books_id)
