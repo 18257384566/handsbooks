@@ -14,18 +14,14 @@ class CategoryController extends Controller
     {
         if($id == 0){
 
-            $book = Book::where('up',0)->paginate(12);
+            $book = Book::select('books.*','auths.name')->join('auths','auths.id','books.au_id')->where('up',0)->paginate(12);
         }else{
-            $book = Book::where('c_id',$id)->where('up','0')->paginate(12);
+            $book = Book::select('books.*','auths.name')->join('auths','auths.id','books.au_id')->where('c_id',$id)->where('up','0')->paginate(12);
 //            dd($book);
 
         }
         $category = Category::where('display',1)->get();
-//       if(empty($book[0])){
-//           dd(11);
-//       }else{
-//           dd(22);
-//       }
+
         return view('home.category',compact('category','book','id'));
     }
 

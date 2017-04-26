@@ -43,22 +43,22 @@ class SpaceController extends Controller
     /*编辑基本信息*/
     public function doEdit(Request $request)
     {
-//        return $_FILES('icon');
+//        dd($request->all());
         if(empty($request->name)){
             echo  1;
-            exit;
         }else{
+//            dd($request->all());
             $u_id = Auth::user()->id;
-//        dd($u_id);
+
             $user = User::find($u_id);
-//        dd($user);
             $user->name = $request->input('name','');
             $user->save();
-//
-            $user_info = User_info::find($u_id);
-//        dd($user_info);
 
-            $user_info->update($request->all());
+            $user_info = User_info::find($u_id);
+            $user_info->name = $request->input('name','');
+            $user_info->sex = $request->input('sex','');
+
+            $user_info->save();
 
             echo 2;
         }
@@ -227,22 +227,28 @@ class SpaceController extends Controller
 
     public function read_record($b_id)
     {
-        $users_id = Auth::user()->id;
-        $res = DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->get();
-        if(empty($res[0])){
-            $book_info = Book_info::where('books_id',$b_id)->orderBy('id')->get();
-            $data = [
-                'users_id'=>$users_id,
-                'books_id'=>$b_id,
-                'info_id'=>$book_info[0]->id,
-            ];
-            DB::table('read_record')->insert($data);
-//            dd($book_info);
-            return redirect('/home/space/book/article_space/'.$b_id.'/'.$book_info[0]->id);
+        $info = Book_info::where('books_id',$b_id)->get();
+        if(empty($info[0])){
+            return back();
         }else{
-            $info_id = $res[0]->info_id;
-            return redirect('/home/space/book/article_space/'.$b_id.'/'.$info_id);
+            $users_id = Auth::user()->id;
+            $res = DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->get();
+            if(empty($res[0])){
+                $book_info = Book_info::where('books_id',$b_id)->orderBy('id')->get();
+                $data = [
+                    'users_id'=>$users_id,
+                    'books_id'=>$b_id,
+                    'info_id'=>$book_info[0]->id,
+                ];
+                DB::table('read_record')->insert($data);
+//            dd($book_info);
+                return redirect('/home/space/book/article_space/'.$b_id.'/'.$book_info[0]->id);
+            }else{
+                $info_id = $res[0]->info_id;
+                return redirect('/home/space/book/article_space/'.$b_id.'/'.$info_id);
+            }
         }
+
 
     }
 

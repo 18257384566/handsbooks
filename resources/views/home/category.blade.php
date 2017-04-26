@@ -207,7 +207,7 @@
                     <img src="{{url('/'.$v->icon)}}" alt="" width="180" height="240">
                     <div class="books_info">
                         <p>{{$v->title}}</p>
-                        <span class="left">作者</span>  <span class="right">￥{{$v->price}}</span>
+                        <span class="left">{{$v->name}}</span>  <span class="right">￥{{$v->price}}</span>
                     </div>
                 </div>
             </a>

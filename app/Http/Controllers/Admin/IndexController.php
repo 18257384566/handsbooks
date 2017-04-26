@@ -37,7 +37,7 @@ class IndexController extends Controller
         }else{
             session(['admin'=> $result[0]]);
 //            dd(session('admin'));
-
+            $request -> session() -> put('a_id',$result[0]->id);
            return redirect('admin/index');
         }
     }

@@ -54,7 +54,7 @@ class DetailsController extends Controller
 //       dump($res);
         $top_list = array();
         foreach($res as $k => $v){
-            $top_list[] = Book::find($v->books_id);
+            $top_list[] = Book::select('books.*','auths.name')->join('auths','auths.id','books.au_id')->find($v->books_id);
         }
 
 //        dd($top_list);

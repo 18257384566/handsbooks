@@ -35,6 +35,11 @@
                 <input type="search" name="search">　<input type="submit" value="搜索">
             </form>
             <hr width="1215px">
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6">
                     <table class="table table-bordered">

@@ -39,7 +39,7 @@ class CategoryController extends Controller
             );
             $this->validate($request,$rules,$mess);
             Category::create($request->all());
-            return redirect('admin/category/list');
+            return redirect('admin/category/list')->with('message','添加成功');
         }else{
             return view('admin/categoryAdd');
         }
@@ -77,7 +77,7 @@ class CategoryController extends Controller
                 }
             }
             $pid =$request->input('pid');
-            return redirect('admin/category/showSon/'.$pid);
+            return redirect('admin/category/showSon/'.$pid)->with('message','编辑成功');
         }else{
             $category = Category::find($id);
             return view('admin/categoryEdit',compact('category'));
@@ -91,7 +91,7 @@ class CategoryController extends Controller
         $category->delete();
         $data = DB::table('category')->where('pid',$id)->pluck('id')->toArray();
         Category::destroy($data);
-        return back();
+        return view('admin/category/list')->with('message','删除成功');
     }
     /*添加子分类*/
     public function addSon(Request $request,$id)
@@ -107,7 +107,7 @@ class CategoryController extends Controller
                 'path' => $path.$id.',',
             ];
             Category::create(array_merge($request->all(),$data));
-            return redirect('admin/category/list');
+            return redirect('admin/category/list')->with('message','添加成功');
         }else{
             /*是get就显示添加表单*/
             return view('admin/categoryAddSon');

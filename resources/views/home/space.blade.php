@@ -26,12 +26,12 @@
         $(function() {
             $('#editBtn').click(function () {
                 $.ajax({
-                    url: '/home/space/doEdit',
+                    url: "{{url('home/space/doEdit')}}",
                     type: 'post',
                     data:{
                         'name':$("input[name='name']").val(),
                         '_token':$("input[name='_token']").val(),
-                        'sex':$("input[name='sex']").val(),
+                        'sex':$("input[name='sex']:checked").val()
                     },
                     success: function (data) {
                         if(data == 1){

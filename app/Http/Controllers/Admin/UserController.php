@@ -55,7 +55,7 @@ class UserController extends Controller
         }
         $user_info->save();
        if($result){
-           return redirect('admin/user/list');
+           return redirect('admin/user/list')->with('message','编辑成功');
        }else{
            return back();
        }
@@ -107,7 +107,7 @@ class UserController extends Controller
         $res = DB::table('users_info')->insert($arr);
 
         if($res){
-            return redirect('admin/user/list');
+            return redirect('admin/user/list')->with('message','添加成功');
         }else{
             return back();
         }
@@ -129,7 +129,7 @@ class UserController extends Controller
         $user->delete();
         DB::table('users_info')->where('u_id',$id)->delete();
         unlink("user_icon/user".$id.".jpg");
-        return redirect('admin/user/list');
+        return redirect('admin/user/list')->with('message','删除成功');
     }
 
     /*禁用*/

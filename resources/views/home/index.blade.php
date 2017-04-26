@@ -63,16 +63,21 @@
 
     {{--留白--}}
     <div class="black"></div>
+    <h2>&nbsp;</h2>
 
+    <h2>&nbsp;</h2>
     {{--广告--}}
-    <div class="container">
+    <div class="container" style="border:2px solid #ccc; height: 160px">
+        @foreach($ad as $k => $v)
          <div>
-             <img src="" alt="">
+             <a href="{{$v->url}}"><img src="/{{$v->icon}}" alt="" width="250px" height="100px" style="float:left;margin-left:100px;margin-top:30px"></a>
          </div>
+        @endforeach
 
     </div>
     {{--广告结束--}}
         <h2>&nbsp;</h2>
+
     {{--热销作品--}}
     <div class="container">
         <h3 class="agileits-title">热销作品</h3>
@@ -98,6 +103,7 @@
 
         </div>
         {{--热销作品结束--}}
+
 <h2>&nbsp;</h2>
         {{--新书上线--}}
         <div class="contain">
@@ -127,7 +133,7 @@
         <div class="rows">
             @foreach($auth as $k => $v)
                 <div class="col-md-3 agile_team_grid">
-                    <div class="ih-item circle effect1">
+                    <a href="{{url('home/authInfo/'.$v->id)}}"><div class="ih-item circle effect1">
                         <div class="spinner"></div>
                         <div class="img"><img src="/{{$v->icon}}" alt=" " class="img-responsive"></div>
                         <div class="info">
@@ -137,11 +143,11 @@
                             </div>
                         </div>
                     </div>
-                    <h4>{{$v->name}}</h4>
+                    <h4>{{$v->name}}</h4></a>
                     @foreach($book as $key => $value)
                         @if($key == $v->id)
                         @foreach($value as $a => $b)
-                    <h6><a href="">《{{$b->title}}》</a><br></h6>
+                    <h6><a href="{{url('home/detail/'.$b->id)}}">《{{$b->title}}》</a><br></h6>
                         @endforeach
                         @endif
                         @endforeach

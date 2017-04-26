@@ -311,7 +311,7 @@
                         <img src="/{{$top_list[0]->icon}}" width="60" height="80"/>
                         <div class="word" >
                             <p><a href="#">{{$top_list[0]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[0]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[0]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[1]->icon}}" width="80" height="100"/></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[1]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[1]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[1]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -342,7 +342,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[2]->icon}}" width="80" height="100"/></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[2]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[2]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[2]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -357,7 +357,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[3]->icon}}" width="80" height="100"/></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[3]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[3]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[3]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -372,7 +372,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[4]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[4]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[4]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[4]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -387,7 +387,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[5]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[5]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[5]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[5]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -402,7 +402,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[6]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[6]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[6]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[6]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -417,7 +417,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[7]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[7]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[7]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[7]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -432,7 +432,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[8]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[8]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[8]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[8]->price}}</strong></em></p><br />
                         </div>
                     </div>
@@ -447,7 +447,7 @@
                         <a href="#" target="_blank"><img src="/{{$top_list[9]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
                             <p><a href="#">{{$top_list[9]->title}}</a></p>
-                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p><a href="#">作者：{{$top_list[9]->name}}</a></p>
                             <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[9]->price}}</strong></em></p><br />
                         </div>
                     </div>

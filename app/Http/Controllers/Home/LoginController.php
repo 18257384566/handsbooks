@@ -19,14 +19,8 @@ class LoginController extends Controller
     /*执行登陆*/
     public function doLogin(UserLoginRequest $request)
     {
-        //dd($request->all());
-        $email = $request->input('email');
-        $password = $request->input('password');
-//        $result = DB::select("select * from users where `email` = '".$email."' and `password` = $password and `is_confirmed` = 1, `status` = 0");
-
        $result = Auth::attempt(['email' => $request->input('email'),'password' => $request->input('password'),'is_confirmed' => 1,'status'=>0]);
 
-       //dd($result);
        if (!$result) {
           return redirect('home/login')->with('mess', '邮箱或密码错误');
        }else{

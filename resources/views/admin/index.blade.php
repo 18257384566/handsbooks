@@ -22,7 +22,7 @@
             <li><a href="/admin/auth">作者管理</a></li>
             <li><a href="/admin/slideshow">轮播图管理</a></li>
             <li><a href="/admin/idea">用户意见反馈</a></li>
-            <li><a href="error.html">404</a></li>
+            <li><a href="{{url('admin/ad/list')}}">广告管理</a></li>
         </ul>
     </li>
     @endsection

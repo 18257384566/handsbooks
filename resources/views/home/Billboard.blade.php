@@ -57,6 +57,7 @@
                 <hr>
                 @if(!empty($top_list))
                 @foreach($top_list as $k => $v)
+                <a href="{{url('/home/detail/'.$v->id)}}">
                 <div class="books_list01">
                     <img src="/{{$v->icon}}" alt="" width="180" height="240">
                     <div class="books_info">
@@ -64,9 +65,11 @@
                         <span class="left">{{$v->name}}</span>  <span class="right">￥{{$v->price}}</span>
                     </div>
                 </div>
+                 </a>
                 @endforeach
                     @else
                     @foreach($book as $k => $v)
+                    <a href="{{url('/home/detail/'.$v->id)}}">
                     <div class="books_list01">
                         <img src="/{{$v->icon}}" alt="" width="180" height="240">
                         <div class="books_info">
@@ -74,6 +77,7 @@
                             <span class="left">{{$v->name}}</span>  <span class="right">￥{{$v->price}}</span>
                         </div>
                     </div>
+                    </a>
                     @endforeach
                 @endif
 

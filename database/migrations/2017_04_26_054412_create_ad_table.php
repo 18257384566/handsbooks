@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryTable extends Migration
+class CreateAdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('ad', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('url');
             $table->string('name');
-            $table->integer('pid');
-            $table->string('path');
-            $table->integer('display')->default(2);
-            $table->rememberToken();
+            $table->integer('status')->default(0);   //0 隐藏 1 显示
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('ad');
     }
 }

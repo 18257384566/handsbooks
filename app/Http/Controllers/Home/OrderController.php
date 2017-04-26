@@ -101,7 +101,7 @@ class OrderController extends Controller
         $order->isPay = 1;
         $result = $order->save();
         if($result){
-            return redirect('/home/space/order');
+            return redirect('/home/space/order/2');
         }else{
             return back();
         }
@@ -114,7 +114,7 @@ class OrderController extends Controller
         $order->cancel= 1;
         $result = $order->save();
         if($result){
-            return redirect('/home/space/order');
+            return redirect('/home/space/order/2');
         }else{
             return back();
         }

@@ -84,7 +84,7 @@ class BookController extends Controller
             $descString = serialize($desc);
             file_put_contents('book_desc/book'.$ids.'.txt', $descString);
             $request->file('icon')->move('book_icon',"book$ids.jpg");
-            return redirect('admin/book/list');
+            return redirect('admin/book/list')->with('message', '添加成功');
         }else{
             /*数据添加失败则返回*/
             return back();
@@ -162,7 +162,7 @@ class BookController extends Controller
 //        dd(22);
         $result = $book->save();
         if($result){
-            return redirect('admin/book/list');
+            return redirect('admin/book/list')->with('message', '编辑成功');
         }else{
             return back();
         }
@@ -190,7 +190,7 @@ class BookController extends Controller
 //            dump("book_content/book".$id."_".$v->id.".txt");
             unlink("book_content/book".$id."_".$v->id.".txt");
         }
-        return redirect('admin/book/list');
+        return redirect('admin/book/list')->with('message', '删除成功');
     }
    /*显示书籍详情页面*/
     public function detailShow($id)
@@ -235,7 +235,7 @@ class BookController extends Controller
             $url = $request->input('url');
             $descString = serialize($url);
             file_put_contents("book_content/book".$b_id."_".$id.".txt", $descString);
-            return redirect('admin/book/detail'.'/'.$b_id);
+            return redirect('admin/book/detail'.'/'.$b_id)->with('message', '添加成功');
         }else{
             return back();
         }
@@ -264,7 +264,7 @@ class BookController extends Controller
             $book->url = "book_content/book".$b_id."_".$id.".txt";
             $result = $book->save();
             if($result){
-                return redirect('admin/book/detail'.'/'.$b_id);
+                return redirect('admin/book/detail'.'/'.$b_id)->with('message', '编辑成功');
             }else{
                 return back();
             }
@@ -287,7 +287,7 @@ class BookController extends Controller
         $b_id = $book->books_id;
         $book->delete();
         unlink("book_content/book".$b_id."_".$id.".txt");
-       return redirect('admin/book/detail/'.$b_id);
+       return redirect('admin/book/detail/'.$b_id)->with('message', '删除成功');
     }
 
     /*下架*/
