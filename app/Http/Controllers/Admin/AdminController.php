@@ -77,7 +77,6 @@ class AdminController extends Controller
                 'name' => 'required|min:3|unique:users,name',
                 'email' => 'required',
                 'password' => 'required',
-//                'password_confirmation' => 'confirmed|required',
             );
 
             $mess = array(
@@ -87,14 +86,18 @@ class AdminController extends Controller
                 'email.required' => '邮箱不能为空',
 //                'email.exists' => '该邮箱不存在',
                 'password.required' => '密码不能为空',
-                'password_confirmation' => '确认密码不能为空',
-//                'password_confirmation' => '两次密码不相同',
             );
             $validate = Validator::make($request ->all(),$rules,$mess);
             if($validate->fails()){
                 return redirect('/admin/admin-add')->withErrors($validate);
             }else{
+                $pas = $request->input('password');
                 $result = Admin::create($request->all());
+                //MD5
+                $pas = md5($pas);
+                $id = $result->id;
+                $result = DB::update("update admins set password = '".$pas."' where id = $id");
+
                 return redirect('/admin/admin');
             }
         }

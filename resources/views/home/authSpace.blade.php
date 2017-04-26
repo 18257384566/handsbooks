@@ -57,19 +57,18 @@
                 <p>{{$users->name}}</p>
             </li>
             <li>
-                <a href=""><h4>个人信息</h4></a>
+                <a href="{{url('home/space/user')}}"><h4>个人信息</h4></a>
             </li>
             <li>
-                <a href=""><h4>我的图书</h4></a>
+                <a href="{{url('home/space/book')}}"><h4>我的图书</h4></a>
             </li>
             <li>
-                <a href=""><h4>我的订单</h4></a>
+                <a href="{{url('home/space/order/1')}}"><h4>我的订单</h4></a>
             </li>
 
             <li>
                 <a href="{{asset('home/focus')}}"><h4>我的关注</h4></a>
             </li>
-
             {{--@if($a_id)--}}
                 <li>
                     <a href=""><h4>作者space</h4></a>
@@ -119,11 +118,11 @@
                             <table style="margin-top:20px;">
                                 <tr>
                                     <th>书名：</th>
-                                    <td><input type="text"  class="form-control" name="title"></td>
+                                    <td><input type="text"  class="form-control" name="title"></td>{{ $errors ->first('title') }}
                                 </tr>
                                 <tr>
                                     <th>价格：</th>
-                                    <td><input type="text"  class="form-control" name="price"></td>
+                                    <td><input type="text"  class="form-control" name="price"></td>{{ $errors ->first('price') }}
                                 </tr>
                                 <tr>
                                     <th>分类:</th>
@@ -144,12 +143,12 @@
                                 </tr>
                                 <tr>
                                     <th>封面</th>
-                                    <td><input type="file" name="icon"></td>
+                                    <td><input type="file" name="icon"></td>{{ $errors ->first('icon') }}
                                 </tr>
                                 <tr>
                                     <th>描述</th>
                                     <td>
-                                        <textarea name="desc" id="" cols="80" rows="10" style="width: 600px;height: 230px;"></textarea>
+                                        <textarea name="desc" id="" cols="80" rows="10" style="width: 600px;height: 230px;"></textarea>{{ $errors ->first('desc') }}
                                     </td>
                                 </tr>
                                 <tr>

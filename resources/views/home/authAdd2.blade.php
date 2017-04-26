@@ -45,7 +45,7 @@
 
         <div style="height: 600px;">
             <div class="container">
-<?php var_dump($status) ?>
+
             <div id="msform">
                 <!-- progressbar -->
                 <ul id="progressbar">

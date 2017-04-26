@@ -217,9 +217,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
                 <!-- Logo -->
-                <a class="navbar-brand" href="index.html"><img style="margin-top:15px;" class="logo" id="logo" src="{{url('home/images/logo.png')}}" alt="Page"></a>
+                <a class="navbar-brand logo" href="{{asset('home/index')}}"><img style="margin-top:15px; z-index: 99999999999999;" class="logo" id="logo" src="{{url('home/images/logo.png')}}" alt="Page"></a>
 
             </div>
             <!-- Navbar Toggle End -->
@@ -321,8 +320,13 @@
 <script>
     $(function(){
         $('#index').click(function(){
-            return ''
+            location.href = "/home/index";
         })
+
+        $('.logo').click(function(){
+            location.href = "/home/index";
+        })
+
     })
 </script>
 @yield('j-s')

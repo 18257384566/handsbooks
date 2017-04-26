@@ -61,8 +61,8 @@ class PublishController extends Controller
                 'name' => 'required',
                 'detail' => 'required',
                 'icon' => 'required',
-                'good' => 'numeric|required',
-                'read' => 'numeric|required',
+                'good' => 'numeric|required|min:0|integer',
+                'read' => 'numeric|required|min:0|integer',
             );
             $mess=array(
                 'name.required'=>'请写入机构名称',
@@ -70,8 +70,12 @@ class PublishController extends Controller
                 'icon.required'=>'头像不能为空',
                 'good.numeric'=>'点赞数量书写格式不正确',
                 'good.required'=>'点赞数量不能空',
+                'good.integer'=>'点赞数量必须为整数',
+                'good.min'=>'点赞数量最小值为0',
                 'read.numeric'=>'阅读数量书写格式不正确',
                 'read.required'=>'阅读数量不能为空',
+                'read.min'=>'阅读数量最小为0',
+                'read.integer'=>'阅读数量必须为整数',
             );
             $validate = Validator::make($request ->all(),$rules,$mess);
             if($validate->fails()) {

@@ -79,8 +79,7 @@
 
             $('.status').click(function(){
                 $id = $(this).parent().parent().children(':first').html();
-                alert($id);
-                $.get('/admin/idea',{'status':$(this).html(),'id':$id},function(data){alert(data)});
+                $.get('/admin/idea',{'status':$(this).html(),'id':$id},function(data){});
                 if( $(this).html() == '激活' ){
                     $(this).html('未查看');
                 }else{

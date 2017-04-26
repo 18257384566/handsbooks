@@ -139,16 +139,34 @@ class AuthController extends Controller
     // 个人中心 - 作者
     public function space(Request  $request,$a_id){
         if($request->isMethod('post')){
-           //存入数据库
-           $data = array(
-               'icon' => 'book.jpg',
-               'au_id' => $a_id,
-               //默认为百度的机构
-               'pub_id' => '3',
-           );
-           $result = Book::create(array_merge($request->all(),$data));
+            $rules = array(
+                'title' => 'required',
+                'price' => 'numeric|required|min:0',
+                'icon'=>'required',
+                'desc' => 'required',
+            );
+            $mess = array(
+                'title.required' => '章节名不能为空',
+                'price.numeric' => '价格格式不正确',
+                'price.required' => '请填写价格',
+                'price.min' => '价格最小为0',
+                'icon.required' => '头像不能为空',
+                'desc.required' => '描述不能为空',
+            );
+            $validate = Validator::make($request ->all(),$rules,$mess);
+            if($validate->fails()){
+                return  back()->withErrors($validate);
+            }else {
+                //存入数据库
+                $data = array(
+                    'icon' => 'book.jpg',
+                    'au_id' => $a_id,
+                    //默认为百度的机构
+                    'pub_id' => '3',
+                );
+                $result = Book::create(array_merge($request->all(),$data));
 
-           //如果数据添加成功
+                //如果数据添加成功
                 //获取新增id
                 $id = $result ->id;
                 //上传封面
@@ -163,6 +181,7 @@ class AuthController extends Controller
                 $data->desc = "book_desc/book$id.txt";
                 $data->save();
                 return back();
+            }
        }else{
            //用户
            $u_id = $request->session()->get('u_id');
