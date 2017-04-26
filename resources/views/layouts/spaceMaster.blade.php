@@ -33,10 +33,10 @@
                 <a href="{{url('home/space/user')}}"><h4>个人信息</h4></a>
             </li>
             <li>
-                <a href=""><h4>我的图书</h4></a>
+                <a href="{{url('home/space/book')}}"><h4>我的图书</h4></a>
             </li>
             <li>
-                <a href="{{url('home/space/order')}}"><h4>我的订单</h4></a>
+                <a href="{{url('home/space/order/1')}}"><h4>我的订单</h4></a>
             </li>
 
             <li>

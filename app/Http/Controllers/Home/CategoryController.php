@@ -13,18 +13,20 @@ class CategoryController extends Controller
     public function show($id = 0)
     {
         if($id == 0){
-//            $book = Book::where('up',0)->paginate(20);
-            $book = DB::table('books')->join('auths','books.au_id','auths.id')->where('up',0)->paginate(20);
-        }else{
-            $book = Book::where('c_id',$id)->where('up','0')->paginate(20);
-//            $book = DB::table('books')->join('auths','books.au_id','auths.id')->whereColumn([
-//                ['books.up','=', 'b.0'],
-//                ['books.c_id',  'books.$id']
-//            ])->paginate(20);
-        }
-        $category = Category::all();
 
-        return view('home.category',compact('category','book'));
+            $book = Book::where('up',0)->paginate(12);
+        }else{
+            $book = Book::where('c_id',$id)->where('up','0')->paginate(12);
+//            dd($book);
+
+        }
+        $category = Category::where('display',1)->get();
+//       if(empty($book[0])){
+//           dd(11);
+//       }else{
+//           dd(22);
+//       }
+        return view('home.category',compact('category','book','id'));
     }
 
     public function showList()

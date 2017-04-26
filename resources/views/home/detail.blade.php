@@ -131,6 +131,7 @@
                 };
                 window.wxc.xcConfirm(txt, "custom", option);
             });
+
         });
     </script>
 @endsection
@@ -161,8 +162,15 @@
             </div>
         </div>
         <div class="book_author">
-            <span>作　者：<span>{{$auth}}</span></span><br>
-            <span>出版社：<span>{{$book->name}}</span></span>
+
+            <span>作　者：<span>书海沧生</span></span><br>
+            <span>出版社：<span>{{$book->name}}</span></span>　　　　　　　　　
+            @if($collect == 1)
+            <a href="{{url('/home/detail/collect_no/'.$id)}}" class="btn btn-info collect"><span class="glyphicon glyphicon-heart " aria-hidden="true"></span>已收藏</a>
+            @else
+            <a href="{{url('/home/detail/collect_ok/'.$id)}}" class="btn btn-info collect"><span class="glyphicon glyphicon-heart " aria-hidden="true"></span>收藏</a>
+            @endif
+
         </div>
         <div class="book_price clear">
             <div class="price_title clear">
@@ -172,8 +180,11 @@
                 <span>价格: <span style="color:#F87A36;font-size:20px">￥</span><span class="price_money">{{$book->price}}</span>
             </div>
             <div class="price_button clear">
+                @if($order == 0)
                 <button class="button_buy" id="btn7">购买全本</button>
-                　<a href="" class="button_read">开始阅读</a>
+                　@else
+                    <a href="{{url('/home/detail/article/'.$id.'/'.$book_info[0]->id)}}" class="button_read">开始阅读</a>
+                    @endif
             </div>
         </div>
     </div>
@@ -207,7 +218,8 @@
                         <hr>
                         @if(!empty($book_info[0]))
                             @foreach($book_info as $k => $v)
-                                   <p>{{$v->title}}</p>
+                                   <p><a href="{{url('/home/detail/article/'.$id.'/'.$v->id)}}">{{$v->title}}</a></p>
+                                   {{--<p><a href="/{{$v->url}}">{{$v->title}}</a></p>--}}
                             @endforeach
                             @else
                             ...
@@ -275,7 +287,7 @@
 
     </div>
     <div class="top_list clear">
-        <h4 style="margin-left:20px;">热门榜单</h4>
+        <h4 style="margin-left:20px;">畅销榜单</h4>
         <hr>
         <div class="accordion_container">
             <div class="accordion">

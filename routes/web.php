@@ -22,9 +22,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::get('edit/{id}','UserController@edit');
         Route::post('edit/{id}','UserController@doEdit');
         Route::get('add','UserController@add');
-//        Route::post('doAdd','UserController@doAdd');
+        Route::post('doAdd','UserController@doAdd');
         Route::get('del/{id}','UserController@del');
-        Route::get('changeStatus/{id}','UserController@changeStatus');
+        Route::get('no/{id}','UserController@no');
+        Route::get('yes/{id}','UserController@yes');
         Route::get('isAuthor/{id}','UserController@isAuthor');
     });
         /*书籍管理*/
@@ -41,7 +42,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
             Route::post('detailadd/{id}','BookController@detailDoAdd');
             Route::any('detailedit/{id}','BookController@detailEdit');
             Route::any('detaildel/{id}','BookController@detailDel');
-            Route::get('changeStatus/{id}','BookController@changeStatus');
+            Route::get('down/{id}','BookController@down');
+            Route::get('up/{id}','BookController@up');
     });
    /*分类管理*/
     Route::group(['prefix' => 'category'],function(){
@@ -70,7 +72,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     /*评论管理*/
    Route::group(['prefix'=>'comment'],function(){
       Route::get('list','CommentController@show');
-       Route::get('changeStatus/{id}','CommentController@changeStatus');
+       Route::get('hide/{id}','CommentController@hide');
+       Route::get('display/{id}','CommentController@display');
    });
 
     //权限管理
@@ -146,6 +149,9 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         Route::get('/{id}','DetailsController@show');
         Route::post('orderAdd','OrderController@add');
         Route::post('isPay','OrderController@isPay');
+        Route::get('collect_ok/{id}','DetailsController@collect_ok');
+        Route::get('collect_no/{id}','DetailsController@collect_no');
+        Route::get('article/{b_id}/{t_id}','DetailsController@article');
     });
 
 
@@ -191,10 +197,14 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
         Route::post('editEmail','SpaceController@editEmail');
         Route::post('editIcon','SpaceController@editIcon');
         Route::group(['prefix'=>'order'],function(){
-            Route::get('/','OrderController@orders');
+            Route::get('/{id}','OrderController@orders');
             Route::get('toPay/{id}','OrderController@toPay');
             Route::get('isCancel/{id}','OrderController@isCancel');
             Route::post('comment','OrderController@comment');
+        });
+        Route::group(['prefix'=>'book'],function(){
+            Route::get('/','SpaceController@book');
+            Route::get('no_collect/{id}','SpaceController@no_collect');
         });
 
     });

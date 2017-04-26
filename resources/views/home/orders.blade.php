@@ -12,6 +12,9 @@
             /*width: 500px;*/
             /*height: 300px;*/
         /*}*/
+        .tabClick a:hover{
+            text-decoration: none;
+        }
     </style>
 @endsection
 @section('js')
@@ -141,15 +144,20 @@
 
             newobj.focus();
         }
+
+        $('.tabClick li').click(function(){
+           alert($(this).html());
+        })
     </script>
 @endsection
 @section('main')
     <div class="wrap" id="wrap">
+        @if($num == 1)
         <ul class="tabClick">
-            <li class="active">订单列表</li>
-            <li>未支付</li>
-            <li>已取消</li>
-            <li>完成订单</li>
+            <li class="active"><a href="{{url('home/space/order/1')}}">订单列表</a></li>
+            <li><a href="{{url('home/space/order/2')}}">未支付</a></li>
+            <li><a href="{{url('home/space/order/3')}}">已取消</a></li>
+            <li><a href="{{url('home/space/order/4')}}">完成订单</a></li>
         </ul>
         <div class="lineBorder">
             <div class="lineDiv"><!--移动的div--></div>
@@ -157,6 +165,7 @@
         <div class="tabCon">
             <div class="tabBox">
                 {{--全部订单--}}
+
                 <div class="tabList">
                   <table class="table">
                       <tbody>
@@ -195,7 +204,19 @@
                   </table>
                     {{$order->links('admin/page')}}
                 </div>
-
+                @elseif($num == 2)
+                    <ul class="tabClick">
+                        <li><a href="{{url('home/space/order/1')}}">订单列表</a></li>
+                        <li class="active"><a href="{{url('home/space/order/2')}}">未支付</a></li>
+                        <li><a href="{{url('home/space/order/3')}}">已取消</a></li>
+                        <li><a href="{{url('home/space/order/4')}}">完成订单</a></li>
+                    </ul>
+                    <div class="lineBorder">
+                        <div class="lineDiv" style="margin-left: 230px;"><!--移动的div--></div>
+                    </div>
+                    <div class="tabCon">
+                        <div class="tabBox">
+                            {{--全部订单--}}
                 <div class="tabList">
                     <table class="table">
                         <tbody>
@@ -210,7 +231,6 @@
                             <th>取消</th>
                         </tr>
                         @foreach($order as $k => $v)
-                            @if($v->isPay == 0 && $v->cancel == 0)
                             <tr>
                                 @foreach($time as $key => $value)
                                     @if($k == $key)
@@ -229,12 +249,24 @@
                                 <td><button class="btn btn-warning isPay">@if($v->isPay == 0) 未支付 @else 已支付 @endif</button></td>
                                 <td><button class="btn btn-info isCancel">@if($v->cancel == 0) 未取消 @else 已取消 @endif</button></td>
                             </tr>
-                            @endif
                         @endforeach
                         </tbody>
                     </table>
                     {{$order->links('admin/page')}}
                 </div>
+                @elseif($num == 3)
+                <ul class="tabClick">
+                    <li><a href="{{url('home/space/order/1')}}">订单列表</a></li>
+                    <li><a href="{{url('home/space/order/2')}}">未支付</a></li>
+                    <li class="active"><a href="{{url('home/space/order/3')}}">已取消</a></li>
+                    <li><a href="{{url('home/space/order/4')}}">完成订单</a></li>
+                </ul>
+                <div class="lineBorder">
+                    <div class="lineDiv" style="margin-left: 450px;"><!--移动的div--></div>
+                </div>
+                <div class="tabCon">
+                    <div class="tabBox">
+                        {{--全部订单--}}
                 <div class="tabList">
                     <table class="table">
                         <tbody>
@@ -247,7 +279,6 @@
                             <th>下单时间</th>
                         </tr>
                         @foreach($order as $k => $v)
-                            @if($v->cancel == 1)
                             <tr>
                                 @foreach($time as $key => $value)
                                     @if($k == $key)
@@ -264,12 +295,24 @@
                                     @endif
                                 @endforeach
                             </tr>
-                            @endif
                         @endforeach
                         </tbody>
                     </table>
                     {{$order->links('admin/page')}}
                 </div>
+                @elseif($num == 4)
+                <ul class="tabClick">
+                    <li><a href="{{url('home/space/order/1')}}">订单列表</a></li>
+                    <li><a href="{{url('home/space/order/2')}}">未支付</a></li>
+                    <li><a href="{{url('home/space/order/3')}}">已取消</a></li>
+                    <li class="active"><a href="{{url('home/space/order/4')}}">完成订单</a></li>
+                </ul>
+                <div class="lineBorder">
+                    <div class="lineDiv" style="margin-left: 690px;"><!--移动的div--></div>
+                </div>
+                <div class="tabCon">
+                    <div class="tabBox">
+                        {{--全部订单--}}
                 <div class="tabList">
                     <table class="table">
                         <tbody>
@@ -283,7 +326,6 @@
                             <th>评论</th>
                         </tr>
                         @foreach($order as $k => $v)
-                            @if($v->isPay == 1 && $v->cancel == 0)
                                 <tr>
                                     @foreach($time as $key => $value)
                                         @if($k == $key)
@@ -302,12 +344,12 @@
                                      <td><button class="btn btn-success comment">@if($v->is_comment == 0)未评论@else已评论@endif</button></td>
 
                                 </tr>
-                            @endif
                         @endforeach
                         </tbody>
                     </table>
                     {{$order->links('admin/page')}}
                 </div>
+                    @endif
             </div>
         </div>
         @endsection
