@@ -47,7 +47,7 @@
                 });
                 $(this).html('已关注');
                 <?php else: ?>
-                    location.href = "login";
+                    location.href = "/home/login";
                 <?php endif; ?>
             })
 

@@ -44,7 +44,7 @@
             </li>
             @if($a_id)
                 <li>
-                    <a href="{{url('home/authSpace/'.$a_id)}}"><h4>作者space</h4></a>
+                    <a href="{{asset('home/authSpace/'.$a_id)}}"><h4>作者space</h4></a>
                 </li>
             @endif
             <li></li>

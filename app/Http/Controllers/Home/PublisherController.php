@@ -17,7 +17,7 @@ class PublisherController extends Controller
 
     public function info(Request $request,$id)
     {
-        $books = DB::select("select b.id from books as b ,publishes as p where p.id = b.pub_id and p.id = $id");
+        $books = DB::select("select b.id from books as b ,publishes as p where p.id = b.pub_id and b.up=0 and p.id = $id");
 
         $pub = Publish::find($id);
         $icon = $pub->icon;

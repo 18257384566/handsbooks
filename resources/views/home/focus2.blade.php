@@ -59,13 +59,16 @@
                 <p>{{$users->name}}</p>
             </li>
             <li>
-                <a href=""><h4>个人信息</h4></a>
+                <a href="{{url('home/space/user')}}"><h4>个人信息</h4></a>
             </li>
             <li>
-                <a href=""><h4>我的图书</h4></a>
+                <a href="{{url('home/space/book')}}"><h4>我的图书</h4></a>
             </li>
             <li>
-                <a href=""><h4>我的订单</h4></a>
+                <a href="{{url('home/space/order/1')}}"><h4>我的订单</h4></a>
+            </li>
+            <li>
+                <a href="{{asset('home/focus')}}"><h4>我的关注</h4></a>
             </li>
             <li></li>
         </ul>
@@ -184,7 +187,7 @@
                     boss.onchange();
                 },
                 error:function(){
-                    alert("失败");
+
                 },
                 dataType:'json',
                 async: false

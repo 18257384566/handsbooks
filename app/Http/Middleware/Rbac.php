@@ -19,7 +19,7 @@ class Rbac
     public function handle($request, Closure $next)
     {
         //如果不存在a_id进入login
-        if(!$request->session()->get('a_id')){
+        if(!$request->session()->get('admin_id')){
              return redirect('admin/login');
         }
 

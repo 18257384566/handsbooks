@@ -34,6 +34,7 @@ class DetailsController extends Controller
         /*获取章节信息*/
         $book_info  = Book_info::where('books_id',$id)->orderBy('id')->get();
 //        $first = $book_info[0]->id;
+
         $number = count($book_info);
 
         /*获取评论信息*/
@@ -43,6 +44,7 @@ class DetailsController extends Controller
 
         /*查询用户是否收藏此书籍*/
         $result = DB::table('users_books')->where('users_id',$users_id)->where('books_id',$id)->get();
+
         if(empty($result[0])){
             $collect=0;
         }else{

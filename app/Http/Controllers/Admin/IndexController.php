@@ -29,15 +29,14 @@ class IndexController extends Controller
     public function doLogin(AdminLoginRequest $request)
     {
 
-        $pwd = md5($request->password);
+        $pwd = $request->password;
         $result = DB::table('admins')->select('*')->where('name',$request->name)->where('password',$pwd)->get();
-//        dd($result);
         if(empty($result[0])){
             return redirect('admin/login')->with('mess','用户名不存在或密码错误');
         }else{
             session(['admin'=> $result[0]]);
-//            dd(session('admin'));
-            $request -> session() -> put('a_id',$result[0]->id);
+            $request -> session() -> put('admin_id',$result[0]->id);
+
            return redirect('admin/index');
         }
     }
