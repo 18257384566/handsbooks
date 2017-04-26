@@ -73,9 +73,9 @@ class PermissionsController extends Controller
                 'description.required' => '描述不能为空',
             );
             $validate = Validator::make($request ->all(),$rules,$mess);
-//            var_dump($validate->errors());
-            if($validate->fails()){
-                return view('/admin/permissionsUpdate')->withErrors($validate);
+//            dd($validate->errors());
+            if($validate -> fails()){
+                return  back() ->withErrors($validate);
             }else{
                 //修改用户信息
                 $permission = Permission::findOrFail($permission_id);

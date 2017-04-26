@@ -15,18 +15,20 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
     /*显示后台首页*/
-    public function index()
+    public function index(Request $request)
     {
+
         return view('admin/index');
     }
     /*显示登陆界面*/
-    public function login()
+    public function login(Request $request)
     {
         return view('admin/login');
     }
     /*执行登陆*/
     public function doLogin(AdminLoginRequest $request)
     {
+
         $pwd = md5($request->password);
         $result = DB::table('admins')->select('*')->where('name',$request->name)->where('password',$pwd)->get();
 //        dd($result);
@@ -35,6 +37,7 @@ class IndexController extends Controller
         }else{
             session(['admin'=> $result[0]]);
 //            dd(session('admin'));
+
            return redirect('admin/index');
         }
     }
@@ -59,6 +62,7 @@ class IndexController extends Controller
              return back();
          }
     }
+
 
     /*退出*/
     public function logout(Request $request)

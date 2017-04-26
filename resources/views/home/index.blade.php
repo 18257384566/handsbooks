@@ -9,62 +9,58 @@
     <section class="slider-pro clean-slider" id="clean-slider">
         <div class="sp-slides">
 
-            <!-- Slides -->
-            <div class="sp-slide clean-main-slides">
-                <div class="clean-img-overlay"></div>
+            @foreach($result as $item)
+                <!-- Slides -->
+                <div class="sp-slide clean-main-slides">
+                    <div class="clean-img-overlay"></div>
 
-                <img class="sp-image"  src="{{url('home/images/slider/1.jpg')}}" alt="Slider 1"/>
+                    <img class="sp-image"  src="/slide_icon/{{$item->icon}}" alt="Slider 1"/>
 
-                <h1 class="sp-layer clean-slider-text-big" style="font-size:40px;"
-                    data-position="center" data-show-transition="right" data-hide-transition="right" data-show-delay="1500" data-hide-delay="200">
-                    <span class="clean-color-contras " style="font-size:40px;color:#7CD552; font-weight: bold; font-family: Webdings;">状元红</span> - 秀_午夜飞行
-                </h1>
-                <p class="sp-layer"
-                   data-position="center" data-vertical="15%" data-show-delay="2000" data-hide-delay="200" data-show-transition="left" data-hide-transition="down">
-                    点绛唇 — 倚门回首，却把青梅嗅
-                </p>
+                    <h1 class="sp-layer clean-slider-text-big" style="font-size:40px;"
+                        data-position="center" data-show-transition="right" data-hide-transition="right" data-show-delay="1500" data-hide-delay="200">
+                        <span class="clean-color-contras " style="font-size:40px;color:#7CD552; font-weight: bold; font-family: Webdings;">{{$item->b_name}}</span> - {{$item->a_name}}
+                    </h1>
+                    <p class="sp-layer"
+                       data-position="center" data-vertical="15%" data-show-delay="2000" data-hide-delay="200" data-show-transition="left" data-hide-transition="down">
+                        {{$item->desc}}
+                    </p>
 
-            </div>
-            <!-- Slides End -->
+                </div>
+                <!-- Slides End -->
+            @endforeach
 
-            <!-- Slides -->
-            <div class="sp-slide clean-main-slides">
-                <div class="clean-img-overlay"></div>
-                <img class="sp-image" src="{{url('home/images/slider/2.jpg')}}" alt="Slider 2"/>
-
-                <h1 class="sp-layer clean-slider-text-big"
-                    data-position="center" data-show-transition="right" data-hide-transition="right" data-show-delay="1500" data-hide-delay="200">
-                    <span class="clean-color-contras" style="color:#84D768; font-size: 50px; font-weight: bold; font-family: Webdings;">鬼帝的御宠毒妃</span> - 墨日西下 著
-                </h1>
-
-                <p class="sp-layer"
-                   data-position="center" data-vertical="15%" data-show-delay="2000" data-hide-delay="200" data-show-transition="left" data-hide-transition="down">
-                    将军府二少爷一个天下人唾弃的废物，姨娘兄长的欺压，人尽皆知的懦夫，公主当众悔婚嘲笑。。。
-                </p>
-            </div>
-            <!-- Slides End -->
-
-            <!-- Slides -->
-            <div class="sp-slide clean-main-slides">
-                <div class="clean-img-overlay"></div>
-
-                <img class="sp-image" src="{{url('home/images/slider/3.jpg')}}" alt="Slider 3"/>
-
-                <h1 class="sp-layer clean-slider-text-big"
-                    data-position="center" data-show-transition="right" data-hide-transition="right" data-show-delay="1500" data-hide-delay="200">
-                    <span class="clean-color-contras" style="font-size: 40px; color:#84D768; font-weight: bold; font-family: Webdings;">重生帝女凰途</span> - 樱雨飘零 著
-                </h1>
-
-                <p class="sp-layer"
-                   data-position="center" data-vertical="15%" data-show-delay="1000" data-hide-delay="200" data-show-transition="left" data-hide-transition="down">
-                    “阿玉，你若要这天下，我定呕心沥血为你送上。”上一世他的誓言犹在耳。重活一次，她誓死也要保护她爱的和爱她的人！
-                </p>
-
-            </div>
-            <!-- Slides End -->
 
         </div>
     </section>
+
+
+
+    <div style="margin-top:-20px; margin-bottom: 15px;">
+        <div class="container">
+            <div class="rows">
+                <div class="col-md-3">
+                    <select class="form-control" id="xz">
+                        <option value="白羊座">白羊座</option>
+                        <option value="金牛座">金牛座</option>
+                        <option value="双子座" selected>双子座</option>
+                        <option value="巨蟹座">巨蟹座</option>
+                        <option value="处女座">处女座</option>
+                        <option value="天秤座">天秤座</option>
+                        <option value="天蝎座">天蝎座</option>
+                        <option value="射手座" >射手座</option>
+                        <option value="摩羯座">摩羯座</option>
+                        <option value="水瓶座">水瓶座</option>
+                        <option value="双鱼座">双鱼座</option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                    <button class="btn btn-success selected">查询</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     {{--留白--}}
     <div class="black"></div>
 
@@ -169,7 +165,14 @@
              easingType: 'linear'
              };
              */
-            $().UItoTop({ easingType: 'easeOutQuart' });
+
+            //星座
+            $('.selected').click(function(){
+                var $xz = $('#xz').children('option:selected').val();
+                location.href = "/home/jk?xz="+$xz;
+            })
+
+
         });
     </script>
     <!-- //smooth scrolling -->

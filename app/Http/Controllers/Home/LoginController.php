@@ -20,6 +20,9 @@ class LoginController extends Controller
     public function doLogin(UserLoginRequest $request)
     {
         //dd($request->all());
+        $email = $request->input('email');
+        $password = $request->input('password');
+//        $result = DB::select("select * from users where `email` = '".$email."' and `password` = $password and `is_confirmed` = 1, `status` = 0");
 
        $result = Auth::attempt(['email' => $request->input('email'),'password' => $request->input('password'),'is_confirmed' => 1,'status'=>0]);
 

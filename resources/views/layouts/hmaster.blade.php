@@ -227,22 +227,22 @@
             <!-- navbar-collapse start-->
             <div id="nav-menu" class="navbar-collapse collapse" role="navigation">
                 <ul class="nav navbar-nav clean-menu-wrapper ">
-                    <li class="active">
-                        <a href="{{asset('home/index')}}">首页</a>
+                    <li class="active"  style="z-index: 99999999999999;" id="index">
+                        <a href="{{asset('/home/index')}}">首页</a>
                     </li>
-                    <li>
+                    <li style="z-index: 99999999999999;">
                         <a href="{{asset('home/category')}}">分类</a>
                     </li>
-                    <li>
+                    <li style="z-index: 99999999999999;">
                         <a href="{{asset('home/Billboard')}}">榜单</a>
                     </li>
-                    <li>
+                    <li style="z-index: 99999999999999;">
                         <a href="{{asset('home/auth')}}">独家作品</a>
                     </li>
-                    <li>
+                    <li style="z-index: 99999999999999;">
                         <a href="{{asset('home/publisher')}}">机构专区</a>
                     </li>
-                    <li>
+                    <li style="z-index: 99999999999999;">
                         <a href="{{asset('home/space')}}">个人中心</a>
                     </li>
                 </ul>
@@ -250,7 +250,9 @@
                 <div class="navbar">
                     @if(Auth::check())
                         <a href="{{asset('home/space')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
-                        <a href="{{asset('home/logout')}}" style="color: #81D362;">注销</a>
+                        <a href="{{asset('home/logout')}}" style="color: #81D362;">注销</a> |
+                        <a href="{{asset('home/idea')}}" style="color: #81D362;">意见反馈</a>
+
                     @else
                         <a href="{{asset('home/login')}}" style="color: #81D362;">登陆</a> |
                         <a href="{{asset('home/reg')}}" style="color: #81D362;">注册</a>
@@ -316,6 +318,13 @@
 <script src="{{url('home/js/jquery.nav.js')}}"></script>
 <script src="{{url('home/js/custom.js')}}"></script>
 
+<script>
+    $(function(){
+        $('#index').click(function(){
+            return ''
+        })
+    })
+</script>
 @yield('j-s')
 </body>
 </html>

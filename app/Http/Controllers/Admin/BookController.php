@@ -18,6 +18,7 @@ class BookController extends Controller
     /*显示书籍列表*/
     public function show(Request $request)
     {
+
         if($request->search){
             $result = DB::table('books')->select('books.*','pid','name')->join('category','books.c_id','category.id')->where('books.title','like','%'.$request->search.'%')->orderBy('books.id')->paginate(5);
             $auth = Book::select('auths.name')->join('auths','auths.id','books.au_id')->orderBy('books.id')->paginate(5);

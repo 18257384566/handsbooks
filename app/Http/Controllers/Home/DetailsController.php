@@ -49,6 +49,7 @@ class DetailsController extends Controller
             $collect=1;
         }
 
+
         $res = DB::select("select books_id,count('books_id') as num from orders group by books_id order by num desc limit 10");
 //       dump($res);
         $top_list = array();
@@ -58,6 +59,7 @@ class DetailsController extends Controller
 
 //        dd($top_list);
         return view('home/detail',compact('book','desc','book_info','number','id','comment','num','collect','order','top_list','auth'));
+
     }
 
     public function collect_ok($id)

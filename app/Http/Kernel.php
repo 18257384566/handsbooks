@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Rbac;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -58,5 +59,8 @@ class Kernel extends HttpKernel
         'check.h.login' => \App\Http\Middleware\CheckHLogin::class,
         'check.admin.login' => \App\Http\Middleware\checkALogin::class,
         'check.home.login'=> \App\Http\Middleware\checkHomeLogin::class,
+
+        'rbac' => \App\Http\Middleware\Rbac::class,
+
     ];
 }

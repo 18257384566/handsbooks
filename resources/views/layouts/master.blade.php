@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@yield('title','handsbooks后台')</title>
+    <title>@yield('title','掌阅书后台')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="_token" content="{{ csrf_token() }}"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
+
     <link href="{{asset('/admin/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('/admin/css/bootstrap-responsive.min.css')}}" rel="stylesheet">
@@ -23,7 +24,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="index.html">网站名字后台 </a>
+                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="/admin/index">掌阅书后台 </a>
             <div class="nav-collapse">
                 <ul class="nav pull-right">
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
@@ -147,6 +148,26 @@
 <script language="javascript" type="text/javascript" src="/admin/js/full-calendar/fullcalendar.min.js"></script>
 
 <script src="/admin/js/base.js"></script>
+<script>
+    $(function(){
+        $("#btn7").click(function(){
+            var txt=  "自定义呀";
+            var option = {
+                title: "自定义",
+                btn: parseInt("0011",2),
+                onOk: function(){
+                    console.log("确认啦");
+                }
+            }
+            window.wxc.xcConfirm(txt, "custom", option);
+        });
+
+        $("#btn8").click(function(){
+            var txt=  "默认";
+            window.wxc.xcConfirm(txt);
+        });
+    })
+</script>
 @yield('script')
 <script>
     $(function(){

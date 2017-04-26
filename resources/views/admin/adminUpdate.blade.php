@@ -77,12 +77,12 @@
                             <input type="password" class="mg" name="password" > {{$errors->first('password')}}
                         </td>
                     </tr>
-                    <tr>
-                        <th><i class="require">*</i>确认密码：</th>
-                        <td>
-                            <input type="password" class="mg" name="password_confirmation"> {{$errors->first('repassword')}}
-                        </td>
-                    </tr>
+                    {{--<tr>--}}
+                        {{--<th><i class="require">*</i>确认密码：</th>--}}
+                        {{--<td>--}}
+                            {{--<input type="password" class="mg" name="password_confirmation"> {{$errors->first('repassword')}}--}}
+                        {{--</td>--}}
+                    {{--</tr>--}}
                     <tr>
                         <th></th>
                         <td>

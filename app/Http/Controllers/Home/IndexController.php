@@ -12,6 +12,7 @@ class IndexController extends Controller
 {
     public function show()
     {
+
         /*热销榜*/
         $res = DB::select("select books_id,count('books_id') as num from orders group by books_id order by num desc limit 4");
         $top_list = array();
@@ -31,6 +32,12 @@ class IndexController extends Controller
             $book[$v->au_id] = Book::select('title')->where('au_id',$v->au_id)->limit(3)->get();
         }
 
-        return view('home.index',compact('top_list','new','auth','book'));
+        //轮播图
+        $result = DB::table('slideshows')->get();
+        return view('home.index',compact('top_list','new','auth','book'))->with('result',$result);
+
+
+
+
     }
 }

@@ -61,11 +61,11 @@
                             @foreach ($books as $book)
                                 <?php
                                     $b_id = $book->id;
-                                    $result = DB::select("select b.`icon`,b.`title`, a.`name`,b.`price` from books as b, auths as a where b.id = $b_id and a.id = b.au_id");
+                                    $result = DB::select("select b.`id`, b.`icon`,b.`title`, a.`name`,b.`price` from books as b, auths as a where b.id = $b_id and a.id = b.au_id");
                                 ?>
                             <li>
                                 <div class="box">
-                                    <img src="/{{$result[0]->icon}}" alt="" width="130px;" style="border-radius: 8px;">
+                                    <a href="/home/detail/{{$result[0]->id}}"><img src="/{{$result[0]->icon}}" alt="" width="130px;" style="border-radius: 8px;"></a>
                                     <p>{{$result[0]->title}}</p>
                                     <p><span>作者：{{$result[0]->name}}</span> <span style="color:red">￥{{$result[0]->price}}</span></p>
                                 </div>

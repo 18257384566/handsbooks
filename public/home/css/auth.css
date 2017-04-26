@@ -14,7 +14,7 @@ p{font-size: 12px;line-height: 18px;}
 .book{height: 157px; width: 245px; }
 .simple{width: 245px; height: 90px; background-color: #FAFAFA; padding:8px; margin-top: 10px;}
 
-#box{width: 100%;height: 600px; border: 1px solid #777; overflow: hidden;}
+#box{width: 100%;height: 600px; border-left: 1px solid #777; overflow: hidden;}
 .hot{width: 100%;height: 80px;}
 .h-img{padding:10px;}
 .h-mian{margin-top:15px;width: 100px; overflow: hidden; display: block; text-overflow: ellipsis; white-space: nowrap; cursor: pointer;}

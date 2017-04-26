@@ -169,6 +169,7 @@
             @else
             <a href="{{url('/home/detail/collect_ok/'.$id)}}" class="btn btn-info collect"><span class="glyphicon glyphicon-heart " aria-hidden="true"></span>收藏</a>
             @endif
+
         </div>
         <div class="book_price clear">
             <div class="price_title clear">
