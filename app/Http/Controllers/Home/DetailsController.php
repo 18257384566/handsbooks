@@ -28,7 +28,6 @@ class DetailsController extends Controller
         $auth = Book::select('auths.name')->join('auths','auths.id','books.au_id')->find($id);
 
         /*反串行化提取书籍描述*/
-        dd($auth);
         $acString = file_get_contents($book->desc);
         $desc = unserialize($acString);
 
