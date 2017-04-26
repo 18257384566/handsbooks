@@ -56,5 +56,7 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'check.h.login' => \App\Http\Middleware\CheckHLogin::class,
+        'check.admin.login' => \App\Http\Middleware\checkALogin::class,
+        'check.home.login'=> \App\Http\Middleware\checkHomeLogin::class,
     ];
 }

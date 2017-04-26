@@ -96,7 +96,7 @@
                                    if(data){
                                        var txt=  "评论成功！";
                                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
-                                       $('.comment').hide();
+//                                       $('.comment').hide();
                                    }else{
                                        var txt=  "评论失败！";
                                        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
@@ -116,11 +116,11 @@
 
 
             })
-            /*已经评论*/
-            $('.comment_ok').click(function(){
-                var txt=  "亲，您已经评论过了哦~~";
-                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
-            })
+//            /*已经评论*/
+//            $('.comment_ok').click(function(){
+//                var txt=  "亲，您已经评论过了哦~~";
+//                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+//            })
 
         })
 

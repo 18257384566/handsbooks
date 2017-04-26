@@ -105,7 +105,7 @@
                         <tr>
                             <th>价格：</th>
                             <td>
-                                <input type="number" class="mg" name="price" value="{{$book->price}}">
+                                <input type="text" class="mg" name="price" value="{{$book->price}}">
                                 @if($errors->first('price'))
                                     <div class="alert alert-danger alert-dismissable">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -115,14 +115,14 @@
                             </td>
                         </tr>
                         <tr>
-                                <th>分类</th>
+                                <th>分类：</th>
                                 <td>
                                     <select name="" id="boss"></select>
                                     <select name="c_id" id="son"></select>
                                 </td>
                         </tr>
                         <tr>
-                                <th>出版社</th>
+                                <th>出版社：</th>
                                 <td>
                                     <select name="pub_id" id="">
                                         @foreach($publish as $k => $v)
@@ -136,7 +136,7 @@
                                 </td>
                         </tr>
                         <tr>
-                            <th>作者</th>
+                            <th>作者：</th>
                             <td>
                                 <select name="au_id" id="">
                                     @foreach($author as $k => $v)

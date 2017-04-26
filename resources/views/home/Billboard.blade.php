@@ -37,11 +37,11 @@
 
 
         <div id="jquery-accordion-menu" class="jquery-accordion-menu green">
-            <div class="jquery-accordion-menu-header" id="form"></div>
+            <div class="jquery-accordion-menu-header" ></div>
             <ul id="demo-list">
-                <li class="active"><a href="#"><i class="fa fa-home"></i>排行榜 </a></li>
-                <li><a href="#"><i class="fa fa-glass"></i>畅销榜</a></li>
-                <li><a href="#"><i class="fa fa-file-image-o"></i>新书榜</a></li>
+                <li><a href=""><i class="fa fa-home"></i>排行榜 </a></li>
+                <li><a href="{{url('/home/Billboard/hot')}}"><i class="fa fa-glass"></i>畅销榜</a></li>
+                <li><a href="{{url('/home/Billboard/new')}}"><i class="fa fa-file-image-o"></i>新书榜</a></li>
                 <li><a href="#"><i class="fa fa-cog"></i>热搜榜</a></li>
                 <li><a href="#"><i class="fa fa-home"></i>点击榜</a></li>
             </ul>
@@ -55,67 +55,33 @@
             <div class="books_list">
                 <h3>畅销榜</h3>
                 <hr>
+                @if(!empty($top_list))
+                @foreach($top_list as $k => $v)
                 <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
+                    <img src="/{{$v->icon}}" alt="" width="180" height="240">
                     <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
+                        <p>{{$v->title}}</p>
+                        <span class="left">{{$v->name}}</span>  <span class="right">￥{{$v->price}}</span>
                     </div>
                 </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
+                @endforeach
+                    @else
+                    @foreach($book as $k => $v)
+                    <div class="books_list01">
+                        <img src="/{{$v->icon}}" alt="" width="180" height="240">
+                        <div class="books_info">
+                            <p>{{$v->title}}</p>
+                            <span class="left">{{$v->name}}</span>  <span class="right">￥{{$v->price}}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
-                    </div>
-                </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
-                    </div>
-                </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
-                    </div>
-                </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
-                    </div>
-                </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
-                    </div>
-                </div>
-                <div class="books_list01">
-                    <img src="{{url('home/img/y-01.jpg')}}" alt="" width="180" height="240">
-                    <div class="books_info">
-                        <p>十年一品，温如言</p>
-                        <span class="left">作者</span>  <span class="right">￥12.2</span>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
+
             </div>
         </div>
     </div>
 
-
+<div style="width: 1000px;height: 200px;"></div>
     {{--<div class="books_rec">--}}
     {{--<img src="{{url('home/img/rec_01.jpg')}}" alt=""><br>--}}
     {{--<img src="{{url('home/img/rec_02.jpg')}}" alt="">--}}

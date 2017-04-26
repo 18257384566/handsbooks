@@ -16,10 +16,23 @@ use Illuminate\Support\Facades\Storage;
 class BookController extends Controller
 {
     /*显示书籍列表*/
-    public function show()
+    public function show(Request $request)
     {
-        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id','up','au_id')->join('category','books.c_id','category.id')->paginate(5);
-        return view('admin/bookList',compact('result'));
+        if($request->search){
+            $result = DB::table('books')->select('books.*','pid','name')->join('category','books.c_id','category.id')->where('books.title','like','%'.$request->search.'%')->orderBy('books.id')->paginate(5);
+            $auth = Book::select('auths.name')->join('auths','auths.id','books.au_id')->orderBy('books.id')->paginate(5);
+            $pub = Book::select('publishes.name')->join('publishes','publishes.id','books.pub_id')->orderBy('books.id')->paginate(5);
+            $search = [
+                'search' => $request->search,
+            ];
+            return view('admin/bookList',compact('result','auth','pub'))->with('search',$search);
+        }else{
+            $result = DB::table('books')->select('books.*','pid','name')->join('category','books.c_id','category.id')->orderBy('books.id')->paginate(5);
+            $auth = Book::select('auths.name')->join('auths','auths.id','books.au_id')->orderBy('books.id')->paginate(5);
+            $pub = Book::select('publishes.name')->join('publishes','publishes.id','books.pub_id')->orderBy('books.id')->paginate(5);
+            return view('admin/bookList',compact('result','auth','pub'));
+        }
+
     }
     /*跳转添加页面*/
     public function add()
@@ -35,13 +48,15 @@ class BookController extends Controller
 //        dd($request->all());
         $rules = array(
             'title' => 'required',
-            'price' => 'required',
+            'price' => 'required|min:0|numeric',
             'desc' => 'required',
             'icon' => 'required',
         );
         $mess = array(
             'title.required' => '书名不能为空',
             'price.required' => '价格不能为空',
+            'price.min' => '价格不能小于0',
+            'price.numeric' => '价格只能是数字',
             'desc.required' => '描述不能为空',
             'icon.required' => '图片不能为空',
         );
@@ -50,7 +65,6 @@ class BookController extends Controller
         $data = [
             'icon' => "book_icon/book.jpg",
             'desc' => "book_desc/book.txt",
-            'au_id'=>1,
             'up'=>2,
         ];
         $result = Book::create(array_merge($request->all(),$data));
@@ -113,12 +127,15 @@ class BookController extends Controller
 //        dd($request->all());
         $rules = array(
             'title' => 'required',
-            'price' => 'required',
+            'price' => 'required|min:0|numeric',
             'desc' => 'required',
+
         );
         $mess = array(
             'title.required' => '书名不能为空',
             'price.required' => '价格不能为空',
+            'price.min' => '价格不能小于0',
+            'price.numeric' => '价格只能是数字',
             'desc.required' => '描述不能为空',
         );
         $this->validate($request,$rules,$mess);
@@ -127,6 +144,8 @@ class BookController extends Controller
         $book->title = $request->input('title','');
         $book->price = $request->input('price','');
         $book->c_id = $request->input('c_id','');
+        $book->au_id = $request->input('au_id','');
+        $book->pub_id = $request->input('pub_id','');
         if(!empty($request->file('icon'))){
 //            dd(11);
             $request->file('icon')->move('book_icon',"book$id.jpg");
@@ -193,6 +212,7 @@ class BookController extends Controller
         $rules = array(
             'title' => 'required',
             'url' => 'required',
+
         );
         $mess = array(
             'title.required' => '章节名不能为空',

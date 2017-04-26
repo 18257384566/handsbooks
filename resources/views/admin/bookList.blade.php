@@ -50,6 +50,7 @@
     <li class="active"><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
     <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
     <li><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
+    <li><a href="{{url('admin/comment/list')}}"><i class="  icon-comment-alt"></i><span>评论管理</span> </a> </li>
     <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>权限管理</span> <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="{{asset('admin/perm')}}">权限管理</a></li>
@@ -75,7 +76,12 @@
             <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/book/add')}}">新增书籍</a></span> &nbsp;&nbsp;
             <span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span> &nbsp;&nbsp;
             <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span> &nbsp;&nbsp;
-            <hr>
+
+            　　　　　　　　　　　　　
+            <form action="{{url('admin/book/list')}}"  width="300px" style="float: right;">
+                <input type="search" name="search">　<input type="submit" value="搜索">
+            </form>
+            <hr width="1215px">
             @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -94,20 +100,32 @@
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
-                        @foreach($result as $v)
+                        @foreach($result as $k => $v)
                             <tr>
                                 <td>{{$v->id}}</td>
                                 <td><img src="/{{$v->icon}}" alt="" width="60px" height="80px">{{$v->icon}}</td>
                                 <td>{{$v->title}}</td>
                                 <td>{{$v->name}}</td>
-                                <td>{{$v->au_id}}</td>
-                                <td>{{$v->pub_id}}</td>
+                                @foreach($auth as $key => $value)
+                                    @if($k == $key)
+                                <td>{{$value->name}}</td>
+                                    @endif
+                                @endforeach
+                                @foreach($pub as $key => $value)
+                                    @if($k == $key)
+                                <td>{{$value->name}}</td>
+                                    @endif
+                                @endforeach
                                 <td><button class="btn btn-warning changeStatus">@if($v->up == 0)上架@else下架@endif</button></td>
                                 <td><a href="{{url('admin/book/detail'.'/'.$v->id)}}" class="btn btn-info">详情</a>　<a href="{{url('admin/book/edit'.'/'.$v->id.'/?m='.$v->pid.'&a='.$v->c_id.'')}}" class="btn btn-success">编辑</a>　<a href="{{url('admin/book/del'.'/'.$v->id)}}" class="btn btn-danger">删除</a></td>
                             </tr>
                             @endforeach
                     </table>
-                    {{$result->links('admin/page')}}
+                    @if(!empty($search))
+                        {{$result->appends($search)->links('admin/page')}}
+                    @else
+                        {{$result->links('admin/page')}}
+                    @endif
                 </div>
             </div>
 

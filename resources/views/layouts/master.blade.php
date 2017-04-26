@@ -34,10 +34,10 @@
                         </ul>
                     </li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                    class="icon-user"></i>用户名<b class="caret"></b></a>
+                                    class="icon-user"></i>{{session('admin')->name}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="javascript:;">简介</a></li>
-                            <li><a href="javascript:;">退出</a></li>
+                            <li><a href="{{url('admin/logout')}}">退出</a></li>
                         </ul>
                     </li>
                 </ul>

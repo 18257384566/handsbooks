@@ -5,6 +5,11 @@
             font-size: 25px;
             text-decoration: none;
         }
+        span{
+            font-size: 25px;
+            text-decoration: none;
+            color: #4C7AB7;
+        }
         .black{
             height: 400px;
             background-image: url("/home/image/article.jpg");
@@ -23,21 +28,18 @@
     <p style="line-height:40px; text-indent:2em;font-size:18px;">{{$article}}</p>
 </div>
 
-
 <div style="width:700px;margin:20px auto;">
-      @if(empty($prev))
-        <a href="">第一章</a>
-          @else
-        <a href="{{url('/home/detail/article/'.$b_id.'/'.$prev)}}">上一章</a>
+    @if (session('mess'))
+        <span>第一章</span>
+        @else
+        <a href="{{url('/home/space/book/prev/'.$b_id)}}">上一章</a>
     @endif
-    　　　　　　　　　　　　　　　　　　　　　　　　
-          @if(empty($next))
-              <a href="">结束咯~~~</a>
-          @else
-              <a href="{{url('/home/detail/article/'.$b_id.'/'.$next)}}">下一章</a>
-          @endif
-　　　　　　　　　　
-              <a href="{{url('/home/detail/'.$b_id)}}">返回</a>
 
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+        @if (session('message'))
+              <span>结束咯~~~</span>
+          @else
+              <a href="{{url('/home/space/book/next/'.$b_id)}}">下一章</a>
+          @endif
 </div>
     @endsection

@@ -189,6 +189,7 @@
     <script src="{{url('home/js/html5shiv.min.js')}}"></script>
     <script src="{{url('home/js/respond.min.js')}}"></script>
     <script type="text/javascript" src="{{url('home/js/selectivizr-min.js')}}"></script>
+
     <![endif]-->
     @yield('js')
 </head>
@@ -250,7 +251,6 @@
                     @if(Auth::check())
                         <a href="{{asset('home/space')}}" style="color: #81D362;">{{Auth::user()->name}}</a> |
                         <a href="{{asset('home/logout')}}" style="color: #81D362;">注销</a>
-
                     @else
                         <a href="{{asset('home/login')}}" style="color: #81D362;">登陆</a> |
                         <a href="{{asset('home/reg')}}" style="color: #81D362;">注册</a>
@@ -263,6 +263,7 @@
 </header>
 
 @yield('content')
+
 <!-- ===================================
 	FOOTER SECTION
 ==================================== -->

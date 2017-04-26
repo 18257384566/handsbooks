@@ -59,11 +59,11 @@
 @section('j-s')
     <script type="text/javascript" src="{{url('home/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{url('home/js/j-accordin.min.js')}}"></script>
-    <script src="/home/js/bootstrap.js"></script>
+    <script src="{{url('home/js/bootstrap.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.accordion').jaccordion();
-            $("#btn7").click(function(){
+            $(".btn7").click(function(){
                 var $img = $(".big_img img").attr("src");
                 var $book_name = $(".book_name").html();
                 var $price_money = $(".price_money").html();
@@ -158,11 +158,11 @@
                 </ul>
             </div>
             <div class="books_stars clear">
-                <span class="book_score">9.6</span>(<span class="book_num">2340</span>人评论)　|　<span class="read_num">12345</span>人阅读
+                <span class="book_score">9.6</span>　　　　　(　<span class="book_num" style="font-size: 16px;">{{$num}}</span>　人评论)
             </div>
         </div>
         <div class="book_author">
-            <span>作　者：<span>书海沧生</span></span><br>
+            <span>作　者：<span>{{$auth->name}}</span></span><br>
             <span>出版社：<span>{{$book->name}}</span></span>　　　　　　　　　
             @if($collect == 1)
             <a href="{{url('/home/detail/collect_no/'.$id)}}" class="btn btn-info collect"><span class="glyphicon glyphicon-heart " aria-hidden="true"></span>已收藏</a>
@@ -179,10 +179,14 @@
             </div>
             <div class="price_button clear">
                 @if($order == 0)
-                <button class="button_buy" id="btn7">购买全本</button>
+                <button class="button_buy btn7" >购买全本</button>
                 　@else
+                    @if(!empty($book_info[0]))
                     <a href="{{url('/home/detail/article/'.$id.'/'.$book_info[0]->id)}}" class="button_read">开始阅读</a>
+                    @else
+                        <a href="" class="button_read">开始阅读</a>
                     @endif
+                 @endif
             </div>
         </div>
     </div>
@@ -192,7 +196,7 @@
         <ul class="nav nav-tabs clear" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">简介</a></li>
             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">目录</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">评论（4625）</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">评论（{{$num}}）</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content clear">
@@ -212,16 +216,28 @@
             <div role="tabpanel" class="tab-pane" id="profile">
                 <div class="row">
                     <div class="col-md-9" style="margin-left:80px">
-                        <h4><b>目录(共119章)</b></h4>
+                        <h4><b>目录(共{{$number}}章)</b></h4>
                         <hr>
-                        @if(!empty($book_info[0]))
-                            @foreach($book_info as $k => $v)
-                                   <p><a href="{{url('/home/detail/article/'.$id.'/'.$v->id)}}">{{$v->title}}</a></p>
-                                   {{--<p><a href="/{{$v->url}}">{{$v->title}}</a></p>--}}
-                            @endforeach
+                        @if($order == 0)
+                            @if(!empty($book_info[0]))
+                                @foreach($book_info as $k => $v)
+                                    <p><a class="btn7">{{$v->title}}</a></p>
+                                    {{--<p><a href="/{{$v->url}}">{{$v->title}}</a></p>--}}
+                                @endforeach
                             @else
-                            ...
+                                ...
+                            @endif
+                        @else
+                            @if(!empty($book_info[0]))
+                                @foreach($book_info as $k => $v)
+                                    <p><a href="{{url('/home/detail/article/'.$id.'/'.$v->id)}}">{{$v->title}}</a></p>
+                                    {{--<p><a href="/{{$v->url}}">{{$v->title}}</a></p>--}}
+                                @endforeach
+                            @else
+                                ...
+                            @endif
                         @endif
+
                     </div>
                     <div style="width: 300px;height: 200px;"></div>
                 </div>
@@ -291,143 +307,152 @@
             <div class="accordion">
                 <div class="first current">
                     <div class="content">
-                        <img src="/home/img/y-01.jpg" width="60" height="80"/>
+                        <img src="/{{$top_list[0]->icon}}" width="60" height="80"/>
                         <div class="word" >
-                            <p><a href="#">书名</a></p>
+                            <p><a href="#">{{$top_list[0]->title}}</a></p>
                             <p><a href="#">作者：啦啦啦</a></p>
-                            <p>价格：<em style="color:#F00;"><strong>￥6088</strong></em></p><br />
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[0]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea1.jpg" /></span>
-                        <strong><a href="#" target="_blank">书名</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[0]->title}}</a></strong>
                     </div>
 
                 </div>
 
                 <div class="second">
                     <div class="content second">
-                        <a href="#" target="_blank"><img src="/home/img/y-02.jpg" width="80" height="100"/></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[1]->icon}}" width="80" height="100"/></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥2999</strong></em></p><br />
-                            <p><a href="#">盛旺鸿运电脑经营</a></p>
+                            <p><a href="#">{{$top_list[1]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[1]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea2.jpg" /></span>
-                        <strong><a href="#" target="_blank">OPPO R5</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[1]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="third">
                     <div class="content third">
-                        <a href="#" target="_blank"><img src="/home/img/y-03.jpg" width="80" height="100"/></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[2]->icon}}" width="80" height="100"/></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥4999</strong></em></p><br />
-                            <p><a href="#">八一数码手机专营</a></p>
+                            <p><a href="#">{{$top_list[2]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[2]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea3.jpg" /></span>
-                        <strong><a href="#" target="_blank">索尼Xperia Z3</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[2]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="four">
                     <div class="content four">
-                        <a href="#" target="_blank"><img src="/home/img/y-04.jpg" width="80" height="100"/></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[3]->icon}}" width="80" height="100"/></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥5399</strong></em></p><br />
-                            <p><a href="#">八一数码手机专营</a></p>
+                            <p><a href="#">{{$top_list[3]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[3]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea4.jpg" /></span>
-                        <strong><a href="#" target="_blank">三星GALAXY Note4</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[3]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="file">
                     <div class="content file">
-                        <a href="#" target="_blank"><img src="/home/img/y-05.jpg" width="80" height="100" /></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[4]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥999</strong></em></p><br />
-                            <p><a href="#">宏达手机旗舰店</a></p>
+                            <p><a href="#">{{$top_list[4]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[4]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea5.jpg" /></span>
-                        <strong><a href="#" target="_blank">中兴V5 Max</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[4]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="six">
                     <div class="content six">
-                        <a href="#" target="_blank"><img src="/home/img/y-05.jpg" width="80" height="100" /></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[5]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥999</strong></em></p><br />
-                            <p><a href="#">宏达手机旗舰店</a></p>
+                            <p><a href="#">{{$top_list[5]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[5]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea6.jpg" /></span>
-                        <strong><a href="#" target="_blank">中兴V5 Max</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[5]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="seven">
                     <div class="content seven">
-                        <a href="#" target="_blank"><img src="/home/img/y-05.jpg" width="80" height="100" /></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[6]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥999</strong></em></p><br />
-                            <p><a href="#">宏达手机旗舰店</a></p>
+                            <p><a href="#">{{$top_list[6]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[6]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea7.jpg" /></span>
-                        <strong><a href="#" target="_blank">中兴V5 Max</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[6]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="eight">
                     <div class="content eight">
-                        <a href="#" target="_blank"><img src="/home/img/y-05.jpg" width="80" height="100" /></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[7]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥999</strong></em></p><br />
-                            <p><a href="#">宏达手机旗舰店</a></p>
+                            <p><a href="#">{{$top_list[7]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[7]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea8.jpg" /></span>
-                        <strong><a href="#" target="_blank">中兴V5 Max</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[7]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="nine">
                     <div class="content nine">
-                        <a href="#" target="_blank"><img src="/home/img/y-05.jpg" width="80" height="100" /></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[8]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥999</strong></em></p><br />
-                            <p><a href="#">宏达手机旗舰店</a></p>
+                            <p><a href="#">{{$top_list[8]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[8]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea9.jpg" /></span>
-                        <strong><a href="#" target="_blank">中兴V5 Max</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[8]->title}}</a></strong>
                     </div>
                 </div>
 
                 <div class="ten">
                     <div class="content ten">
-                        <a href="#" target="_blank"><img src="/home/img/y-05.jpg" width="80" height="100" /></a>
+                        <a href="#" target="_blank"><img src="/{{$top_list[9]->icon}}" width="80" height="100" /></a>
                         <div class="word" >
-                            <p>价格：<em style="color:#F00;"><strong>￥999</strong></em></p><br />
-                            <p><a href="#">宏达手机旗舰店</a></p>
+                            <p><a href="#">{{$top_list[9]->title}}</a></p>
+                            <p><a href="#">作者：啦啦啦</a></p>
+                            <p>价格：<em style="color:#F00;"><strong>￥{{$top_list[9]->price}}</strong></em></p><br />
                         </div>
                     </div>
                     <div class="tab">
                         <span><img src="/home/img/tea10.jpg" /></span>
-                        <strong><a href="#" target="_blank">中兴V5 Max</a></strong>
+                        <strong><a href="#" target="_blank">{{$top_list[9]->title}}</a></strong>
                     </div>
                 </div>
 

@@ -65,32 +65,39 @@
 
         </div>
     </section>
-
-
-
     {{--留白--}}
     <div class="black"></div>
+
+    {{--广告--}}
+    <div class="container">
+         <div>
+             <img src="" alt="">
+         </div>
+
+    </div>
+    {{--广告结束--}}
+        <h2>&nbsp;</h2>
     {{--热销作品--}}
     <div class="container">
         <h3 class="agileits-title">热销作品</h3>
         <div class="rows">
 
             <div class="rx">
-                @for($i=0;$i<4;$i++)
-                <div class="col-md-3 hot">
-                    {{--<div class="hot-img"></div>--}}
-                    <div class="col-md-5 hot-img">
-                        <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
+                @foreach($top_list as $k => $v)
+                    <div class="col-md-3 hot">
+                        <div class="hot-img"></div>
+                        <div class="col-md-5 hot-img">
+                            <a href="{{url('/home/detail/'.$v->id)}}"><img src="/{{$v->icon}}" alt="" width="100"></a>
+                        </div>
+                        <div class="col-md-7" style="margin-top:20px;">
+                            <div class="black"></div>
+                            <div class="black"></div>
+                            <p><a href="">{{$v->title}}</a></p>
+                            <p>作者:{{$v->name}}</p>
+                            <p>价格：￥{{$v->price}}</p>
+                        </div>
                     </div>
-                    <div class="col-md-7" style="margin-top:20px;">
-                        <div class="black"></div>
-                        <div class="black"></div>
-                        <p><a href="">婚途有坑：前妻有喜了</a></p>
-                        <p>作者:豆丁丁</p>
-                        <p>价格：￥2.00</p>
-                    </div>
-                </div>
-                @endfor
+                    @endforeach
             </div>
 
         </div>
@@ -102,90 +109,17 @@
             <div class="black"></div>
             <div class="black"></div>
             <h3 class="agileits-title">新书上线</h3>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
+            @foreach($new as $k => $v)
+                <div class="rows">
+                    <div class="col-md-2 new-book" style="margin-top: 30px;">
+                        <a href="{{url('/home/detail/'.$v->id)}}"><img src="/{{$v->icon}}" alt="" width="100" height="125"></a>
+                        <div class="black"></div>
+                        <br>
+                        <p>￥{{$v->price}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
-            <div class="rows">
-                <div class="col-md-2 new-book">
-                    <a href=""><img src="{{url('home/image/180.jpg')}}" alt="" width="100"></a>
-                    <div class="black"></div>
-                    <p>￥3.00</p>
-                </div>
-            </div>
+                @endforeach
+
         </div>
     {{--新书上线--}}
     <h2>&nbsp;</h2>
@@ -195,25 +129,32 @@
     <div class="container">
         <h3 class="agileits-title">人气作家</h3>
         <div class="rows">
-            @for($i=0; $i<4; $i++)
+            @foreach($auth as $k => $v)
                 <div class="col-md-3 agile_team_grid">
                     <div class="ih-item circle effect1">
                         <div class="spinner"></div>
-                        <div class="img"><img src="{{url('home/image/zuo1.jpg')}}" alt=" " class="img-responsive"></div>
+                        <div class="img"><img src="/{{$v->icon}}" alt=" " class="img-responsive"></div>
                         <div class="info">
                             <div class="info-back">
-                                <h4>顾漫</h4>
+                                <h4>{{$v->name}}</h4>
                                 <p>青春小说</p>
                             </div>
                         </div>
                     </div>
-                    <h4>顾漫</h4>
-                    <h6><a href="">《何以笙箫默》</a><br> <a href="">《微微一笑很倾城》</a> <br> <a href="">《杉杉来吃》</a></h6>
+                    <h4>{{$v->name}}</h4>
+                    @foreach($book as $key => $value)
+                        @if($key == $v->id)
+                        @foreach($value as $a => $b)
+                    <h6><a href="">《{{$b->title}}》</a><br></h6>
+                        @endforeach
+                        @endif
+                        @endforeach
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
     {{--end作者--}}
+
 @endsection
 
 @section('j-s')

@@ -29,10 +29,12 @@ class IndexController extends Controller
     {
         $pwd = md5($request->password);
         $result = DB::table('admins')->select('*')->where('name',$request->name)->where('password',$pwd)->get();
+//        dd($result);
         if(empty($result[0])){
             return redirect('admin/login')->with('mess','用户名不存在或密码错误');
         }else{
-            session(['admin'=> $request->name]);
+            session(['admin'=> $result[0]]);
+//            dd(session('admin'));
            return redirect('admin/index');
         }
     }
@@ -56,6 +58,13 @@ class IndexController extends Controller
          }else{
              return back();
          }
+    }
+
+    /*退出*/
+    public function logout(Request $request)
+    {
+        $request->session()->forget('admin');
+        return redirect('admin/login');
     }
 
 }

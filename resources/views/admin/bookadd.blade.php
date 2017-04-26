@@ -134,7 +134,7 @@
                         <tr>
                             <th>价格</th>
                             <td>
-                                <input type="number" class="mg" name="price">
+                                <input type="text" class="mg" name="price">
                                 @if($errors->first('price'))
                                     <div class="alert alert-danger alert-dismissable">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

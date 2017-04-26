@@ -5,6 +5,7 @@
     <li><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
     <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
     <li><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
+    <li><a href="{{url('admin/comment/list')}}"><i class="  icon-comment-alt"></i><span>评论管理</span> </a> </li>
     <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>权限管理</span> <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="{{asset('admin/perm')}}">权限管理</a></li>
@@ -16,10 +17,6 @@
         <ul class="dropdown-menu">
             <li><a href="/admin/publish">机构管理</a></li>
             <li><a href="/admin/auth">作者管理</a></li>
-            <li><a href="/admin/comment/list">评论管理</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Signup</a></li>
-            <li><a href="error.html">404</a></li>
         </ul>
     </li>
     @endsection

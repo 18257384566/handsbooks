@@ -64,6 +64,7 @@
     <li><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
     <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
     <li><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
+    <li><a href="{{url('admin/comment/list')}}"><i class="  icon-comment-alt"></i><span>评论管理</span> </a> </li>
     <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>权限管理</span> <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="{{asset('admin/perm')}}">权限管理</a></li>
@@ -90,7 +91,11 @@
                     <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/user/add')}}">添加用户</a></span>
                     　<span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span>　
                     <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span>
-                    <hr>
+                    　　　　　　　　　　　　　
+                    <form action="{{url('admin/user/list')}}"  width="300px" style="float: right;">
+                        <input type="search" name="search">　<input type="submit" value="搜索">
+                    </form>
+                    <hr width="1215px">
                     @if (session('message'))
                         <div class="alert alert-success">
                             {{ session('message') }}
@@ -120,7 +125,12 @@
                             </tr>
                         @endforeach
                     </table>
-                    {{$result->links('admin/page')}}
+                    @if(!empty($search))
+                        {{$result->appends($search)->links('admin/page')}}
+                        @else
+                        {{$result->links('admin/page')}}
+                        @endif
+
                 </div>
             </div>
         </div>

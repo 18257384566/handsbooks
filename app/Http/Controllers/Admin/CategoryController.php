@@ -12,10 +12,19 @@ use Symfony\Component\Yaml\Tests\B;
 class CategoryController extends Controller
 {
     /*显示顶级分类表单*/
-    public function show()
+    public function show(Request $request)
     {
-        $result = Category::where('pid','0')->paginate(5);
-        return view('admin/categoryList',compact('result'));
+        if($request->search){
+            $result = Category::where('pid','0')->where('name','like','%'.$request->search.'%')->paginate(5);
+            $search = [
+                'search'=>$request->search,
+            ];
+            return view('admin/categoryList',compact('result'))->with('search',$search);
+        }else{
+            $result = Category::where('pid','0')->paginate(5);
+            return view('admin/categoryList',compact('result'));
+        }
+
     }
 
     /*添加顶级分类*/
@@ -61,6 +70,11 @@ class CategoryController extends Controller
                 foreach($category as $k => $v){
                     $book = Book::where('c_id',$v->id)->update(['up'=>1]);
                 }
+            }else{
+                $category = Category::select('id')->where('pid',$id)->get();
+                foreach($category as $k => $v){
+                    $book = Book::where('c_id',$v->id)->update(['up'=>0]);
+                }
             }
             $pid =$request->input('pid');
             return redirect('admin/category/showSon/'.$pid);
@@ -101,11 +115,21 @@ class CategoryController extends Controller
     }
 
     /*显示子分类表单*/
-    public function showSon($id)
+    public function showSon(Request $request,$id)
     {
-        $result = Category::where('pid',$id)->paginate(5);
+        if($request->search){
+            $result = Category::where('pid',$id)->where('name','like','%'.$request->search.'%')->paginate(5);
 //        dd($result);
-        return view('admin/categoryListSon' ,compact('result','id'));
+            $search = [
+                'search'=>$request->search,
+            ];
+            return view('admin/categoryListSon' ,compact('result','id'))->with('search',$search);
+        }else{
+            $result = Category::where('pid',$id)->paginate(5);
+//        dd($result);
+            return view('admin/categoryListSon' ,compact('result','id'));
+        }
+
     }
 
     /*编辑分类*/

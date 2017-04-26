@@ -169,7 +169,7 @@ class AuthController extends Controller
            $users = DB::table('users')->join('users_info','users.id','users_info.u_id')->where('users.id',$u_id)->get();
 
            //作者
-           $auth = DB::table('auths')->join('books','books.au_id','auths.id')->where('auths.id',$a_id)->get();
+           $auth = DB::table('auths')->join('books','books.au_id','auths.id')->where('auths.id',$a_id)->paginate(3);
 //           dump($auth);
            //机构
             $publish = Publish::all();

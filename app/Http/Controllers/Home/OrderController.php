@@ -48,24 +48,31 @@ class OrderController extends Controller
     }
 
 
-    public function orders($num)
+    public function orders(Request $request,$num)
     {
         $users_id = Auth::user()->id;
 //        dd($users_id);
         if($num == 1){
-            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->orderBy('orders.id')->paginate(2);
-            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->orderBy('orders.id')->paginate(2);
+            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->orderBy('orders.id')->paginate(5);
+            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->orderBy('orders.id')->paginate(5);
         }elseif ($num == 2){
-            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('isPay',0)->where('cancel',0)->orderBy('orders.id')->paginate(2);
-            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('isPay',0)->where('cancel',0)->orderBy('orders.id')->paginate(2);
+            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('isPay',0)->where('cancel',0)->orderBy('orders.id')->paginate(5);
+            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('isPay',0)->where('cancel',0)->orderBy('orders.id')->paginate(5);
         }elseif ($num == 3){
-            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('cancel',1)->orderBy('orders.id')->paginate(2);
-            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('cancel',1)->orderBy('orders.id')->paginate(2);
+            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('cancel',1)->orderBy('orders.id')->paginate(5);
+            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('cancel',1)->orderBy('orders.id')->paginate(5);
         }else{
-            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('isPay',1)->where('cancel',0)->orderBy('orders.id')->paginate(2);
-            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('isPay',1)->where('cancel',0)->orderBy('orders.id')->paginate(2);
+            $order = Order::join('books','orders.books_id','books.id')->where('users_id',$users_id)->where('isPay',1)->where('cancel',0)->orderBy('orders.id')->paginate(5);
+            $time = Order::select('created_at','id','isPay')->where('users_id',$users_id)->where('isPay',1)->where('cancel',0)->orderBy('orders.id')->paginate(5);
         }
-        $a_id = DB::select("select `id` from auths where u_id = $users_id");
+        //如果该用户是作者，则显示作者的前台管理
+        $u_id = $request->session()->get('u_id');
+        $result = DB::select("select id from auths where u_id = {$u_id} and status = 1");
+        if($result){
+            $a_id = $result[0]->id;
+        }else{
+            $a_id = '';
+        }
         $user = User::join('users_info','users.id','users_info.u_id')->find($users_id);
 
         return view('home/orders',compact('order','time','user','num','a_id'));

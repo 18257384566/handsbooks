@@ -11,10 +11,19 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
-        $result = User::leftjoin('users_info','users.id','users_info.u_id')->paginate(5);
-        return view('admin/userList',compact('result'));
+        if($request->search){
+            $result = User::leftjoin('users_info','users.id','users_info.u_id')->where('users.name','like','%'.$request->search.'%')->paginate(5);
+            $search = [
+                'search' => $request->search,
+            ];
+            return view('admin/userList',compact('result'))->with('search',$search);
+        }else{
+            $result = User::leftjoin('users_info','users.id','users_info.u_id')->paginate(5);
+            return view('admin/userList',compact('result'));
+        }
+
     }
     public function edit($id)
     {
@@ -112,20 +121,6 @@ class UserController extends Controller
         });
     }
 
-    public function emailConfirm($code)
-    {
-//        dd($code);
-        /*查询与之匹配的这个用户*/
-        $user = User::where('confirmed_code',$code)->first();
-//        dd($user);
-        if(is_null($user)){
-            return redirect('/home/index');
-        }
-        $user->confirmed_code = str_random(10);
-        $user->is_confirmed = 1;
-        $user->save();
-        return redirect('/home/login');
-    }
 
     /*删除*/
     public function del($id)

@@ -111,6 +111,7 @@
                             </div>
                         </div>
                         @endforeach
+                      {{$auth->links('admin/page')}}
                     </div>
                     <div class="tabList">
                         <form action="" method="post" enctype="multipart/form-data">

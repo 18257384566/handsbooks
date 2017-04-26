@@ -2,6 +2,27 @@
 @section('link')
     <link rel="stylesheet" href="{{url('/home/tk/css/xcConfirm.css')}}">
 @endsection
+@section('nav')
+    <li ><a href="{{url('admin/index')}}"><i class="icon-home"></i><span>主页</span> </a> </li>
+    <li><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
+    <li><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
+    <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
+    <li><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
+    <li  class="active"><a href="{{url('admin/comment/list')}}"><i class="  icon-comment-alt"></i><span>评论管理</span> </a> </li>
+    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>权限管理</span> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{asset('admin/perm')}}">权限管理</a></li>
+            <li><a href="{{asset('admin/roles')}}">角色管理</a></li>
+            <li><a href="{{asset('admin/admin')}}">管理员管理</a></li>
+        </ul>
+    </li>
+    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>其他</span> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="/admin/publish">机构管理</a></li>
+            <li><a href="/admin/auth">作者管理</a></li>
+        </ul>
+    </li>
+@endsection
 @section('js')
     <script type="text/javascript" src="{{url('home/js/jquery.min.js')}}"></script>
     <script src="{{url('home/tk/js/xcConfirm.js')}}" type="text/javascript" charset="utf-8"></script>
@@ -41,39 +62,16 @@
         })
     </script>
 @endsection
-@section('nav')
-    <li><a href="{{url('admin/index')}}"><i class=" icon-home"></i><span>主页</span> </a> </li>
-    <li class="active" ><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
-    <li><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
-    <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
-    <li><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
-    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>权限管理</span> <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="{{asset('admin/perm')}}">权限管理</a></li>
-            <li><a href="{{asset('admin/roles')}}">角色管理</a></li>
-            <li><a href="{{asset('admin/admin')}}">管理员管理</a></li>
-        </ul>
-    </li>
-    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="icons.html">Icons</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="pricing.html">Pricing Plans</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Signup</a></li>
-            <li><a href="error.html">404</a></li>
-        </ul>
-    </li>
-@endsection
 @section('content')
     <div class="table-responsive">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <span class="shortcut-icon icon-plus" aria-hidden="true"><a href="{{url('admin/user/add')}}">添加用户</a></span>
-                    　<span class="shortcut-icon icon-trash" aria-hidden="true"><a href="">批量删除</a></span>　
-                    <span class="shortcut-icon icon-circle-arrow-down" aria-hidden="true"><a href="">更新排序</a></span>
-                    <hr>
+
+                    <form action="{{url('admin/comment/list')}}"  width="300px" style="float: right;">
+                        <input type="search" name="search">　<input type="submit" value="搜索">
+                    </form>
+                    <hr width="1215px">
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
@@ -100,7 +98,11 @@
                             </tr>
                         @endforeach
                     </table>
-                    {{$comment->links('admin/page')}}
+                    @if(!empty($search))
+                        {{$comment->appends($search)->links('admin/page')}}
+                    @else
+                        {{$comment->links('admin/page')}}
+                    @endif
                 </div>
             </div>
         </div>

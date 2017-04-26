@@ -24,7 +24,7 @@
     <script src="{{url('home/tk/js/jquery-1.9.1.js')}}" type="text/javascript" charset="utf-8"></script>
     <script>
         $(function() {
-
+            /*取消收藏*/
             $('.collect').click(function(){
                 var $_this = $(this);
                 var $books_id = $_this.parents().parents().children().first().children().first().val();
@@ -42,6 +42,8 @@
 
         })
 
+
+        /*更换头像*/
         function changeImg(element)
         {
             var oldsrc = element.src;
@@ -80,36 +82,42 @@
                 <div class="tabList">
                       <table class="table">
                           <tbody>
+                          @if(!empty($order[0]))
                           <tr>
                               <th>书名</th>
                               <th>图片</th>
                               <th>操作</th>
                           </tr>
+
                           @foreach($order as $k=>$v)
                               <tr>
                                    <td>{{$v->title}}</td>
                                    <td><img src="/{{$v->icon}}" alt="" width="60px" height="80px" style="margin-top:0;"></td>
-                                  @foreach($book_info as $key => $value)
-                                      @if($k == $key)
-                                   <td><a href="{{url('/home/detail/article/'.$v->id.'/'.$book_info[$key][0]->id)}}" class="btn btn-info">开始阅读</a></td>
-                                     @endif
-                                  @endforeach
+                                          <td><a href="{{url('/home/space/book/read_record/'.$v->id)}}" class="btn btn-info">开始阅读</a></td>
                               </tr>
                               @endforeach
-
+                          @else
+                              <tr>
+                                  <td colspan="3"><a href="{{url('home/index')}}"><img src="/home/img/read.jpg" alt="" width="800px" height="500px"></a></td>
+                              </tr>
+                          @endif
                           </tbody>
                       </table>
                     {{$order->links('admin/page')}}
                 </div>
                 <div class="tabList">
-                    @foreach($book as $k => $v)
-                    <div style="float: left;margin-left:30px;">
-                        <div><input type="hidden" value="{{$v->id}}" name="books_id"></div>
-                        <div style="width: 100px;height: 140px;"><a href="{{url('/home/detail/'.$v->id)}}"><img src="/{{$v->icon}}" alt="" width="80px" height="100px" style="margin-left:54px;"></a></div>
-                        <div style="height: 30px;"><span style="text-align: center">{{$v->title}}</span></div>
-                        <div><button class="btn btn-warning collect">取消关注</button></div>
-                    </div>
-                    @endforeach
+                    @if(!empty($book))
+                        @foreach($book as $k => $v)
+                        <div style="float: left;margin-left:30px;">
+                            <div><input type="hidden" value="{{$v->id}}" name="books_id"></div>
+                            <div style="width: 100px;height: 140px;"><a href="{{url('/home/detail/'.$v->id)}}"><img src="/{{$v->icon}}" alt="" width="80px" height="100px" style="margin-left:24px;"></a></div>
+                            <div style="height: 30px;"><span style="text-align: center">{{$v->title}}</span></div>
+                            <div><button class="btn btn-warning collect" style="margin-left: 23px;">取消收藏</button></div>
+                        </div>
+                        @endforeach
+                    @else
+                        <span style="font-size: 30px;margin-left: 300px;">还没有任何收藏哦~~</span>
+                    @endif
                 </div>
                 <div class="tabList">
 

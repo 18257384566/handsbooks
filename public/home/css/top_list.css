@@ -26,12 +26,14 @@
 .accordion_container .tab strong{ margin-left:15px;float:left;}
 .accordion_container .tab{
 	padding:10px;
-
+}
+.accordion_container .tab img{
+	margin-top:-5px;
 }
 
 .accordion_container .content{
 	width:280px;
-	height:120px;
+	height:130px;
 }
 .accordion_container .content img{
 	display:block;

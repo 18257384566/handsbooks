@@ -26,7 +26,7 @@ class SpaceController extends Controller
 
             //如果该用户是作者，则显示作者的前台管理
             $u_id = $request->session()->get('u_id');
-            $result = DB::select("select id from auths where u_id = {$u_id}");
+            $result = DB::select("select id from auths where u_id = {$u_id} and status = 1");
             if($result){
                 $a_id = $result[0]->id;
             }else{
@@ -161,21 +161,6 @@ class SpaceController extends Controller
         });
     }
 
-    public function emailConfirm($code)
-    {
-//        dd($code);
-        /*查询与之匹配的这个用户*/
-        $user = User::where('confirmed_code',$code)->first();
-//        dd($user);
-        if(is_null($user)){
-            return redirect('/home/index');
-        }
-        $user->confirmed_code = str_random(10);
-        $user->is_confirmed = 1;
-        $user->save();
-        return redirect('/home/login');
-    }
-
     public function editIcon(Request $request)
     {
 //      dd($request->file('icon'));
@@ -188,12 +173,21 @@ class SpaceController extends Controller
         $request->file('icon')->move('user_icon',"user".$id.".jpg");
         $user = User::join('users_info','users.id','users_info.u_id')->find($id);
 
-        return view('home/space',compact('user'));
+        //如果该用户是作者，则显示作者的前台管理
+        $u_id = $request->session()->get('u_id');
+        $result = DB::select("select id from auths where u_id = {$u_id} and status = 1");
+        if($result){
+            $a_id = $result[0]->id;
+        }else{
+            $a_id = '';
+        }
+
+        return view('home/space',compact('user','a_id'));
     }
 
     /*显示书籍列表*/
 
-    public function book()
+    public function book(Request $request)
     {
         $id = Auth::user()->id;
         $order = Order::select('books.*')->join('books','books.id','orders.books_id')->where('orders.users_id',$id)->where('orders.isPay',1)->where('cancel',0)->paginate(7);
@@ -206,14 +200,17 @@ class SpaceController extends Controller
             $book[] = Book::find($v->books_id);
         }
 
-        /*获取章节信息*/
-        $book_info = array();
-        foreach($order as $k => $v){
-            $book_info[]  = Book_info::where('books_id',$v->id)->orderBy('id')->get();
+
+
+        //如果该用户是作者，则显示作者的前台管理
+        $u_id = $request->session()->get('u_id');
+        $result = DB::select("select id from auths where u_id = {$u_id} and status = 1");
+        if($result){
+            $a_id = $result[0]->id;
+        }else{
+            $a_id = '';
         }
-//        dd($book_info);
-        $a_id = DB::select("select `id` from auths where u_id = $id");
-        return view('home/book',compact('order','user','book','a_id','book_info'));
+        return view('home/book',compact('order','user','book','a_id'));
     }
 
     public function no_collect($books_id)
@@ -228,6 +225,123 @@ class SpaceController extends Controller
 
     }
 
+    public function read_record($b_id)
+    {
+        $users_id = Auth::user()->id;
+        $res = DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->get();
+        if(empty($res[0])){
+            $book_info = Book_info::where('books_id',$b_id)->orderBy('id')->get();
+            $data = [
+                'users_id'=>$users_id,
+                'books_id'=>$b_id,
+                'info_id'=>$book_info[0]->id,
+            ];
+            DB::table('read_record')->insert($data);
+//            dd($book_info);
+            return redirect('/home/space/book/article_space/'.$b_id.'/'.$book_info[0]->id);
+        }else{
+            $info_id = $res[0]->info_id;
+            return redirect('/home/space/book/article_space/'.$b_id.'/'.$info_id);
+        }
 
+    }
 
+    public function article($b_id,$t_id)
+    {
+        $url = "book_content/book".$b_id."_".$t_id.".txt";
+        $acString = file_get_contents($url);
+        $article = unserialize($acString);
+
+        $result = Book_info::select('title')->find($t_id);
+        $title = $result->title;
+
+        $book = Book_info::select('id')->where('books_id',$b_id)->orderBy('id')->get();
+
+        return view('/home/article_space',compact('article','title','b_id'));
+    }
+
+    public function prev($b_id)
+    {
+        $users_id = Auth::user()->id;
+        $res = DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->get();
+        $info_id = $res[0]->info_id;
+        $book = Book_info::select('id')->where('books_id',$b_id)->orderBy('id')->get();
+//        dump($num);
+//        dump($book);
+        $key = '';
+        foreach($book as $k => $v) {
+            if ($v->id == $info_id) {
+                $key = $k;
+//                dump($key);
+            }
+
+            }
+//        dd($key);
+        foreach($book as $k => $v){
+            if($key == 0){
+                $prev = 0;
+            }else{
+                /*上一页*/
+                if ($k == $key - 1) {
+                    $prev = $v->id;
+                }
+            }
+
+        }
+        if($prev){
+            if($info_id == $book[1]->id){
+                DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->update(['info_id'=>$prev]);
+                return redirect('/home/space/book/article_space/'.$b_id.'/'.$prev)->with('mess',1);
+            }else{
+                DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->update(['info_id'=>$prev]);
+                return redirect('/home/space/book/article_space/'.$b_id.'/'.$prev);
+            }
+
+        }else{
+            return redirect('/home/space/book/article_space/'.$b_id.'/'.$info_id)->with('mess',1);
+        }
+    }
+
+    public function next($b_id)
+    {
+        $users_id = Auth::user()->id;
+        $res = DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->get();
+        $info_id = $res[0]->info_id;
+        $book = Book_info::select('id')->where('books_id',$b_id)->orderBy('id')->get();
+        $num = count($book)-1;
+//        dump($num);
+//        dump($book);
+        $key = '';
+        foreach($book as $k => $v) {
+            if ($v->id == $info_id) {
+                $key = $k;
+//                dump($key);
+            }
+        }
+
+        foreach($book as $k => $v){
+            if($key == $num){
+                $next = 0;
+            }else{
+                /*下一页*/
+                if ($k == $key + 1) {
+//                    dump($key+1);
+                    $next = $v->id;
+                }
+            }
+        }
+//        dd($book[$num]->id);
+        if($next){
+            if($info_id == $book[$num-1]->id){
+                DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->update(['info_id'=>$next]);
+                return redirect('/home/space/book/article_space/'.$b_id.'/'.$next)->with('message',1);
+            }else{
+                DB::table('read_record')->where('books_id',$b_id)->where('users_id',$users_id)->update(['info_id'=>$next]);
+                return redirect('/home/space/book/article_space/'.$b_id.'/'.$next);
+            }
+
+        }else{
+            return redirect('/home/space/book/article_space/'.$b_id.'/'.$info_id)->with('message',1);
+        }
+    }
 }

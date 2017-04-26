@@ -63,6 +63,7 @@ class RegisterController extends Controller
         }
         $user->confirmed_code = str_random(10);
         $user->is_confirmed = 1;
+//        dd(11);
         $user->save();
         return redirect('/home/login');
     }

@@ -8,6 +8,7 @@
     <li><a href="{{url('admin/book/list')}}"><i class=" icon-columns"></i><span>书籍列表</span> </a></li>
     <li><a href="{{url('admin/category/list')}}"><i class="icon-list"></i><span>分类列表</span> </a> </li>
     <li  class="active"><a href="{{url('admin/order/list')}}"><i class=" icon-file"></i><span>订单列表</span> </a> </li>
+    <li><a href="{{url('admin/comment/list')}}"><i class="  icon-comment-alt"></i><span>评论管理</span> </a> </li>
     <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>权限管理</span> <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="{{asset('admin/perm')}}">权限管理</a></li>
@@ -41,18 +42,24 @@
 //               alert($editId);
                if($_this.html() == '已取消'){
                    var txt=  "订单已经取消了！！";
-                   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                   window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
                }else{
-                   var txt=  "确定要取消订单吗？";
-                   var option = {
-                       title: "订单",
-                       btn: parseInt("0011",2),
-                       onOk: function(){
-                           location.href="/admin/order/changeStatus/"+$editId;
+                   if($_this.parent().prev().children().html() == '已支付'){
+                       var txt=  "订单已经支付！不能取消哦！";
+                       window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.error);
+                   }else{
+                       var txt=  "确定要取消订单吗？";
+                       var option = {
+                           title: "订单",
+                           btn: parseInt("0011",2),
+                           onOk: function(){
+                               location.href="/admin/order/changeStatus/"+$editId;
+                           }
                        }
+                       window.wxc.xcConfirm(txt, "custom", option);
+//                    alert($editId);
                    }
-                   window.wxc.xcConfirm(txt, "custom", option);
-//               alert($editId);
+
                }
 
            })
@@ -61,15 +68,22 @@
             $('.changePay').click(function(){
                 var $_this = $(this);
                 $editId = $_this.parents().parents().children().first().html();
-                var txt=  "确定已支付吗？";
-                var option = {
-                    title: "订单",
-                    btn: parseInt("0011",2),
-                    onOk: function(){
-                        location.href="/admin/order/changePay/"+$editId;
+
+                if($_this.html() == '未支付'){
+                    var txt=  "确定已支付吗？";
+                    var option = {
+                        title: "订单",
+                        btn: parseInt("0011",2),
+                        onOk: function(){
+                            location.href="/admin/order/changePay/"+$editId;
+                        }
                     }
+                    window.wxc.xcConfirm(txt, "custom", option);
+                }else{
+                    var txt=  "已经确认付款了！！";
+                    window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
                 }
-                window.wxc.xcConfirm(txt, "custom", option);
+
             })
         })
     </script>
@@ -79,7 +93,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{url('admin/add')}}">添加用户</a>
+
+                    <form action="{{url('admin/order/list')}}"  width="300px" style="float: right;">
+                        <input type="search" name="search">　<input type="submit" value="搜索">
+                    </form>
+                    <hr width="1215px">
                     <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
@@ -90,7 +108,6 @@
                             <th>支付情况</th>
                             <th>状态</th>
                             <th>下单时间</th>
-                            <th>操作</th>
                         </tr>
                         @foreach($order as $k => $v)
                             <tr>
@@ -106,14 +123,13 @@
                                     @if($k == $key)
                                         <td>{{$value->title}}</td>
                                         <td>{{$value->price}}</td>
-                                        <td><button class="btn btn-info changePay">@if($value->isPay == 0) 未支付 @else 已支付 @endif</button></td>
-                                        <td><button class="btn btn-success changeStatus">@if($value->cancel == 0) 未取消 @else 已取消 @endif</button></td>
+                                        <td><button class="btn btn-info changePay">@if($value->isPay == 0)未支付@else已支付@endif</button></td>
+                                        <td><button class="btn btn-success changeStatus">@if($value->cancel == 0)未取消@else已取消@endif</button></td>
                                         @endif
                                 @endforeach
                                 @foreach($time as $keys => $values)
                                     @if($k == $keys)
                                     <td>{{$values->created_at}}</td>
-                                            <td><a href="{{url('admin/order/del'.'/'.$values->id)}}" class="btn btn-danger">删除</a></td>
                                         @endif
                                     @endforeach
 
@@ -121,7 +137,11 @@
 
                             @endforeach
                     </table>
-                    {{$order->links('admin/page')}}
+                    @if(!empty($search))
+                        {{$order->appends($search)->links('admin/page')}}
+                    @else
+                        {{$order->links('admin/page')}}
+                    @endif
                 </div>
             </div>
 
