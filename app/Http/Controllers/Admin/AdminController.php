@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function show()
+
+    public function show(Request $request)
     {
+
         $result = Admin::all();
         foreach ($result as $user) {
             $roles = array();
@@ -107,7 +109,6 @@ class AdminController extends Controller
                 'name' => 'required|min:3',
                 'email' => 'required',
                 'password' => 'required',
-//                'password_confirmation' => 'confirmed|required',
             );
 
             $mess = array(
@@ -116,8 +117,6 @@ class AdminController extends Controller
                 'email.required' => '邮箱不能为空',
 //                'email.exists' => '该邮箱不存在',
                 'password.required' => '密码不能为空',
-                'password_confirmation' => '确认密码不能为空',
-//                'password_confirmation' => '两次密码不相同',
             );
             $validate = Validator::make($request ->all(),$rules,$mess);
             if($validate->fails()){

@@ -15,24 +15,26 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
     /*显示后台首页*/
-    public function index()
+    public function index(Request $request)
     {
+
         return view('admin/index');
     }
     /*显示登陆界面*/
-    public function login()
+    public function login(Request $request)
     {
         return view('admin/login');
     }
     /*执行登陆*/
     public function doLogin(AdminLoginRequest $request)
     {
-        $pwd = md5($request->password);
-        $result = DB::table('admins')->select('*')->where('name',$request->name)->where('password',$pwd)->get();
+        $pwd = $request->password;
+        $result = DB::table('admins')->select('id')->where('name',$request->name)->where('password',$pwd)->get();
         if(empty($result[0])){
             return redirect('admin/login')->with('mess','用户名不存在或密码错误');
         }else{
-            session(['admin'=> $request->name]);
+            $id = $result[0]->id;
+            $request -> session() -> put('a_id',$result[0]->id);
            return redirect('admin/index');
         }
     }
@@ -57,5 +59,14 @@ class IndexController extends Controller
              return back();
          }
     }
+
+    //admin 退出 （清除session）
+    public function out(Request $request)
+    {
+        $request->session()->forget('a_id');
+        //返回登陆页
+        return redirect('/admin/login');
+    }
+
 
 }

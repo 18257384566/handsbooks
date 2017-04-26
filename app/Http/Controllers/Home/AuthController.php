@@ -170,7 +170,7 @@ class AuthController extends Controller
 
            //作者
            $auth = DB::table('auths')->join('books','books.au_id','auths.id')->where('auths.id',$a_id)->get();
-//           dump($auth);
+
            //机构
             $publish = Publish::all();
 
@@ -237,9 +237,12 @@ class AuthController extends Controller
         //已关注的
         $aids = DB::table('auth_user')->where('user_id',$u_id)->get();
 
-        $a_id = DB::select("select `id` from auths where u_id = $u_id");
-
-        return view('home/focus')->with('users',$users[0])->with('publish',$publish)->with('aids',$aids)->with('a_id',$a_id[0]->id);
+        $a_id = DB::select("select `id` from auths where u_id = $u_id and status = 1");
+        if($a_id){
+            return view('home/focus')->with('users',$users[0])->with('publish',$publish)->with('aids',$aids)->with('a_id',$a_id[0]->id);
+        }else{
+            return view('home/focus2')->with('users',$users[0])->with('publish',$publish)->with('aids',$aids);
+        }
 
     }
 
@@ -250,6 +253,14 @@ class AuthController extends Controller
         $a_id = $_GET['a_id'];
         $result = DB::delete("delete from auth_user where auth_id = $a_id and user_id = $u_id");
         if($result){
+            //作者的关注数量-1
+            $focus = DB::select("select focus from auths where id = $a_id");
+            $focus = $focus[0]->focus -1;
+
+            $ff = Auth::find($a_id);
+            $ff ->focus = $focus;
+            $ff ->save();
+
             echo '您已取消对该作者的关注';
         }else{
             echo '取消关注成功';

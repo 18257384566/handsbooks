@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('link')
+    <link rel="stylesheet" type="text/css" href="admin/css/xcConfirm.cssc"/>
+    @endsection
 @section('nav')
     <li class="active" ><a href="{{url('admin/index')}}"><i class="icon-home"></i><span>主页</span> </a> </li>
     <li><a href="{{url('admin/user/list')}}"><i class=" icon-user"></i><span>用户列表</span> </a> </li>
@@ -17,8 +20,8 @@
             <li><a href="/admin/publish">机构管理</a></li>
             <li><a href="/admin/auth">作者管理</a></li>
             <li><a href="/admin/comment/list">评论管理</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Signup</a></li>
+            <li><a href="/admin/slideshow">轮播图管理</a></li>
+            <li><a href="/admin/idea">用户意见反馈</a></li>
             <li><a href="error.html">404</a></li>
         </ul>
     </li>
@@ -161,14 +164,18 @@
                         <!-- /widget-header -->
                         <div class="widget-content">
                             <div class="shortcuts">
-                                <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
-                                            class="shortcut-label">信息</span> </a>
-                                <a href="javascript:;" class="shortcut"><i
-                                            class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">所写书籍</span> </a>
-                                <a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">评论</span> </a>
+                                <section class="centerUp">
+                                    <a class="modalLink shortcut" ><i class="shortcut-icon icon-user"></i><div
+                                                class="shortcut-label ">名字</div> </a>
+                                    <a href="javascript:;" class="shortcut"><i
+                                                class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">所写书籍</span> </a>
+                                    <a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">评论</span> </a>
 
-                                <a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">标签</span> </a>
+                                    <a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">标签</span> </a>
+                                </section>
                             </div>
+
+
                             <!-- /shortcuts -->
                         </div>
                         <!-- /widget-content -->
@@ -248,3 +255,30 @@
     @endsection
 
 <!-- /extra -->
+
+@section('script')
+    <link rel="stylesheet" href="{{asset('admin/js/alert.js')}}">
+    <link rel="stylesheet" href="{{asset('admin/js/jquery-1.9.1.js')}}">
+    <link rel="stylesheet" href="{{asset('admin/js/xcConfirm.js')}}">
+
+    <script>
+        $(function(){
+            $("#btn7").click(function(){
+                var txt=  "自定义呀";
+                var option = {
+                    title: "自定义",
+                    btn: parseInt("0011",2),
+                    onOk: function(){
+                        console.log("确认啦");
+                    }
+                }
+                window.wxc.xcConfirm(txt, "custom", option);
+            });
+
+            $("#btn8").click(function(){
+                var txt=  "默认";
+                window.wxc.xcConfirm(txt);
+            });
+        })
+    </script>
+    @endsection

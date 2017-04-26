@@ -17,7 +17,7 @@ class BookController extends Controller
     /*显示书籍列表*/
     public function show()
     {
-        $result = DB::table('books')->select('books.id','c_id','pid','title','icon','price','desc','name','pub_id','up')->join('category','books.c_id','category.id')->paginate(5);
+        $result = DB::table('books')->select('books.*','pid','name')->join('category','books.c_id','category.id')->paginate(5);
         return view('admin/bookList',compact('result'));
     }
     /*跳转添加页面*/

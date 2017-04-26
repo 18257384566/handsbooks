@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Rbac;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -56,5 +57,6 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'check.h.login' => \App\Http\Middleware\CheckHLogin::class,
+        'rbac' => \App\Http\Middleware\Rbac::class,
     ];
 }

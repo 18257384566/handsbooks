@@ -7,6 +7,7 @@ use App\Model\Book_info;
 use App\Model\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class DetailsController extends Controller
 {
@@ -21,6 +22,8 @@ class DetailsController extends Controller
         $comment=Comment::select('comment.*','users_info.icon','users_info.name')->join('users_info','users_info.u_id','comment.users_id')->where('books_id',$id)->where('comment.status',0)->orderBy('created_at','desc')->paginate(7);
 //        dd($comment);
         $num = count($comment);
-        return view('home/detail',compact('book','desc','book_info','id','comment','num'));
+        $auth = DB::select("select a.`name` from auths as a , books as b where a.id = b.au_id and b.id = $id");
+        $auth = $auth[0]->name;
+        return view('home/detail',compact('book','desc','book_info','id','comment','num','auth'));
     }
 }

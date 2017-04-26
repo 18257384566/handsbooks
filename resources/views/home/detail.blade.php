@@ -161,7 +161,7 @@
             </div>
         </div>
         <div class="book_author">
-            <span>作　者：<span>书海沧生</span></span><br>
+            <span>作　者：<span>{{$auth}}</span></span><br>
             <span>出版社：<span>{{$book->name}}</span></span>
         </div>
         <div class="book_price clear">
